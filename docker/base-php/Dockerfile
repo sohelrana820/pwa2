@@ -1,0 +1,138 @@
+FROM php:8.0.10-apache
+
+LABEL maintainer="Sohel Rana <me.sohelrana@gmail.com>"
+
+# Setup docker arguments.
+ARG HTTP_PROXY=""
+ARG HTTPS_PROXY=""
+ARG NO_PROXY="localhost,127.0.0.1"
+
+# Setup some enviornment variables.
+ENV http_proxy="${HTTP_PROXY}" \
+    https_proxy="${HTTPS_PROXY}" \
+    no_proxy="${NO_PROXY}" \
+    COMPOSER_HOME="/var/www/.composer" \
+    COMPOSER_VERSION="2.0.13"
+
+# Install & manage application dependencies
+RUN echo "-- Install APT Dependencies --" \
+        && apt update \
+        && apt install -V -y \
+            bc \
+            curl \
+            zip \
+            unzip \
+            vim \
+    && echo "-- Install PHP Extensions --" \
+        && curl -L -o /usr/local/bin/install-php-extensions https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+        && chmod a+x /usr/local/bin/install-php-extensions \
+        && sync \
+        && install-php-extensions \
+            intl \
+            opcache \
+            pcntl \
+            pdo_mysql \
+            sockets \
+            zip \
+    && echo "--- Clean Up ---" \
+        && apt-get clean -y \
+        && apt-get autoremove -y \
+        && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+        && rm /var/log/lastlog /var/log/faillog
+
+RUN echo "--- Installing Composer ---" \
+        && curl -L -o /usr/local/bin/composer https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar \
+        && mkdir -p ${COMPOSER_HOME} \
+        && mkdir /run/php \
+        && chown -R www-data:www-data ${COMPOSER_HOME} /run/php \
+        && chmod -R ugo+w ${COMPOSER_HOME} \
+        && chmod -R g+s ${COMPOSER_HOME} \
+        && chmod ugo+x /usr/local/bin/composer \
+        && composer --version
+
+RUN echo "--- Setting Up Apache ---" \
+        && echo "\nServerName localhost\n" >> /etc/apache2/apache2.conf \
+        && echo "ServerTokens Prod\n" >> /etc/apache2/apache2.conf \
+        && echo "ServerSignature Off\n" >> /etc/apache2/apache2.conf \
+        && a2enmod rewrite ssl headers
+
+WORKDIR /var/www/html
+
+# Apache envs
+ENV APACHE_VHOST_SERVER_ADMIN="webmaster@example.com" \
+    APACHE_VHOST_SERVER_NAME="_" \
+    APACHE_VHOST_DOCUMENT_ROOT="/var/www/html/public" \
+    APACHE_VHOST_SSL_CERTIFICATE_CRT="/etc/ssl/certs/default.crt" \
+    APACHE_VHOST_SSL_CERTIFICATE_KEY="/etc/ssl/certs/default.key"
+
+COPY ./docker/.commons/certs/* /etc/ssl/certs/
+COPY ./docker/base-php/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# PHP INI envs
+ENV PHP_INI_OUTPUT_BUFFERING="4096" \
+    PHP_INI_ZLIB_OUTPUT_COMPRESSION="Off" \
+    PHP_INI_MAX_EXECUTION_TIME="60" \
+    PHP_INI_MAX_INPUT_TIME="60" \
+    PHP_INI_MEMORY_LIMIT="512M" \
+    PHP_INI_DISPLAY_ERRORS="Off" \
+    PHP_INI_DISPLAY_STARTUP_ERRORS="Off" \
+    PHP_INI_POST_MAX_SIZE="10M" \
+    PHP_INI_FILE_UPLOADS="On" \
+    PHP_INI_UPLOAD_MAX_FILESIZE="10M" \
+    PHP_INI_MAX_FILE_UPLOADS="40" \
+    PHP_INI_ALLOW_URL_FOPEN="On" \
+    PHP_INI_ERROR_LOG="" \
+    PHP_INI_DATE_TIMEZONE="${APPLICATION_TIMEZONE}" \
+    PHP_INI_SESSION_SAVE_HANDLER="files" \
+    PHP_INI_SESSION_SAVE_PATH="/tmp" \
+    PHP_INI_SESSION_USE_STRICT_MODE="0" \
+    PHP_INI_SESSION_USE_COOKIES="1" \
+    PHP_INI_SESSION_USE_ONLY_COOKIES="1" \
+    PHP_INI_SESSION_NAME="APP_SSID" \
+    PHP_INI_SESSION_COOKIE_SECURE="On" \
+    PHP_INI_SESSION_COOKIE_LIFETIME="0" \
+    PHP_INI_SESSION_COOKIE_PATH="/" \
+    PHP_INI_SESSION_COOKIE_DOMAIN="" \
+    PHP_INI_SESSION_COOKIE_HTTPONLY="On" \
+    PHP_INI_SESSION_COOKIE_SAMESITE="" \
+    PHP_INI_SESSION_UPLOAD_PROGRESS_NAME="APP_UPLOAD_PROGRESS" \
+    PHP_INI_OPCACHE_ENABLE="1" \
+    PHP_INI_OPCACHE_ENABLE_CLI="0" \
+    PHP_INI_OPCACHE_MEMORY_CONSUMPTION="256" \
+    PHP_INI_OPCACHE_INTERNED_STRINGS_BUFFER="16" \
+    PHP_INI_OPCACHE_MAX_ACCELERATED_FILES="100000" \
+    PHP_INI_OPCACHE_MAX_WASTED_PERCENTAGE="25" \
+    PHP_INI_OPCACHE_USE_CWD="0" \
+    PHP_INI_OPCACHE_VALIDATE_TIMESTAMPS="0" \
+    PHP_INI_OPCACHE_REVALIDATE_FREQ="0" \
+    PHP_INI_OPCACHE_SAVE_COMMENTS="0" \
+    PHP_INI_OPCACHE_ENABLE_FILE_OVERRIDE="1" \
+    PHP_INI_OPCACHE_MAX_FILE_SIZE="0" \
+    PHP_INI_OPCACHE_FAST_SHUTDOWN="1"
+
+COPY ./docker/base-php/php.ini /usr/local/etc/php/
+
+# create user and group for application
+# RUN groupadd --gid ${GID} www && \
+#     useradd --uid ${UID} --create-home --home-dir /home/www --system --comment "Container User" --shell /bin/bash --gid www www
+
+COPY --chown=www-data:www-data ./composer.json ./composer.lock* /var/www/html/
+
+# Installing the packages here to cache them
+# So further installs from child images will
+# download less / no dependencies.
+RUN export composerInstallArgs="--no-interaction --no-scripts --no-autoloader --prefer-dist" \
+    && composer install $composerInstallArgs
+
+# Unset proxy ENVs
+RUN unset http_proxy \
+    && unset https_proxy \
+    && unset no_proxy
+
+COPY ./docker/base-php/run-scheduler.sh /usr/local/bin/
+
+RUN chmod ugo+x /usr/local/bin/run-scheduler.sh
+
+EXPOSE 80 443
+
+CMD ["apache2-foreground"]
