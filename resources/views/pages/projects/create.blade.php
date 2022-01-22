@@ -14,8 +14,8 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Projects</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/products">Projects</a></li>
                         <li class="breadcrumb-item active">Create Project</li>
                     </ol>
                 </div>
@@ -29,6 +29,9 @@
             <div class="card">
                 <div class="card-body">
                 <form action="{{ route('projects.store') }}" method="post">
+                    <div id="app">
+                        @{{ message }}
+                    </div>
                     @csrf
 
                     <div class="row">
@@ -153,4 +156,18 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+
+
+@section('scripts')
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+    </script>
 @endsection
