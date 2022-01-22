@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <a href="#" class="topnav-logo">
             <span class="topnav-logo-lg">
-                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="16">
+                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="40">
             </span>
             <span class="topnav-logo-sm">
-                <img src="{{ asset('assets/images/logo_sm.png') }}" alt="" height="16">
+                <img src="{{ asset('assets/images/logo_sm.png') }}" alt="" height="40">
             </span>
         </a>
         <ul class="list-unstyled topbar-menu float-end mb-0">
