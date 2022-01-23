@@ -68,3 +68,7 @@
 .item-box-height{
     /*min-height: 700px;*/
 }
+
+.form-check{
+    cursor: pointer;
+}

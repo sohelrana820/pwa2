@@ -56,22 +56,22 @@
                             <h6 class="font-15 mt-3">Degviela</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns" class="form-check-input">
-                                    <label class="form-check-label">Benzīns</label>
+                                    <input id="Benzīns" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns" class="form-check-input">
+                                    <label for="Benzīns" class="form-check-label">Benzīns</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="degviela" v-model="projectData.degviela" value="Dīzelis" class="form-check-input">
-                                    <label class="form-check-label">Dīzelis</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns + gāze" class="form-check-input">
-                                    <label class="form-check-label">Benzīns + gāze</label>
+                                    <input id="Dīzelis" type="radio" name="degviela" v-model="projectData.degviela" value="Dīzelis" class="form-check-input">
+                                    <label for="Dīzelis" class="form-check-label">Dīzelis</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
-                                    <label class="form-check-label">Elektrība</label>
+                                    <input id="Benzīns_ga" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns + gāze" class="form-check-input">
+                                    <label for="Benzīns_ga" class="form-check-label">Benzīns + gāze</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input id="Elektrība" type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
+                                    <label for="Elektrība" class="form-check-label">Elektrība</label>
                                 </div>
                             </div>
                         </div>
@@ -79,12 +79,12 @@
                             <h6 class="font-15 mt-3">Ātrumkārba</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Automātiskā" class="form-check-input">
-                                    <label class="form-check-label">Automātiskā</label>
+                                    <input id="Automātiskā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Automātiskā" class="form-check-input">
+                                    <label for="Automātiskā" class="form-check-label">Automātiskā</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Manuālā" class="form-check-input">
-                                    <label class="form-check-label">Manuālā</label>
+                                    <input id="Manuālā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Manuālā" class="form-check-input">
+                                    <label for="Manuālā" class="form-check-label">Manuālā</label>
                                 </div>
                             </div>
                         </div>
@@ -151,65 +151,65 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ksenona / dienas gaismas lukturi" class="form-check-input">
-                                            <label class="form-check-label">Ksenona / dienas gaismas lukturi</label>
+                                            <input id="Ksenona" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ksenona / dienas gaismas lukturi" class="form-check-input">
+                                            <label for="Ksenona" class="form-check-label">Ksenona / dienas gaismas lukturi</label>
                                         </div>
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ādas salons" class="form-check-input">
-                                            <label class="form-check-label">Ādas salons</label>
+                                            <input id="Ādas" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ādas salons" class="form-check-input">
+                                            <label for="Ādas" class="form-check-label">Ādas salons</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Panorāmas lūka" class="form-check-input">
-                                            <label class="form-check-label" for="Panorāmas">Panorāmas lūka</label>
+                                            <input id="Panorāmas" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Panorāmas lūka" class="form-check-input">
+                                            <label for="Panorāmas" class="form-check-label">Panorāmas lūka</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Atpakaļskata kamera" class="form-check-input">
-                                            <label class="form-check-label">Atpakaļskata kamera</label>
+                                            <input id="Atpakaļskata" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Atpakaļskata kamera" class="form-check-input">
+                                            <label for="Atpakaļskata" class="form-check-label">Atpakaļskata kamera</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Distances kontrole" class="form-check-input">
-                                            <label class="form-check-label">Distances kontrole</label>
+                                            <input id="Distances" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Distances kontrole" class="form-check-input">
+                                            <label for="Distances" class="form-check-label">Distances kontrole</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Aklo zonu / joslu kontrole" class="form-check-input">
-                                            <label class="form-check-label">Aklo zonu / joslu kontrole</label>
+                                            <input id="Aklo" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Aklo zonu / joslu kontrole" class="form-check-input">
+                                            <label for="Aklo" class="form-check-label">Aklo zonu / joslu kontrole</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Papildus signalizācija" class="form-check-input">
-                                            <label class="form-check-label">Papildus signalizācija</label>
+                                            <input id="Papildus" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Papildus signalizācija" class="form-check-input">
+                                            <label for="Papildus" class="form-check-label">Papildus signalizācija</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Navigācijas ierīce" class="form-check-input">
-                                            <label class="form-check-label">Navigācijas ierīce</label>
+                                            <input id="Navigācijas" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Navigācijas ierīce" class="form-check-input">
+                                            <label for="Navigācijas" class="form-check-label">Navigācijas ierīce</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Sakabes āķis" class="form-check-input">
-                                            <label class="form-check-label">Sakabes āķis</label>
+                                            <input id="Sakabes" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Sakabes āķis" class="form-check-input">
+                                            <label for="Sakabes" class="form-check-label">Sakabes āķis</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
-                                            <label class="form-check-label">Pr. PARKING</label>
+                                            <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
+                                            <label for="Pr" class="form-check-label">Pr. PARKING</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
-                                            <label class="form-check-label">Tūninga elementi</label>
+                                            <input id="Tūninga" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
+                                            <label for="Tūninga" class="form-check-label">Tūninga elementi</label>
                                         </div>
 
                                         <div class="form-check mb-2">
-                                            <input type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
-                                            <label class="form-check-label">Cits aprīkojums</label>
+                                            <input id="Cits" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
+                                            <label for="Cits" class="form-check-label">Cits aprīkojums</label>
                                         </div>
                                     </div>
                                 </div>
@@ -263,12 +263,12 @@
                             <h6 class="font-15 mt-3">Iespējami papildus defekti?</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="iespejami" v-model="projectData.iespejami" value="Jā" class="form-check-input">
-                                    <label class="form-check-label">Jā</label>
+                                    <input id="Iespjami_ja" type="radio" name="iespejami" v-model="projectData.iespejami" value="Jā" class="form-check-input">
+                                    <label for="Iespjami_ja" class="form-check-label">Jā</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="iespejami" v-model="projectData.iespejami" value="Nē" class="form-check-input">
-                                    <label class="form-check-label">Nē</label>
+                                    <input id=Iespjami_na" type="radio" name="iespejami" v-model="projectData.iespejami" value="Nē" class="form-check-input">
+                                    <label for="Iespjami_na" class="form-check-label">Nē</label>
                                 </div>
                             </div>
                         </div>
@@ -300,8 +300,8 @@
                             <h6 class="font-15 mt-3">Es piekrītu ka mani dati</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" v-model="projectData.piekritu" value="Jā" class="form-check-input">
-                                    <label class="form-check-label">Jā</label>
+                                    <input id="Es_ja" type="radio" v-model="projectData.piekritu" value="Jā" class="form-check-input">
+                                    <label for="Es_ja" class="form-check-label">Jā</label>
                                 </div>
                             </div>
                         </div>
@@ -430,7 +430,17 @@
                     this.removeItemFrom(type, item);
                 },
                 saveProject: function () {
-                    console.log(this.projectData);
+                    var options = {
+                        type: 'post',
+                        url: '/projects/store',
+                        dataType: 'json',
+                        data: this.projectData,
+                        encode: true,
+                    };
+                    $.ajax(options)
+                        .done(function (response) {
+                            console.log(response);
+                        })
                 },
                 removeItemFrom: function (type, item) {
                     let remainingItem = [];
