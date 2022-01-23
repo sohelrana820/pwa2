@@ -10,6 +10,12 @@
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.tip-items:hover{
+    background: #e4f3f1;
+    color: #1e1e1e;
 }
 
 .tip-items.active {

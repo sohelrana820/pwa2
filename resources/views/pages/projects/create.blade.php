@@ -218,68 +218,23 @@
                     </div>
 
                     <div class="mb-4">
-                        <h6 class="font-15 mt-3">Degviela</h6>
+                        <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                         <div class="row">
-                            <div class="col-lg-3">
-                                <h6 class="font-15 mt-3">PRIEKŠA</h6>
-                                <div class="tip-items">Priekšējais bamperis</div>
-                                <div class="tip-items active">Priekšējais labais lukturis</div>
-                                <div class="tip-items">Priekšējais kreisais lukturis</div>
-                                <div class="tip-items active">Priekšējā dekoratīvā reste</div>
-                                <div class="tip-items">Motora pārsegs</div>
-                                <div class="tip-items">Priekšējais vējstikls</div>
-                                <div class="tip-items">Vadītaja AirBag</div>
-                                <div class="tip-items">Pasažiera AirBag</div>
-                                <div class="tip-items">Radiatora bloks</div>
-                            </div>
-
-                            <div class="col-lg-3">
-                                <h6 class="font-15 mt-3">PRIEKŠA</h6>
-                                <div class="tip-items">Priekšējais bamperis</div>
-                                <div class="tip-items">Priekšējais labais lukturis</div>
-                                <div class="tip-items">Priekšējais kreisais lukturis</div>
-                                <div class="tip-items">Priekšējā dekoratīvā reste</div>
-                                <div class="tip-items">Motora pārsegs</div>
-                                <div class="tip-items">Priekšējais vējstikls</div>
-                                <div class="tip-items">Vadītaja AirBag</div>
-                                <div class="tip-items">Pasažiera AirBag</div>
-                                <div class="tip-items">Radiatora bloks</div>
-                            </div>
-
-                            <div class="col-lg-3">
-                                <h6 class="font-15 mt-3">PRIEKŠA</h6>
-                                <div class="tip-items">Priekšējais bamperis</div>
-                                <div class="tip-items">Priekšējais labais lukturis</div>
-                                <div class="tip-items">Priekšējais kreisais lukturis</div>
-                                <div class="tip-items">Priekšējā dekoratīvā reste</div>
-                                <div class="tip-items">Motora pārsegs</div>
-                                <div class="tip-items">Priekšējais vējstikls</div>
-                                <div class="tip-items">Vadītaja AirBag</div>
-                                <div class="tip-items">Pasažiera AirBag</div>
-                                <div class="tip-items">Radiatora bloks</div>
-                            </div>
-
-                            <div class="col-lg-3">
-                                <h6 class="font-15 mt-3">PRIEKŠA</h6>
-                                <div class="tip-items">Priekšējais bamperis</div>
-                                <div class="tip-items">Priekšējais labais lukturis</div>
-                                <div class="tip-items">Priekšējais kreisais lukturis</div>
-                                <div class="tip-items">Priekšējā dekoratīvā reste</div>
-                                <div class="tip-items">Motora pārsegs</div>
-                                <div class="tip-items">Priekšējais vējstikls</div>
-                                <div class="tip-items">Vadītaja AirBag</div>
-                                <div class="tip-items">Pasažiera AirBag</div>
-                                <div class="tip-items">Radiatora bloks</div>
+                            <div class="col-lg-3" v-for="item in bojajumi">
+                                <h6 class="font-15 mt-3">@{{item.type}}</h6>
+                                <div class="tip-items"  v-for="value in item.values" v-on:click="pickItem(item.type, value)">
+                                    @{{value}}
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row mb-2">
-                        <h6 class="font-15 mt-3">Konstatēti iepriekšejie bojājumi (Atbilstoši izlaidumu gadam un nobraukumam , leter will be more values)</h6>
+                        <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username">
-                                <button class="btn btn-dark" type="button">Button</button>
+                                <button class="btn btn-dark" type="button">Add New</button>
                             </div>
                         </div>
                     </div>
@@ -314,11 +269,11 @@
                             <h6 class="font-15 mt-3">Iespējami papildus defekti?</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="iespejami" v-model="iespejami" value="Jā" class="form-check-input">
+                                    <input type="radio" name="iespejami" v-model="projectData.iespejami" value="Jā" class="form-check-input">
                                     <label class="form-check-label">Jā</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" name="iespejami" v-model="iespejami" value="Nē" class="form-check-input">
+                                    <input type="radio" name="iespejami" v-model="projectData.iespejami" value="Nē" class="form-check-input">
                                     <label class="form-check-label">Nē</label>
                                 </div>
                             </div>
@@ -329,19 +284,19 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Datums</label>
-                                <input type="text" v-model="datums" class="form-control" placeholder="Datums">
+                                <input type="text" v-model="projectData.datums" class="form-control" placeholder="Datums">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Eksperts</label>
-                                <input type="text" v-model="eksperts" class="form-control" placeholder="Eksperts">
+                                <input type="text" v-model="projectData.eksperts" class="form-control" placeholder="Eksperts">
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Sertefikāta nr.</label>
-                                <input type="text" v-model="sertefikata" class="form-control" placeholder="Sertefikāta nr.">
+                                <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
                             </div>
                         </div>
                     </div>
@@ -351,7 +306,7 @@
                             <h6 class="font-15 mt-3">Es piekrītu ka mani dati</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input type="radio" v-model="piekritu" value="Jā" class="form-check-input">
+                                    <input type="radio" v-model="projectData.piekritu" value="Jā" class="form-check-input">
                                     <label class="form-check-label">Jā</label>
                                 </div>
                             </div>
@@ -375,6 +330,63 @@
         var app = new Vue({
             el: '#app',
             data: {
+                bojajumi: [
+                    {
+                        type: 'PRIEKŠA',
+                        values: [
+                            'Priekšējais bamperis',
+                            'Priekšējais labais lukturis',
+                            'Priekšējais kreisais lukturis',
+                            'Priekšējā dekoratīvā reste',
+                            'Motora pārsegs',
+                            'Priekšējais vējstikls',
+                            'Jumta panelis',
+                            'Vadītaja AirBag',
+                            'Pasažiera AirBag',
+                            'Radiatora bloks'
+                        ]
+                    },
+                    {
+                        type: 'LABAIS SĀNS',
+                        values: [
+                            'Aizmugurējais labais sānu panelis',
+                            'Aizmugurējās labās durvis',
+                            'Labās puses vidus statne',
+                            'Labās puses slieksnis',
+                            'Priekšējās labās durvis',
+                            'Priekšējais labais spārns',
+                            'Priekšējā labā riteņa disks ar riepu',
+                            'Aizmugurējā labā riteņa disks ar riepu',
+                            'Labās puses atpakaļskata spogulis',
+                        ]
+                    },
+                    {
+                        type: 'KREISAIS SĀNS',
+                        values: [
+                            'Priekšējās kreisās durvis',
+                            'Kreisās puses slieksnis',
+                            'Kreisās puses vidus statne',
+                            'Priekšējais kreisais spārns',
+                            'Aizmugurējas kreisās dirvis',
+                            'Aizmugurējais kreisais sānu panelis',
+                            'Aizmugurējais kreisais lukuturis',
+                            'Aizmugurējā kreisā riteņa disks ar riepu',
+                            'Priekšejā kreisā riteņa disks ar riepu',
+                            'Kreisās puses atpakaļskata spogulis'
+                        ]
+                    },
+                    {
+                        type: 'AIZMUGURE',
+                        values: [
+                            'Aizmugurējais bamperis',
+                            'Aizmugurējais labais lukturis',
+                            'Aizmugurējais kreisais lukturis',
+                            'Aizmugurējais panelis',
+                            'Aizmugurējais stikls',
+                            'Bagāžnieka vāks/gala durvis'
+                        ]
+                    }
+                ],
                 projectData: {
                     marka: null,
                     modelis: null,
@@ -393,11 +405,40 @@
                     eksperts: null,
                     sertefikata: null,
                     piekritu: null,
+                    bojajumi: {}
+                }
+            },
+            computed: {
+                itemVisibility: function (type, item) {
+                    if(this.projectData.bojajumi[type] != undefined && !this.projectData.bojajumi[type].includes(item)) {
+                        return 'hide_it';
+                    }
                 }
             },
             methods: {
+                pickItem: function (type, item) {
+                    if(!this.projectData.bojajumi.hasOwnProperty(type)) {
+                        this.projectData.bojajumi[type] = [];
+                    }
+
+                    if(!this.projectData.bojajumi[type].includes(item)) {
+                        this.projectData.bojajumi[type].push(item);
+                    }
+                    this.removeItemFrom(type, item);
+                },
                 saveProject: function () {
                     console.log(this.projectData);
+                },
+                removeItemFrom: function (type, item) {
+                    let remainingItem = [];
+                    let itemIndex = null;
+                    this.bojajumi.forEach((value,index ) => {
+                        if(value.type === type) {
+                            itemIndex = index;
+                            remainingItem = value.values.filter(el => el !== item);
+                        }
+                    });
+                    this.bojajumi[itemIndex].values = remainingItem;
                 }
             }
         })
