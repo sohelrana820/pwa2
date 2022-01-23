@@ -228,7 +228,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" v-if="!hasPickedItem()">
                             <div class="col-lg-12">
                                 <h6 class="font-15 mt-3">Izvēlētie Bojājumi</h6>
                                 <div v-for="(item, type) in projectData.bojajumi">
@@ -245,11 +245,18 @@
                         <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username">
-                                <button class="btn btn-dark" type="button">Add New</button>
+                                <input type="text" class="form-control" v-model="customItem" placeholder="Recipient's username" aria-label="Recipient's username">
+                                <button class="btn btn-dark" type="button" v-on:click="addCustomItem()">Add New</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mt-2">
+                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi">
+                                @{{value}}
+                                <i class="mdi mdi-close" v-on:click="removeCustomItem(value)"></i>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="row mb-4">
                         <div class="col-lg-4">
@@ -317,6 +324,7 @@
         var app = new Vue({
             el: '#app',
             data: {
+                customItem: null,
                 bojajumi: [
                     {
                         type: 'PRIEKŠA',
@@ -392,17 +400,15 @@
                     eksperts: null,
                     sertefikata: null,
                     piekritu: null,
-                    bojajumi: {}
+                    bojajumi: {},
+                    konstatetie_bojajumi: []
                 }
             },
-            computed: {
-                itemVisibility: function (type, item) {
-                    if(this.projectData.bojajumi[type] != undefined && !this.projectData.bojajumi[type].includes(item)) {
-                        return 'hide_it';
-                    }
-                }
-            },
+
             methods: {
+                hasPickedItem: function () {
+                    return Object.keys(this.projectData.bojajumi).length === 0;
+                },
                 dropItem: function (type, item) {
                     if(!this.projectData.bojajumi.hasOwnProperty(type)) {
                         this.projectData.bojajumi[type] = [];
@@ -446,6 +452,15 @@
                     });
 
                     this.bojajumi[itemIndex].values.push(item);
+                },
+                addCustomItem: function () {
+                    this.projectData.konstatetie_bojajumi.push(this.customItem);
+                    this.customItem = null;
+                },
+                removeCustomItem: function (item) {
+                    let items = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
+                    this.projectData.konstatetie_bojajumi = items;
+                    this.customItem = null;
                 }
             }
         })
