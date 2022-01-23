@@ -1,8 +1,8 @@
 .tip-items {
     width: 100%;
-    background: rgb(120, 198, 189, 0.09);
+    background: transparent;
     border-radius: 50px;
-    box-shadow: 1.95px 1.95px 2.6px rgb(0 0 0 / 15%);
+   /* box-shadow: 1.95px 1.95px 2.6px rgb(0 0 0 / 15%);*/
     margin-top: 2px;
     padding: 3px 5px;
     text-align: center;
@@ -11,6 +11,8 @@
     font-weight: 600;
     margin-bottom: 14px;
     cursor: pointer;
+    border: 2px solid #333;
+    color: #555;
 }
 
 .tip-items:hover{
@@ -20,6 +22,7 @@
 
 .tip-items.active {
     background: #e4f3f1;
+    border: 2px solid #e4f3f1;
     color: #1e1e1e;
 }
 
@@ -59,4 +62,9 @@
     margin: 5px;
     font-weight: 400;
     font-size: 14px;
+}
+
+
+.item-box-height{
+    min-height: 700px;
 }

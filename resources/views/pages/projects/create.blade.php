@@ -219,11 +219,23 @@
 
                     <div class="mb-4">
                         <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
-                        <div class="row">
+                        <div class="row item-box-height">
                             <div class="col-lg-3" v-for="item in bojajumi">
                                 <h6 class="font-15 mt-3">@{{item.type}}</h6>
                                 <div class="tip-items"  v-for="value in item.values" v-on:click="pickItem(item.type, value)">
                                     @{{value}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h6 class="font-15 mt-3">Izvēlētie Bojājumi</h6>
+                                <div v-for="(item, type) in projectData.bojajumi">
+                                    <div class="tip-items inline-items-md inline-items" v-for="value in item">
+                                        @{{value}}
+                                        <i class="mdi mdi-close" v-on:click="dropItem(type, value)"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -236,31 +248,6 @@
                                 <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username">
                                 <button class="btn btn-dark" type="button">Add New</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-md inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
-                            <div class="tip-items inline-items-sm inline-items">Priekšējais bamperis <i class="mdi mdi-close"></i></div>
                         </div>
                     </div>
 
@@ -416,6 +403,16 @@
                 }
             },
             methods: {
+                dropItem: function (type, item) {
+                    if(!this.projectData.bojajumi.hasOwnProperty(type)) {
+                        this.projectData.bojajumi[type] = [];
+                    }
+
+                    let selectedItems = this.projectData.bojajumi[type].filter(el => el !== item);
+                    this.projectData.bojajumi[type] = selectedItems;
+                    this.addItemFrom(type, item);
+                },
+
                 pickItem: function (type, item) {
                     if(!this.projectData.bojajumi.hasOwnProperty(type)) {
                         this.projectData.bojajumi[type] = [];
@@ -439,6 +436,16 @@
                         }
                     });
                     this.bojajumi[itemIndex].values = remainingItem;
+                },
+                addItemFrom: function (type, item) {
+                    let itemIndex = null;
+                    this.bojajumi.forEach((value, index) => {
+                        if (value.type === type) {
+                            itemIndex = index;
+                        }
+                    });
+
+                    this.bojajumi[itemIndex].values.push(item);
                 }
             }
         })
