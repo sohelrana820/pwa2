@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Projects;
+use App\Models\ProjectsMeta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use MongoDB\Driver\Session;
 
 /**
  * Class ProjectController
@@ -31,14 +35,46 @@ class ProjectController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create project.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $project = Projects::create([
+            'user_id' => Auth::user()->id
+        ]);
+
+        $projectsMeta = [];
+        $requestOptions = $request->all();
+        foreach ($requestOptions as $key => $option) {
+            if($key != '_token') {
+                $projectsMeta[] = [
+                    'project_id' => $project->id,
+                    'meta_key' => $key,
+                    'meta_value' => is_array($option) ? json_encode($option) :  $option,
+                    'created_at' => date('Y-m-d H:j:s'),
+                    'updated_at' => date('Y-m-d H:j:s')
+                ];
+            }
+        }
+
+        $projectMeta = ProjectsMeta::insert($projectsMeta);
+        if($projectMeta) {
+            $successResponse = [
+                'success' => true,
+                'message' => 'Project has been created',
+            ];
+            return response()->json($successResponse, 200);
+        }
+
+
+        $errorResponse = [
+            'success' => true,
+            'message' => 'Sorry, project couldn\'t created',
+        ];
+        return response()->json($errorResponse, 500);
     }
 
     /**

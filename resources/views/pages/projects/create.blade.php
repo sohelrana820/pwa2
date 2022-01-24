@@ -430,11 +430,14 @@
                     this.removeItemFrom(type, item);
                 },
                 saveProject: function () {
+                    let data = this.projectData;
+                    data['_token'] = '{{ csrf_token() }}'
+
                     var options = {
                         type: 'post',
                         url: '/projects/store',
                         dataType: 'json',
-                        data: this.projectData,
+                        data: data,
                         encode: true,
                     };
                     $.ajax(options)

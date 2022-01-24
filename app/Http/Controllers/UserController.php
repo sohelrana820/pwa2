@@ -22,8 +22,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = $users = User::paginate(2);
         return view('pages.users.list', [
-            'users' => User::getAllUser(),
+            'users' => $users
         ]);
     }
 
@@ -37,22 +38,8 @@ class UserController extends Controller
      */
     public function create(int $id = null)
     {
-        // Define model for edit request
         $model = null;
-
         if (! is_null($id)) {
-            /**
-             * User Details
-             *
-             * @var $model['user'] = array:8 [▼
-                    "id" => 2
-                    "first_name" => "manager"
-                    "last_name" => "manager"
-                    "email" => someone@gmail.com
-                    "active_status" => 1
-                    ...
-                ]
-             */
             $model = User::userDetails($id);
         }
 
