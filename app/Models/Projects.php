@@ -35,4 +35,28 @@ class Projects extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Destroy a project with it's data
+     *
+     * @param int $id
+     * @return bool
+     */
+    public static function deleteProject(int $id)
+    {
+        try {
+            $deleted = static::find($id)->delete();
+            if($deleted) {
+                ProjectsMeta::where('project_id', $id)->delete();
+            }
+
+            if($deleted) {
+                return true;
+            }
+        } catch (\Exception $exception) {
+
+        }
+
+        return false;
+    }
 }

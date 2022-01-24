@@ -82,7 +82,9 @@
                         @endforeach()
                         </tbody>
                     </table>
-                    {{ $users->links() }}
+                    <div class="mt-2 text-center">
+                        {{ $users->links() }}
+                    </div>
                 </div>
             </div>
         </div>

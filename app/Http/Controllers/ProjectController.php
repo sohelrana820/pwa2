@@ -6,7 +6,8 @@ use App\Models\Projects;
 use App\Models\ProjectsMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use MongoDB\Driver\Session;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class ProjectController
@@ -21,7 +22,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('pages.projects.list');
+        $projects = Projects::where('user_id', Auth::user()->id)->paginate(25);
+        return view('pages.projects.list', ['projects' => $projects]);
     }
 
     /**
@@ -119,6 +121,20 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $projectDeleted = Projects::deleteProject($id);
+            if ($projectDeleted == true) {
+                Session::flash('success', 'Project has deleted successfully.');
+            } else {
+                Session::flash('error', 'Project hasn\'t deleted yet!');
+            }
+
+            return redirect()->back();
+        } catch (\Exception $exception) {
+
+            Log::error($exception->getMessage());
+            Session::flash('error', 'Something went wrong. Try later again.');
+            return redirect()->back();
+        }
     }
 }
