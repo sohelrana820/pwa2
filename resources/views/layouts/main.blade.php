@@ -16,6 +16,7 @@
 
     <!-- Custom CSS -->
     @yield('styles')
+    @laravelPWA
 </head>
 
 <body class="loading" data-layout="detached" data-layout-config='{"leftSidebarCondensed":false,"darkMode":false, "showRightSidebarOnStart": true}'>

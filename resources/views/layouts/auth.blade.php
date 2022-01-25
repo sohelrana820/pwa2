@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
     @yield('styles')
-
+    @laravelPWA
 </head>
 
 <body class="loading" data-layout-config='{"darkMode":false}'>
