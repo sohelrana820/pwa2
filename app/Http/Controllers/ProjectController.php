@@ -176,12 +176,24 @@ class ProjectController extends Controller
 
         $data = [];
         foreach ($this->incident as $item) {
-            $diff = $metaData['bojajumi'][$item['type']] ? array_diff($item['values'], $metaData['bojajumi'][$item['type']]) : $item['values'];
+            $diff = array_key_exists('bojajumi', $metaData) && $metaData['bojajumi'][$item['type']] ? array_diff($item['values'], $metaData['bojajumi'][$item['type']]) : $item['values'];
             $data[] = [
                 'type' => $item['type'],
                 'values' => $diff,
             ];
          }
+
+        if(!array_key_exists('bojajumi', $metaData)) {
+            $metaData['bojajumi'] = [];
+        }
+
+        if(!array_key_exists('konstatetie_bojajumi', $metaData)) {
+            $metaData['konstatetie_bojajumi'] = [];
+        }
+
+        if(!array_key_exists('aprikojums', $metaData)) {
+            $metaData['aprikojums'] = [];
+        }
 
         return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'incident' => $data]);
     }
