@@ -47,6 +47,7 @@
                                         <td>{{ $project->created_at }}</td>
                                         <td>{{ $project->updated_at }}</td>
                                         <td class="table-action text-end">
+                                            <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                             <a href="{{ route('projects.update', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="#" class="action-icon"> </a>
                                             <a href="javascript:void(0);" title="Delete Project" class="action-icon"

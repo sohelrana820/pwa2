@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/store', [ProjectController::class, 'store'])->name('store');
             Route::get('/update/{id}', [ProjectController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [ProjectController::class, 'update'])->name('update');
+            Route::get('/view/{id}', [ProjectController::class, 'show'])->name('show');
             Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
         });
     });

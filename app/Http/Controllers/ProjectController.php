@@ -109,6 +109,7 @@ class ProjectController extends Controller
 
         $projectsMeta = [];
         $requestOptions = $request->all();
+
         foreach ($requestOptions as $key => $option) {
             if($key != '_token') {
                 $data = is_array($option) ? json_encode($option) :  $option;
@@ -150,7 +151,13 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $projectMetas = Projects::find($id)->projectMeta;
+        $metaData = [];
+        foreach ($projectMetas as $key => $meta) {
+            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
+        }
+
+        return view('pages.projects.show', ['project' => $metaData, 'projectId' => $id]);
     }
 
     /**
@@ -166,7 +173,17 @@ class ProjectController extends Controller
         foreach ($projectMetas as $key => $meta) {
             $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
         }
-        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'incident' => $this->incident]);
+
+        $data = [];
+        foreach ($this->incident as $item) {
+            $diff = $metaData['bojajumi'][$item['type']] ? array_diff($item['values'], $metaData['bojajumi'][$item['type']]) : $item['values'];
+            $data[] = [
+                'type' => $item['type'],
+                'values' => $diff,
+            ];
+         }
+
+        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'incident' => $data]);
     }
 
     /**

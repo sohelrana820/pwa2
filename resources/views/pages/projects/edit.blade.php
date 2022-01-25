@@ -383,12 +383,16 @@
                         });
                 },
                 removeItemFrom: function (type, item) {
+                    console.log(item);
                     let remainingItem = [];
                     let itemIndex = null;
                     this.bojajumi.forEach((value,index ) => {
+
+
+                        var array = Object.values(value.values);
                         if(value.type === type) {
                             itemIndex = index;
-                            remainingItem = value.values.filter(el => el !== item);
+                            remainingItem = array.filter(el => el !== item);
                         }
                     });
                     this.bojajumi[itemIndex].values = remainingItem;
@@ -401,7 +405,9 @@
                         }
                     });
 
-                    this.bojajumi[itemIndex].values.push(item);
+                    let array = Object.values(this.bojajumi[itemIndex].values);
+                    array.push(item);
+                    this.bojajumi[itemIndex].values= array;
                 },
                 addCustomItem: function () {
                     this.projectData.konstatetie_bojajumi.push(this.customItem);
