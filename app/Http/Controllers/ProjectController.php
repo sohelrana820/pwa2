@@ -15,6 +15,65 @@ use Illuminate\Support\Facades\Session;
  */
 class ProjectController extends Controller
 {
+
+    private $incident = [
+        [
+            'type' => 'PRIEKŠA',
+            'values' => [
+                'Priekšējais bamperis',
+                'Priekšējais labais lukturis',
+                'Priekšējais kreisais lukturis',
+                'Priekšējā dekoratīvā reste',
+                'Motora pārsegs',
+                'Priekšējais vējstikls',
+                'Jumta panelis',
+                'Vadītaja AirBag',
+                'Pasažiera AirBag',
+                'Radiatora bloks'
+            ]
+        ],
+        [
+            'type' => 'LABAIS SĀNS',
+            'values' => [
+                'Aizmugurējais labais sānu panelis',
+                'Aizmugurējās labās durvis',
+                'Labās puses vidus statne',
+                'Labās puses slieksnis',
+                'Priekšējās labās durvis',
+                'Priekšējais labais spārns',
+                'Priekšējā labā riteņa disks ar riepu',
+                'Aizmugurējā labā riteņa disks ar riepu',
+                'Labās puses atpakaļskata spogulis',
+            ],
+        ],
+        [
+            'type' => 'KREISAIS SĀNS',
+            'values' => [
+                'Priekšējās kreisās durvis',
+                'Kreisās puses slieksnis',
+                'Kreisās puses vidus statne',
+                'Priekšējais kreisais spārns',
+                'Aizmugurējas kreisās dirvis',
+                'Aizmugurējais kreisais sānu panelis',
+                'Aizmugurējais kreisais lukuturis',
+                'Aizmugurējā kreisā riteņa disks ar riepu',
+                'Priekšejā kreisā riteņa disks ar riepu',
+                'Kreisās puses atpakaļskata spogulis'
+            ],
+        ],
+        [
+            'type' => 'AIZMUGURE',
+            'values' => [
+                'Aizmugurējais bamperis',
+                'Aizmugurējais labais lukturis',
+                'Aizmugurējais kreisais lukturis',
+                'Aizmugurējais panelis',
+                'Aizmugurējais stikls',
+                'Bagāžnieka vāks/gala durvis'
+            ],
+        ]
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -107,7 +166,7 @@ class ProjectController extends Controller
         foreach ($projectMetas as $key => $meta) {
             $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
         }
-        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
+        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'incident' => $this->incident]);
     }
 
     /**

@@ -306,7 +306,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <button type="submit"  class="btn btn btn-success float-right">Create Project</button>
+                            <button type="submit"  class="btn btn btn-success float-right">Update Project</button>
                         </div>
                     </form>
                 </div>
@@ -324,6 +324,8 @@
     <script>
         const PROJECT_DATA_RAW  = '<?php echo json_encode($project); ?>';
         const PROJECT_DATA = JSON.parse(PROJECT_DATA_RAW);
+
+        const INCIDENTS = JSON.parse('<?php echo json_encode($incident); ?>');
         var app = new Vue({
             el: '#app',
             mounted() {
@@ -331,63 +333,7 @@
             },
             data: {
                 customItem: null,
-                bojajumi: [
-                    {
-                        type: 'PRIEKŠA',
-                        values: [
-                            'Priekšējais bamperis',
-                            'Priekšējais labais lukturis',
-                            'Priekšējais kreisais lukturis',
-                            'Priekšējā dekoratīvā reste',
-                            'Motora pārsegs',
-                            'Priekšējais vējstikls',
-                            'Jumta panelis',
-                            'Vadītaja AirBag',
-                            'Pasažiera AirBag',
-                            'Radiatora bloks'
-                        ]
-                    },
-                    {
-                        type: 'LABAIS SĀNS',
-                        values: [
-                            'Aizmugurējais labais sānu panelis',
-                            'Aizmugurējās labās durvis',
-                            'Labās puses vidus statne',
-                            'Labās puses slieksnis',
-                            'Priekšējās labās durvis',
-                            'Priekšējais labais spārns',
-                            'Priekšējā labā riteņa disks ar riepu',
-                            'Aizmugurējā labā riteņa disks ar riepu',
-                            'Labās puses atpakaļskata spogulis',
-                        ]
-                    },
-                    {
-                        type: 'KREISAIS SĀNS',
-                        values: [
-                            'Priekšējās kreisās durvis',
-                            'Kreisās puses slieksnis',
-                            'Kreisās puses vidus statne',
-                            'Priekšējais kreisais spārns',
-                            'Aizmugurējas kreisās dirvis',
-                            'Aizmugurējais kreisais sānu panelis',
-                            'Aizmugurējais kreisais lukuturis',
-                            'Aizmugurējā kreisā riteņa disks ar riepu',
-                            'Priekšejā kreisā riteņa disks ar riepu',
-                            'Kreisās puses atpakaļskata spogulis'
-                        ]
-                    },
-                    {
-                        type: 'AIZMUGURE',
-                        values: [
-                            'Aizmugurējais bamperis',
-                            'Aizmugurējais labais lukturis',
-                            'Aizmugurējais kreisais lukturis',
-                            'Aizmugurējais panelis',
-                            'Aizmugurējais stikls',
-                            'Bagāžnieka vāks/gala durvis'
-                        ]
-                    }
-                ],
+                bojajumi: INCIDENTS,
                 projectData: PROJECT_DATA
             },
 

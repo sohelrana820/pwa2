@@ -328,7 +328,11 @@
         var app = new Vue({
             el: '#app',
             mounted() {
-
+                var initialData = [];
+                this.bojajumi.forEach((value, index) => {
+                    console.log(index);
+                    console.log(value);
+                });
             },
             data: {
                 customItem: null,
