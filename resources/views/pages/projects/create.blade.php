@@ -28,7 +28,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @csrf
+                    <form @submit.prevent="submitForm('productDeleteForm')">
 
                     <div class="row">
                         <div class="col-lg-4">
@@ -257,7 +257,6 @@
                         </div>
                     </div>
 
-
                     <div class="row mb-4">
                         <div class="col-lg-4">
                             <h6 class="font-15 mt-3">Iespējami papildus defekti?</h6>
@@ -308,8 +307,9 @@
                     </div>
 
                     <div class="mt-3">
-                        <button type="submit" v-on:click="saveProject()" class="btn btn btn-success float-right">Create Project</button>
+                        <button type="submit"  class="btn btn btn-success float-right">Create Project</button>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -320,9 +320,16 @@
 
 
 @section('scripts')
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
     <script>
+
         var app = new Vue({
             el: '#app',
+            mounted() {
+
+            },
             data: {
                 customItem: null,
                 bojajumi: [
@@ -429,7 +436,7 @@
                     }
                     this.removeItemFrom(type, item);
                 },
-                saveProject: function () {
+                submitForm: function () {
                     let data = this.projectData;
                     data['_token'] = '{{ csrf_token() }}'
 
@@ -440,10 +447,15 @@
                         data: data,
                         encode: true,
                     };
+                    var toa = this.$toastr;
                     $.ajax(options)
                         .done(function (response) {
-                            console.log(response);
+                            toa.success(response.message, 'Success');
+                            window.location.href = "/projects";
                         })
+                        .fail(function (response) {
+                            toa.success('Sorry something went wrong', 'Error');
+                        });
                 },
                 removeItemFrom: function (type, item) {
                     let remainingItem = [];

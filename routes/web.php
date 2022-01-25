@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
             /** Add, Update */
             Route::get('/create/{id?}', [ProjectController::class, 'create'])->name('create');
             Route::post('/store', [ProjectController::class, 'store'])->name('store');
+            Route::get('/update/{id}', [ProjectController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [ProjectController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
         });

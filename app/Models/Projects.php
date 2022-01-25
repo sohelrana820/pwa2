@@ -37,6 +37,13 @@ class Projects extends Model
     ];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projectMeta() {
+        return $this->hasMany(ProjectsMeta::class, 'project_id');
+    }
+
+    /**
      * Destroy a project with it's data
      *
      * @param int $id

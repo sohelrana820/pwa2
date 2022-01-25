@@ -52,10 +52,14 @@ class ProjectController extends Controller
         $requestOptions = $request->all();
         foreach ($requestOptions as $key => $option) {
             if($key != '_token') {
+                $data = is_array($option) ? json_encode($option) :  $option;
+                $dataType = is_array($option) ? 'json' :  'string';
+
                 $projectsMeta[] = [
                     'project_id' => $project->id,
                     'meta_key' => $key,
-                    'meta_value' => is_array($option) ? json_encode($option) :  $option,
+                    'meta_value' => $data,
+                    'data_type' => $dataType,
                     'created_at' => date('Y-m-d H:j:s'),
                     'updated_at' => date('Y-m-d H:j:s')
                 ];
@@ -66,7 +70,7 @@ class ProjectController extends Controller
         if($projectMeta) {
             $successResponse = [
                 'success' => true,
-                'message' => 'Project has been created',
+                'message' => 'Project has been created successfully',
             ];
             return response()->json($successResponse, 200);
         }
@@ -98,7 +102,12 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $projectMetas = Projects::find($id)->projectMeta;
+        $metaData = [];
+        foreach ($projectMetas as $key => $meta) {
+            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
+        }
+        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
     }
 
     /**
@@ -110,7 +119,40 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $projectsMeta = [];
+        $requestOptions = $request->all();
+        foreach ($requestOptions as $key => $option) {
+            if($key != '_token') {
+                $data = is_array($option) ? json_encode($option) :  $option;
+                $dataType = is_array($option) ? 'json' :  'string';
+
+                $projectsMeta[] = [
+                    'project_id' => $id,
+                    'meta_key' => $key,
+                    'meta_value' => $data,
+                    'data_type' => $dataType,
+                    'created_at' => date('Y-m-d H:j:s'),
+                    'updated_at' => date('Y-m-d H:j:s')
+                ];
+            }
+        }
+
+        ProjectsMeta::where('project_id', $id)->delete();
+        $projectMeta = ProjectsMeta::insert($projectsMeta);
+        if($projectMeta) {
+            $successResponse = [
+                'success' => true,
+                'message' => 'Project has been updated successfully',
+            ];
+            return response()->json($successResponse, 200);
+        }
+
+
+        $errorResponse = [
+            'success' => true,
+            'message' => 'Sorry, project couldn\'t updated',
+        ];
+        return response()->json($errorResponse, 500);
     }
 
     /**
