@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-Profile
+    Profils
 @endsection
 
 @section('content')
@@ -10,11 +10,11 @@ Profile
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Profile</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sākums</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Profils</a></li>
                     </ol>
                 </div>
-                <h4 class="page-title">Profile</h4>
+                <h4 class="page-title">Profils</h4>
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@ Profile
                             </span>
                         </p>
                         <p class="text-muted mb-2 font-13">
-                            <strong>Mobile :</strong>
+                            <strong>Mobilais numurs :</strong>
                             <span class="ms-2">
                                 {{ auth()->user()->mobile_number }}
                             </span>
                         </p>
                         <p class="text-muted mb-2 font-13">
-                            <strong>Email :</strong>
+                            <strong>Epasts :</strong>
                             <span class="ms-2 ">
                                 {{ auth()->user()->email }}
                             </span>
@@ -59,28 +59,28 @@ Profile
 
                             @method('PUT')
 
-                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h5>
+                            <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Personiskā informācija</h5>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="firstname" class="form-label">First Name</label>
+                                        <label for="firstname" class="form-label">Vārds</label>
                                         <input type="text"
                                                name="first_name"
                                                value="{{ auth()->user()->first_name }}"
                                                required="required"
                                                class="form-control"
                                                id="firstname"
-                                               placeholder="Enter first name"
+                                               placeholder="Vārds"
                                         >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="lastname" class="form-label">Last Name</label>
+                                        <label for="lastname" class="form-label">Uzvārds</label>
                                         <input type="text"
                                                name="last_name"
                                                class="form-control"
-                                               id="lastname" placeholder="Enter last name"
+                                               id="lastname" placeholder="Uzvārds"
                                                value="{{ auth()->user()->last_name }}"
                                                required="required"
                                         >
@@ -90,11 +90,11 @@ Profile
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="useremail" class="form-label">Email Address</label>
+                                        <label for="useremail" class="form-label">Epasts</label>
                                         <input type="email"
                                                name="email"
                                                class="form-control" id="useremail"
-                                               placeholder="Enter email"
+                                               placeholder="Epasts"
                                                value="{{ auth()->user()->email }}"
                                                required="required"
                                         >
@@ -102,12 +102,12 @@ Profile
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="usermobile" class="form-label">Mobile Number</label>
+                                        <label for="usermobile" class="form-label">Mobilais numurs</label>
                                         <input type="text"
                                                name="mobile_number"
                                                class="form-control"
                                                id="usermobile"
-                                               placeholder="Enter mobile number"
+                                               placeholder="Mobilais numurs"
                                                value="{{ auth()->user()->mobile_number }}"
                                                required="required"
                                         >
@@ -117,30 +117,44 @@ Profile
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="userpassword" class="form-label">Password</label>
+                                        <label for="useremail" class="form-label">Sertefikāta nr.</label>
+                                        <input type="text"
+                                               name="certificate_no"
+                                               class="form-control" id="certificate_no"
+                                               placeholder="Sertefikāta nr."
+                                               value="{{ auth()->user()->certificate_no }}"
+                                               required="required"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="userpassword" class="form-label">Parole</label>
                                         <input type="password"
                                                name="password"
                                                class="form-control"
                                                id="userpassword"
-                                               placeholder="Enter password"
+                                               placeholder="Parole"
                                         >
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="userpassword" class="form-label">Confirm Password</label>
+                                        <label for="userpassword" class="form-label">Apstiprināt paroli</label>
                                         <input type="password"
                                                name="confirm_password"
                                                class="form-control"
                                                id="userconfirmpassword"
-                                               placeholder="Enter confirm password"
+                                               placeholder="Apstiprināt paroli"
                                         >
                                     </div>
                                 </div>
                             </div>
                             <div class="text-start">
                                 <button type="submit" class="btn btn-success mt-2">
-                                    <i class="mdi mdi-content-save"></i> Update
+                                    <i class="mdi mdi-content-save"></i> Atjaunināt
                                 </button>
                             </div>
                         </form>

@@ -10,8 +10,8 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+                        <li class="breadcrumb-item"><a href="/">Sākums</a></li>
+                        <li class="breadcrumb-item"><a href="/projects">Protokoli</a></li>
                     </ol>
                 </div>
                 <h4 class="page-title">Details</h4>
@@ -25,7 +25,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="/projects" class="btn btn-danger mb-2">
-                                <i class="mdi mdi-plus-circle me-2"></i> Back to Projects
+                                <i class="mdi mdi-plus-circle me-2"></i> Atpakaļ uz projektiem
                             </a>
                         </div>
                     </div>

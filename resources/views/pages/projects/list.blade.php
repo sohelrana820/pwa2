@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Projects
+    Protokoli
 @endsection
 
 @section('content')
@@ -10,11 +10,11 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/projects">Projects</a></li>
+                        <li class="breadcrumb-item"><a href="/">Sākums</a></li>
+                        <li class="breadcrumb-item"><a href="/projects">Protokoli</a></li>
                     </ol>
                 </div>
-                <h4 class="page-title">Projects</h4>
+                <h4 class="page-title">Protokoli</h4>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                         <div class="row mb-2">
                             <div class="col-sm-4">
                                 <a href="{{ route('projects.create') }}" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-2"></i> New Project
+                                    <i class="mdi mdi-plus-circle me-2"></i> Jauns Projekts
                                 </a>
                             </div>
                         </div>
@@ -34,10 +34,10 @@
                             <table class="table table-centered w-100 dt-responsive nowrap" id="product-datatable">
                                 <thead class="table-light">
                                 <tr>
-                                    <th>Project ID</th>
-                                    <th>Created At</th>
-                                    <th>Updated At</th>
-                                    <th class="text-end">Action</th>
+                                    <th>Protokoli</th>
+                                    <th>Izveidots plkst</th>
+                                    <th>Atjaunināts plkst</th>
+                                    <th class="text-end">Rīcība</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -50,8 +50,8 @@
                                             <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                             <a href="{{ route('projects.update', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="#" class="action-icon"> </a>
-                                            <a href="javascript:void(0);" title="Delete Project" class="action-icon"
-                                               onclick="if(confirm('Are you sure to delete this project?')){$(this).find('form').submit();}">
+                                            <a href="javascript:void(0);" title="dzēst projektu" class="action-icon"
+                                               onclick="if(confirm('Vai tiešām izdzēsīsit šo projektu?')){$(this).find('form').submit();}">
                                                 <i class="mdi mdi-delete"></i>
                                                 <form action="{{ route('projects.delete', $project->id) }}" method="post">
                                                     @csrf
@@ -73,9 +73,9 @@
                     <div class="card-body" >
                         <div class="row mb-2">
                             <div class="text-center">
-                                <p class="text-danger">Project not created yet!</p>
+                                <p class="text-danger">Protokoli not created yet!</p>
                                 <a href="{{ route('projects.create') }}" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-2"></i> New Project
+                                    <i class="mdi mdi-plus-circle me-2"></i> Jauns Projekts
                                 </a>
                             </div>
                         </div>

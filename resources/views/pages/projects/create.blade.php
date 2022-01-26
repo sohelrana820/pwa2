@@ -14,12 +14,12 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/products">Projects</a></li>
-                        <li class="breadcrumb-item active">Create Project</li>
+                        <li class="breadcrumb-item"><a href="/">Sākums</a></li>
+                        <li class="breadcrumb-item"><a href="/products">Protokoli</a></li>
+                        <li class="breadcrumb-item active">Izveidot protokolu</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Create Project</h4>
+                <h4 class="page-title">Izveidot protokolu</h4>
             </div>
         </div>
     </div>
@@ -309,10 +309,19 @@
                         <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <input type="text" class="form-control" v-model="customItem" placeholder="Recipient's username" aria-label="Recipient's username">
-                                <button class="btn btn-dark" type="button" v-on:click="addCustomItem()">Add New</button>
+                                <select class="form-control" multiple v-model="otherCustomItemsOptions" v-on:change="manageCustomItem()">
+                                    <option v-for="options in customOptions">@{{ options }}</option>
+                                </select>
+                            </div>
+
+                            <div v-if="needOtherItem" class="mt-1">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" v-model="customItem">
+                                    <button class="btn btn-dark" type="button" v-on:click="addCustomItem()">Pievieno jaunu</button>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-lg-12 mt-2">
                             <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomItem(value)">
                                 @{{value}}
@@ -371,7 +380,7 @@
                     </div>
 
                     <div class="mt-3">
-                        <button type="submit"  class="btn btn btn-success float-right">Create Project</button>
+                        <button type="submit"  class="btn btn btn-success float-right">Saglabāt</button>
                     </div>
                     </form>
                 </div>
@@ -398,7 +407,19 @@
                 });
             },
             data: {
+                customOptions: [
+                    'Krāsojuma defekti',
+                    'Iepriekšejā remonta pēdas',
+                    'Stikla vai salona defekti',
+                    'Virsbūves mehāniskie defekti',
+                    'Virsbūves korozija',
+                    'Virsbūves caurejoša korozija',
+                    'Atbilstoši auto izlaiduma gadam un nobraukumam',
+                    'Cits'
+                ],
+                otherCustomItemsOptions: [],
                 customItem: null,
+                customItemList: [],
                 bojajumi: INCIDENTS,
                 projectData: {
                     lietas_nr: null,
@@ -420,14 +441,15 @@
                     riepu_veids: null,
                     protektoru_dziļums: null,
                     iespejami: null,
-                    datums: null,
-                    eksperts: null,
-                    sertefikata: null,
+                    datums: '<?php echo date('m/d/Y') ?>',
+                    eksperts: '{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}',
+                    sertefikata: '{{ auth()->user()->certificate_no }}',
                     piekritu: null,
                     bojajumi: {},
                     konstatetie_bojajumi: []
                 },
-                needOtherUtility: false
+                needOtherUtility: false,
+                needOtherItem: false
             },
 
             methods: {
@@ -502,6 +524,7 @@
                     this.bojajumi[itemIndex].values.push(item);
                 },
                 addCustomItem: function () {
+                    this.customItemList.push(this.customItem);
                     this.projectData.konstatetie_bojajumi.push(this.customItem);
                     this.customItem = null;
                 },
@@ -510,7 +533,7 @@
                     this.projectData.konstatetie_bojajumi = items;
                     this.customItem = null;
                 },
-                hasOtherUtility: function (records) {
+                hasOtherUtility: function () {
                     let needOtherUtility = false;
 
                     this.projectData.aprikojums.forEach((value, index) => {
@@ -520,6 +543,30 @@
                     });
 
                     return needOtherUtility;
+                },
+                hasOtherItem: function () {
+                    let needOther = false;
+                    this.projectData.konstatetie_bojajumi.forEach((value, index) => {
+                        if(value === 'Cits') {
+                            needOther = true;
+                        }
+                    });
+
+                    if(needOther) {
+                        let remainingItem = this.projectData.konstatetie_bojajumi.filter(el => el !== 'Cits');
+                        this.projectData.konstatetie_bojajumi = remainingItem;
+                    }
+                    return needOther;
+                },
+
+                manageCustomItem: function () {
+                    this.projectData.konstatetie_bojajumi = this.otherCustomItemsOptions;
+
+
+
+                    this.needOtherItem = this.hasOtherItem();
+
+                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.customItemList);
                 }
             }
         })

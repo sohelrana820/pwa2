@@ -29,20 +29,14 @@
                     <!-- item-->
                     <a href="/profile" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle me-1"></i>
-                        <span>My Account</span>
-                    </a>
-
-                    <!-- item-->
-                    <a href="/profile" class="dropdown-item notify-item">
-                        <i class="mdi mdi-account-edit me-1"></i>
-                        <span>Settings</span>
+                        <span>Mans profils</span>
                     </a>
 
                     <!-- item-->
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="dropdown-item notify-item">
                         <i class="mdi mdi-logout me-1"></i>
-                        <span>{{ __('Logout') }}</span>
+                        <span>{{ __('Iziet') }}</span>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf

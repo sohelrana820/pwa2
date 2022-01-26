@@ -14,8 +14,8 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('users.grid') }}">Users</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Sākums</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('users.grid') }}">Lietotāji</a></li>
                         <li class="breadcrumb-item active">
                             @if(isset($model->id))
                                 Update User

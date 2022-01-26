@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Dashboard
+    Darba virsma
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                         <li class="breadcrumb-item active">Projects List</li>--}}
                     </ol>
                 </div>
-                <h4 class="page-title">Dashboard</h4>
+                <h4 class="page-title">Darba virsma</h4>
             </div>
         </div>
     </div>

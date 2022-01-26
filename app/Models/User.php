@@ -44,6 +44,7 @@ class User  extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'certificate_no',
         'password',
         'mobile_number',
     ];
@@ -222,6 +223,7 @@ class User  extends Authenticatable
         $userDetails->last_name = $postData['last_name'];
         $userDetails->email = $postData['email'];
         $userDetails->mobile_number = $postData['mobile_number'];
+        $userDetails->certificate_no = $postData['certificate_no'];
 
         if ($postData['password'] !== null) {
             $userDetails->password = Hash::make($postData['password']);
