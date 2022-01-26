@@ -33,7 +33,7 @@ Auth::routes([
 
 Route::group(['middleware' => ['auth']], function () {
     // Available auth routes
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [ProjectController::class, 'index'])->name('home');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
