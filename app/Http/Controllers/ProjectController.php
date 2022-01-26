@@ -18,6 +18,13 @@ class ProjectController extends Controller
 
     private $incident = [
         [
+            'type' => 'extras',
+            'values' => [
+                'Remonts nav tehniski iespējams',
+                'Remonts nav ekonomiski pamatots',
+            ]
+        ],
+        [
             'type' => 'PRIEKŠA',
             'values' => [
                 'Priekšējais bamperis',
@@ -92,7 +99,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('pages.projects.create');
+        return view('pages.projects.create', ['incident' => $this->incident]);
     }
 
     /**

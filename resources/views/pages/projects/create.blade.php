@@ -33,6 +33,21 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="mb-3">
+                                <label class="form-label">Lietas NR.</label>
+                                <input type="text" v-model="projectData.lietas_nr" class="form-control" placeholder="Lietas NR">
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label">Mašīnas valsts NR.</label>
+                                <input type="text" v-model="projectData.masinas_valsts_nr" class="form-control" placeholder="Mašīnas Valsts NR.">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="mb-3">
                                 <label class="form-label">Marka</label>
                                 <input type="text" v-model="projectData.marka" class="form-control" placeholder="Marka">
                             </div>
@@ -75,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-4">
                             <h6 class="font-15 mt-3">Ātrumkārba</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
@@ -86,6 +101,12 @@
                                     <input id="Manuālā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Manuālā" class="form-check-input">
                                     <label for="Manuālā" class="form-check-label">Manuālā</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label">Nobraukums</label>
+                                <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
                             </div>
                         </div>
                     </div>
@@ -126,8 +147,8 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="mb-3">
-                                <label class="form-label">Sasijas NR.</label>
-                                <input type="text" v-model="projectData.sasija_nr" class="form-control" placeholder="Sasijas NR.">
+                                <label class="form-label">Šasijas NR.</label>
+                                <input type="text" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR.">
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -145,11 +166,11 @@
                     </div>
 
                     <div class="row mb-4">
-                        <div class="col-lg-12">
+                        <div class="col-lg-9">
                             <h6 class="font-15 mt-3">Aprīkojums</h6>
                             <div class="mt-2">
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-check mb-2">
                                             <input id="Ksenona" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ksenona / dienas gaismas lukturi" class="form-check-input">
                                             <label for="Ksenona" class="form-check-label">Ksenona / dienas gaismas lukturi</label>
@@ -164,7 +185,7 @@
                                             <label for="Panorāmas" class="form-check-label">Panorāmas lūka</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-check mb-2">
                                             <input id="Atpakaļskata" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Atpakaļskata kamera" class="form-check-input">
                                             <label for="Atpakaļskata" class="form-check-label">Atpakaļskata kamera</label>
@@ -180,7 +201,7 @@
                                             <label for="Aklo" class="form-check-label">Aklo zonu / joslu kontrole</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-4">
                                         <div class="form-check mb-2">
                                             <input id="Papildus" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Papildus signalizācija" class="form-check-input">
                                             <label for="Papildus" class="form-check-label">Papildus signalizācija</label>
@@ -196,31 +217,74 @@
                                             <label for="Sakabes" class="form-check-label">Sakabes āķis</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-check mb-2">
-                                            <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
-                                            <label for="Pr" class="form-check-label">Pr. PARKING</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h6 class="font-15 mt-3">Riepu Veids</h6>
+                                        <div class="mt-2">
+                                            <div class="form-check">
+                                                <input id="Ziemas" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Ziemas" class="form-check-input">
+                                                <label for="Ziemas" class="form-check-label">Ziemas</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input id="Vasaras" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Vasaras" class="form-check-input">
+                                                <label for="Vasaras" class="form-check-label">Vasaras</label>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <h6 class="font-15 mt-3">Protektoru dziļums</h6>
+                                        <div class="mt-2">
+                                            <div class="form-check">
+                                                <input id="Atbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Atbilst" class="form-check-input">
+                                                <label for="Atbilst" class="form-check-label">Atbilst</label>
+                                            </div>
 
-                                        <div class="form-check mb-2">
-                                            <input id="Tūninga" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
-                                            <label for="Tūninga" class="form-check-label">Tūninga elementi</label>
-                                        </div>
-
-                                        <div class="form-check mb-2">
-                                            <input id="Cits" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
-                                            <label for="Cits" class="form-check-label">Cits aprīkojums</label>
+                                            <div class="form-check">
+                                                <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Neatbilst" class="form-check-input">
+                                                <label for="Neatbilst" class="form-check-label">Neatbilst</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-3 mt-3">
+                            <h6 class="font-15 mt-3"></h6>
+                            <div class="form-check mb-2">
+                                <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
+                                <label for="Pr" class="form-check-label">Pr. PARKING</label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                                <input id="Tūninga" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
+                                <label for="Tūninga" class="form-check-label">Tūninga elementi</label>
+                            </div>
+
+                            <div class="form-check mb-2">
+                                <input id="Cits" type="checkbox" name="aprikojums" v-on:change="otherUtility()" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
+                                <label for="Cits" class="form-check-label">Cits aprīkojums</label>
+                            </div>
+
+                            <div class="mb-3" v-if="needOtherUtility">
+                                <label class="form-label">PIEVIENOT JAUNU</label>
+                                <input type="text" v-model="projectData.other_aprikojums" class="form-control" placeholder="Aprīkojums">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mb-4">
-                        <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
+                        <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
+                        <div class="row">
+                            <div class="col-lg-3" v-for="value in bojajumi[0].values">
+                                <div class="tip-items"  v-on:click="pickItem(bojajumi[0].type, value)">
+                                    @{{value}}
+                                </div>
+                            </div>
+                        </div>
                         <div class="row item-box-height">
-                            <div class="col-lg-3" v-for="item in bojajumi">
+                            <div class="col-lg-3" v-for="item in bojajumi" v-if="item.type != 'extras'">
                                 <h6 class="font-15 mt-3">@{{item.type}}</h6>
                                 <div class="tip-items"  v-for="value in item.values" v-on:click="pickItem(item.type, value)">
                                     @{{value}}
@@ -232,9 +296,9 @@
                             <div class="col-lg-12">
                                 <h6 class="font-15 mt-3">Izvēlētie Bojājumi</h6>
                                 <div v-for="(item, type) in projectData.bojajumi">
-                                    <div class="tip-items inline-items-md inline-items" v-for="value in item">
+                                    <div class="tip-items inline-items-md inline-items" v-for="value in item" v-on:click="dropItem(type, value)">
                                         @{{value}}
-                                        <i class="mdi mdi-close" v-on:click="dropItem(type, value)"></i>
+                                        <i class="mdi mdi-close"></i>
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +306,7 @@
                     </div>
 
                     <div class="row mb-2">
-                        <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
+                        <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                         <div class="col-lg-4">
                             <div class="input-group">
                                 <input type="text" class="form-control" v-model="customItem" placeholder="Recipient's username" aria-label="Recipient's username">
@@ -250,9 +314,9 @@
                             </div>
                         </div>
                         <div class="col-lg-12 mt-2">
-                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi">
+                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomItem(value)">
                                 @{{value}}
-                                <i class="mdi mdi-close" v-on:click="removeCustomItem(value)"></i>
+                                <i class="mdi mdi-close"></i>
                             </div>
                         </div>
                     </div>
@@ -324,80 +388,26 @@
     <script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
     <script>
-
+        const INCIDENTS = JSON.parse('<?php echo json_encode($incident); ?>');
         var app = new Vue({
             el: '#app',
             mounted() {
                 var initialData = [];
                 this.bojajumi.forEach((value, index) => {
-                    console.log(index);
-                    console.log(value);
+
                 });
             },
             data: {
                 customItem: null,
-                bojajumi: [
-                    {
-                        type: 'PRIEKŠA',
-                        values: [
-                            'Priekšējais bamperis',
-                            'Priekšējais labais lukturis',
-                            'Priekšējais kreisais lukturis',
-                            'Priekšējā dekoratīvā reste',
-                            'Motora pārsegs',
-                            'Priekšējais vējstikls',
-                            'Jumta panelis',
-                            'Vadītaja AirBag',
-                            'Pasažiera AirBag',
-                            'Radiatora bloks'
-                        ]
-                    },
-                    {
-                        type: 'LABAIS SĀNS',
-                        values: [
-                            'Aizmugurējais labais sānu panelis',
-                            'Aizmugurējās labās durvis',
-                            'Labās puses vidus statne',
-                            'Labās puses slieksnis',
-                            'Priekšējās labās durvis',
-                            'Priekšējais labais spārns',
-                            'Priekšējā labā riteņa disks ar riepu',
-                            'Aizmugurējā labā riteņa disks ar riepu',
-                            'Labās puses atpakaļskata spogulis',
-                        ]
-                    },
-                    {
-                        type: 'KREISAIS SĀNS',
-                        values: [
-                            'Priekšējās kreisās durvis',
-                            'Kreisās puses slieksnis',
-                            'Kreisās puses vidus statne',
-                            'Priekšējais kreisais spārns',
-                            'Aizmugurējas kreisās dirvis',
-                            'Aizmugurējais kreisais sānu panelis',
-                            'Aizmugurējais kreisais lukuturis',
-                            'Aizmugurējā kreisā riteņa disks ar riepu',
-                            'Priekšejā kreisā riteņa disks ar riepu',
-                            'Kreisās puses atpakaļskata spogulis'
-                        ]
-                    },
-                    {
-                        type: 'AIZMUGURE',
-                        values: [
-                            'Aizmugurējais bamperis',
-                            'Aizmugurējais labais lukturis',
-                            'Aizmugurējais kreisais lukturis',
-                            'Aizmugurējais panelis',
-                            'Aizmugurējais stikls',
-                            'Bagāžnieka vāks/gala durvis'
-                        ]
-                    }
-                ],
+                bojajumi: INCIDENTS,
                 projectData: {
+                    lietas_nr: null,
+                    masinas_valsts_nr: null,
                     marka: null,
                     modelis: null,
                     izlaiduma_gads: null,
                     degviela: null,
+                    nobraukums: null,
                     atrumkarba: null,
                     motora_tilpums: null,
                     piedzina: '4*2',
@@ -406,6 +416,9 @@
                     transporta_ipasnieks: null,
                     apskates_vieta: null,
                     aprikojums: [],
+                    other_aprikojums: null,
+                    riepu_veids: null,
+                    protektoru_dziļums: null,
                     iespejami: null,
                     datums: null,
                     eksperts: null,
@@ -413,13 +426,19 @@
                     piekritu: null,
                     bojajumi: {},
                     konstatetie_bojajumi: []
-                }
+                },
+                needOtherUtility: false
             },
 
             methods: {
+                otherUtility: function () {
+                    this.needOtherUtility = this.hasOtherUtility();
+                },
+
                 hasPickedItem: function () {
                     return Object.keys(this.projectData.bojajumi).length === 0;
                 },
+
                 dropItem: function (type, item) {
                     if(!this.projectData.bojajumi.hasOwnProperty(type)) {
                         this.projectData.bojajumi[type] = [];
@@ -490,6 +509,17 @@
                     let items = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
                     this.projectData.konstatetie_bojajumi = items;
                     this.customItem = null;
+                },
+                hasOtherUtility: function (records) {
+                    let needOtherUtility = false;
+
+                    this.projectData.aprikojums.forEach((value, index) => {
+                        if(value === 'Cits aprīkojums') {
+                            needOtherUtility = true;
+                        }
+                    });
+
+                    return needOtherUtility;
                 }
             }
         })
