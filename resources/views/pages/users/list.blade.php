@@ -64,12 +64,13 @@
                                         <span class="badge bg-danger">Neaktīvs</span>
                                     @endif
                                 </td>
-                                <td>{{ $user->created_at }}</td>
-                                <td>{{ $user->updated_at }}</td>
+                                <td>{{ date('d M, Y', strtotime($user->created_at)) }}</td>
+                                <td>{{ date('d M, Y', strtotime($user->updated_at)) }}</td>
                                 <td class="table-action">
-                                    <a href="{{ route('users.create', ['id' => $user->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                    <a href="#" class="action-icon"> </a>
-                                    <a href="javascript:void(0);" title="Dzēst lietotāju" class="action-icon"
+                                    <a href="{{ route('users.create', ['id' => $user->id]) }}" class="action-icon text-primary" title="Atjaunināt lietotāju">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </a>
+                                    <a href="javascript:void(0);" title="Dzēst lietotāju" class="action-icon text-danger"
                                        onclick="if(confirm('Vai tiešām izdzēsīsit šo lietotāju?')){$(this).find('form').submit();}">
                                         <i class="mdi mdi-delete"></i>
                                         <form action="{{ route('users.delete', $user->id) }}" method="post">

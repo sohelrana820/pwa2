@@ -6,6 +6,7 @@ use App\Forms\ProjectForm;
 use App\Models\Projects;
 use App\Models\ProjectsMeta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -98,13 +99,17 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $projectMetas = Projects::find($id)->projectMeta;
+        $project = Projects::find($id)->with('projectMeta')->first()->toArray();
         $metaData = [];
-        foreach ($projectMetas as $key => $meta) {
-            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
+        foreach ($project['project_meta'] as $key => $meta) {
+            $metaData[$meta['meta_key']] = $meta['data_type'] == 'json' ? json_decode($meta['meta_value'], true) : $meta['meta_value'];
         }
-
-        return view('pages.projects.show', ['project' => $metaData, 'projectId' => $id]);
+        unset($project['project_meta']);
+        $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'project' => $project]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($htmlContent);
+        $name = sprintf('project_id_%s.pdf', $id);
+        return $pdf->download($name);
     }
 
     /**

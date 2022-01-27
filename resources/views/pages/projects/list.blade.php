@@ -44,13 +44,16 @@
                                 @foreach($projects as $project)
                                     <tr>
                                         <td>{{ $project->id }}</td>
-                                        <td>{{ $project->created_at }}</td>
-                                        <td>{{ $project->updated_at }}</td>
+                                        <td>{{ date('d M, Y', strtotime($project->created_at)) }}</td>
+                                        <td>{{ date('d M, Y', strtotime($project->updated_at)) }}</td>
                                         <td class="table-action text-end">
-                                            <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                            <a href="{{ route('projects.update', ['id' => $project->id]) }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="#" class="action-icon"> </a>
-                                            <a href="javascript:void(0);" title="dzēst projektu" class="action-icon"
+                                            <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon text-success" title="Eksportēt kā PDF">
+                                                <i class="mdi mdi-file-pdf-outline"></i>
+                                            </a>
+                                            <a href="{{ route('projects.update', ['id' => $project->id]) }}" class="action-icon text-primary" title="Atjaunināt projektu">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" title="Dzēst projektu" class="action-icon text-danger"
                                                onclick="if(confirm('Vai tiešām izdzēsīsit šo projektu?')){$(this).find('form').submit();}">
                                                 <i class="mdi mdi-delete"></i>
                                                 <form action="{{ route('projects.delete', $project->id) }}" method="post">
