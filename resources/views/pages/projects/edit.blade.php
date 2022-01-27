@@ -452,6 +452,22 @@
                     })
                 });
 
+                let previousPreviousManages = [];
+                let hasOther = false;
+                this.projectData.konstatetie_bojajumi.forEach((value,index ) => {
+                    if(this.previousDamagesOptions.includes(value) == false) {
+                        hasOther = true;
+                    } else {
+                        this.definedPreviousDamages.push(value)
+                    }
+                });
+
+                if(hasOther) {
+                    this.definedPreviousDamages.push('Cits')
+                }
+                console.log(this.projectData.konstatetie_bojajumi);
+
+                //this.definedPreviousDamages = this.projectData.konstatetie_bojajumi;
 
                 this.bojajumi = incidents;
                 this.needOtherItem = this.hasOtherDamageValue();
