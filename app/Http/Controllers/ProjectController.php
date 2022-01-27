@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Session;
  */
 class ProjectController extends Controller
 {
+    private $previousDamages = [
+        'Krāsojuma defekti',
+        'Iepriekšejā remonta pēdas',
+        'Stikla vai salona defekti',
+        'Virsbūves mehāniskie defekti',
+        'Virsbūves korozija',
+        'Virsbūves caurejoša korozija',
+        'Atbilstoši auto izlaiduma gadam un nobraukumam',
+        'Cits'
+    ];
 
     private $incident = [
         [
@@ -89,7 +99,9 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Projects::where('user_id', Auth::user()->id)->paginate(25);
-        return view('pages.projects.list', ['projects' => $projects]);
+        return view('pages.projects.list', [
+            'projects' => $projects,
+        ]);
     }
 
     /**
@@ -99,7 +111,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('pages.projects.create', ['incident' => $this->incident]);
+        return view('pages.projects.create', [
+            'incident' => $this->incident,
+             'previousDamages' => $this->previousDamages
+        ]);
     }
 
     /**

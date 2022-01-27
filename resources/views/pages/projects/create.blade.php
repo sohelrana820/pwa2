@@ -236,12 +236,12 @@
                                         <h6 class="font-15 mt-3">Protektoru dziļums</h6>
                                         <div class="mt-2">
                                             <div class="form-check">
-                                                <input id="Atbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Atbilst" class="form-check-input">
+                                                <input id="Atbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Atbilst" class="form-check-input">
                                                 <label for="Atbilst" class="form-check-label">Atbilst</label>
                                             </div>
 
                                             <div class="form-check">
-                                                <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Neatbilst" class="form-check-input">
+                                                <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Neatbilst" class="form-check-input">
                                                 <label for="Neatbilst" class="form-check-label">Neatbilst</label>
                                             </div>
                                         </div>
@@ -309,21 +309,21 @@
                         <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                         <div class="col-lg-4">
                             <div class="input-group">
-                                <select class="form-control" multiple v-model="otherCustomItemsOptions" v-on:change="manageCustomItem()">
-                                    <option v-for="options in customOptions">@{{ options }}</option>
+                                <select class="form-control" multiple v-model="definedPreviousDamages" v-on:change="manageCustomPreviousDamage()">
+                                    <option v-for="options in previousDamagesOptions">@{{ options }}</option>
                                 </select>
                             </div>
 
                             <div v-if="needOtherItem" class="mt-1">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" v-model="customItem">
-                                    <button class="btn btn-dark" type="button" v-on:click="addCustomItem()">Pievieno jaunu</button>
+                                    <input type="text" class="form-control" v-model="previousCustomDamage">
+                                    <button class="btn btn-dark" type="button" v-on:click="addCustomPreviousDamage()">Pievieno Jaunu</button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-12 mt-2">
-                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomItem(value)">
+                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomPreviousDamage(value)">
                                 @{{value}}
                                 <i class="mdi mdi-close"></i>
                             </div>
@@ -398,6 +398,7 @@
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
     <script>
         const INCIDENTS = JSON.parse('<?php echo json_encode($incident); ?>');
+        const PREVIOUS_DAMAGES = JSON.parse('<?php echo json_encode($previousDamages); ?>');
         var app = new Vue({
             el: '#app',
             mounted() {
@@ -407,19 +408,10 @@
                 });
             },
             data: {
-                customOptions: [
-                    'Krāsojuma defekti',
-                    'Iepriekšejā remonta pēdas',
-                    'Stikla vai salona defekti',
-                    'Virsbūves mehāniskie defekti',
-                    'Virsbūves korozija',
-                    'Virsbūves caurejoša korozija',
-                    'Atbilstoši auto izlaiduma gadam un nobraukumam',
-                    'Cits'
-                ],
-                otherCustomItemsOptions: [],
-                customItem: null,
-                customItemList: [],
+                previousDamagesOptions: PREVIOUS_DAMAGES,
+                definedPreviousDamages: [],
+                previousCustomDamage: null,
+                previousCustomDamageList: [],
                 bojajumi: INCIDENTS,
                 projectData: {
                     lietas_nr: null,
@@ -439,7 +431,7 @@
                     aprikojums: [],
                     other_aprikojums: null,
                     riepu_veids: null,
-                    protektoru_dziļums: null,
+                    protektoru_dzilums: null,
                     iespejami: null,
                     datums: '<?php echo date('m/d/Y') ?>',
                     eksperts: '{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}',
@@ -523,16 +515,19 @@
 
                     this.bojajumi[itemIndex].values.push(item);
                 },
-                addCustomItem: function () {
-                    this.customItemList.push(this.customItem);
-                    this.projectData.konstatetie_bojajumi.push(this.customItem);
-                    this.customItem = null;
+                /**
+                 *
+                 */
+                addCustomPreviousDamage: function () {
+                    this.previousCustomDamageList.push(this.previousCustomDamage);
+                    this.projectData.konstatetie_bojajumi.push(this.previousCustomDamage);
+                    this.previousCustomDamage = null;
                 },
-                removeCustomItem: function (item) {
-                    let items = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
-                    this.projectData.konstatetie_bojajumi = items;
-                    this.customItem = null;
+                removeCustomPreviousDamage: function (item) {
+                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
+                    this.previousCustomDamage = null;
                 },
+
                 hasOtherUtility: function () {
                     let needOtherUtility = false;
 
@@ -544,7 +539,8 @@
 
                     return needOtherUtility;
                 },
-                hasOtherItem: function () {
+
+                hasOtherDamageValue: function () {
                     let needOther = false;
                     this.projectData.konstatetie_bojajumi.forEach((value, index) => {
                         if(value === 'Cits') {
@@ -559,14 +555,10 @@
                     return needOther;
                 },
 
-                manageCustomItem: function () {
-                    this.projectData.konstatetie_bojajumi = this.otherCustomItemsOptions;
-
-
-
-                    this.needOtherItem = this.hasOtherItem();
-
-                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.customItemList);
+                manageCustomPreviousDamage: function () {
+                    this.projectData.konstatetie_bojajumi = this.definedPreviousDamages;
+                    this.needOtherItem = this.hasOtherDamageValue();
+                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.previousCustomDamageList);
                 }
             }
         })
