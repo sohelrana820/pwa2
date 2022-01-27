@@ -77,16 +77,16 @@ class ProfileController extends Controller
             $updatedUser = User::updateUser($request->all(), auth()->user()->id);
 
             if ($updatedUser === true) {
-                Session::flash('success', 'Your profile has been updated successfully.');
+                Session::flash('success', 'Jūsu profils ir veiksmīgi atjaunināts.');
             } else {
-                Session::flash('error', 'Your profile hasn\'t updated yet!');
+                Session::flash('error', 'Jūsu profilu vēl nevarēja atjaunināt!');
             }
 
             // Redirect to same
             return redirect()->back();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            Session::flash('error', 'Something went wrong. Try later again.');
+            Session::flash('error', 'Kaut kas nogāja greizi. Mēģiniet vēlāk vēlreiz.');
 
             // Redirect to same
             return redirect()->back();

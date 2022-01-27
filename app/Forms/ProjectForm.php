@@ -37,7 +37,7 @@ class ProjectForm extends FormValidator
             'eksperts' => 'required',
             'sertefikata' => 'required',
             'piekritu' => 'required',
-            'bojajumi' => 'required',
+            /*'bojajumi' => 'required',*/
         ];
     }
 

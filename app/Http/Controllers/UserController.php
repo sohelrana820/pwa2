@@ -73,16 +73,16 @@ class UserController extends Controller
             $createdUser = User::createUser($request->all());
 
             if ($createdUser === true) {
-                Session::flash('success', 'User has created successfully.');
+                Session::flash('success', 'Lietotājs ir veiksmīgi izveidojis.');
             } else {
-                Session::flash('error', 'User hasn\'t created yet!');
+                Session::flash('error', 'Lietotāju nevarēja izveidot!');
             }
 
             // Redirect to grid page
             return redirect()->route('users.grid');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            Session::flash('error', 'Something went wrong. Try later again.');
+            Session::flash('error', 'Kaut kas nogāja greizi. Mēģiniet vēlāk vēlreiz.');
 
             // Redirect to create page
             return redirect()->route('users.create');
@@ -117,16 +117,16 @@ class UserController extends Controller
             $updatedUser = User::updateUser($request->all(), $id);
 
             if ($updatedUser === true) {
-                Session::flash('success', 'User has updated successfully.');
+                Session::flash('success', 'Lietotājs ir veiksmīgi atjauninājis.');
             } else {
-                Session::flash('error', 'User hasn\'t updated yet!');
+                Session::flash('error', 'Lietotāju nevarēja atjaunināt!');
             }
 
             // Redirect to grid page
             return redirect()->route('users.grid');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            Session::flash('error', 'Something went wrong. Try later again.');
+            Session::flash('error', 'Kaut kas nogāja greizi. Mēģiniet vēlāk vēlreiz.');
 
             // Redirect to create page
             return redirect()->back();
@@ -144,16 +144,16 @@ class UserController extends Controller
             $deleteUser = User::deleteUser($id);
 
             if ($deleteUser === true) {
-                Session::flash('success', 'User has deleted successfully.');
+                Session::flash('success', 'Lietotājs to ir veiksmīgi izdzēsis.');
             } else {
-                Session::flash('error', 'User hasn\'t deleted yet!');
+                Session::flash('error', 'Lietotāju nevarēja izdzēst!');
             }
 
             // Redirect to grid page
             return redirect()->route('users.grid');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
-            Session::flash('error', 'Something went wrong. Try later again.');
+            Session::flash('error', 'Kaut kas nogāja greizi. Mēģiniet vēlāk vēlreiz.');
 
             // Redirect to create page
             return redirect()->back();

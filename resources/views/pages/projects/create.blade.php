@@ -531,7 +531,8 @@
                         data['_token'] = '{{ csrf_token() }}'
                         axios.post('/projects/store', data)
                             .then((response) => {
-                                toa.success(response.message, 'Panākumi');
+                                toa.success(response.data.message, 'Panākumi')
+                                window.location.href = "/projects";
                             })
                             .catch((error) => {
                                 this.formErrors = this.unprocessableEntityHandler(error.response.data.errors);
