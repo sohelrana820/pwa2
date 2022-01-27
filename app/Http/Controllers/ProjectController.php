@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\ProjectForm;
 use App\Models\Projects;
 use App\Models\ProjectsMeta;
 use Illuminate\Http\Request;
@@ -15,82 +16,6 @@ use Illuminate\Support\Facades\Session;
  */
 class ProjectController extends Controller
 {
-    private $previousDamages = [
-        'Krāsojuma defekti',
-        'Iepriekšejā remonta pēdas',
-        'Stikla vai salona defekti',
-        'Virsbūves mehāniskie defekti',
-        'Virsbūves korozija',
-        'Virsbūves caurejoša korozija',
-        'Atbilstoši auto izlaiduma gadam un nobraukumam',
-        'Cits'
-    ];
-
-    private $incident = [
-        [
-            'type' => 'extras',
-            'values' => [
-                'Remonts nav tehniski iespējams',
-                'Remonts nav ekonomiski pamatots',
-            ]
-        ],
-        [
-            'type' => 'PRIEKŠA',
-            'values' => [
-                'Priekšējais bamperis',
-                'Priekšējais labais lukturis',
-                'Priekšējais kreisais lukturis',
-                'Priekšējā dekoratīvā reste',
-                'Motora pārsegs',
-                'Priekšējais vējstikls',
-                'Jumta panelis',
-                'Vadītaja AirBag',
-                'Pasažiera AirBag',
-                'Radiatora bloks'
-            ]
-        ],
-        [
-            'type' => 'LABAIS SĀNS',
-            'values' => [
-                'Aizmugurējais labais sānu panelis',
-                'Aizmugurējās labās durvis',
-                'Labās puses vidus statne',
-                'Labās puses slieksnis',
-                'Priekšējās labās durvis',
-                'Priekšējais labais spārns',
-                'Priekšējā labā riteņa disks ar riepu',
-                'Aizmugurējā labā riteņa disks ar riepu',
-                'Labās puses atpakaļskata spogulis',
-            ],
-        ],
-        [
-            'type' => 'KREISAIS SĀNS',
-            'values' => [
-                'Priekšējās kreisās durvis',
-                'Kreisās puses slieksnis',
-                'Kreisās puses vidus statne',
-                'Priekšējais kreisais spārns',
-                'Aizmugurējas kreisās dirvis',
-                'Aizmugurējais kreisais sānu panelis',
-                'Aizmugurējais kreisais lukuturis',
-                'Aizmugurējā kreisā riteņa disks ar riepu',
-                'Priekšejā kreisā riteņa disks ar riepu',
-                'Kreisās puses atpakaļskata spogulis'
-            ],
-        ],
-        [
-            'type' => 'AIZMUGURE',
-            'values' => [
-                'Aizmugurējais bamperis',
-                'Aizmugurējais labais lukturis',
-                'Aizmugurējais kreisais lukturis',
-                'Aizmugurējais panelis',
-                'Aizmugurējais stikls',
-                'Bagāžnieka vāks/gala durvis'
-            ],
-        ]
-    ];
-
     /**
      * Display a listing of the resource.
      *
@@ -111,10 +36,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('pages.projects.create', [
-            'incident' => $this->incident,
-             'previousDamages' => $this->previousDamages
-        ]);
+        return view('pages.projects.create', []);
     }
 
     /**
@@ -132,6 +54,7 @@ class ProjectController extends Controller
         $projectsMeta = [];
         $requestOptions = $request->all();
 
+        app(ProjectForm::class)->validate($requestOptions);
         foreach ($requestOptions as $key => $option) {
             if($key != '_token') {
                 $data = is_array($option) ? json_encode($option) :  $option;
@@ -152,7 +75,7 @@ class ProjectController extends Controller
         if($projectMeta) {
             $successResponse = [
                 'success' => true,
-                'message' => 'Project has been created successfully',
+                'message' => 'Projekts ir veiksmīgi izveidots',
             ];
             return response()->json($successResponse, 200);
         }
@@ -160,7 +83,7 @@ class ProjectController extends Controller
 
         $errorResponse = [
             'success' => true,
-            'message' => 'Sorry, project couldn\'t created',
+            'message' => 'Diemžēl projektu nevarēja izveidot',
         ];
         return response()->json($errorResponse, 500);
     }
@@ -196,15 +119,6 @@ class ProjectController extends Controller
             $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
         }
 
-        $data = [];
-        foreach ($this->incident as $item) {
-            $diff = array_key_exists('bojajumi', $metaData) && $metaData['bojajumi'][$item['type']] ? array_diff($item['values'], $metaData['bojajumi'][$item['type']]) : $item['values'];
-            $data[] = [
-                'type' => $item['type'],
-                'values' => $diff,
-            ];
-         }
-
         if(!array_key_exists('bojajumi', $metaData)) {
             $metaData['bojajumi'] = [];
         }
@@ -217,7 +131,7 @@ class ProjectController extends Controller
             $metaData['aprikojums'] = [];
         }
 
-        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'incident' => $data]);
+        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
     }
 
     /**
@@ -252,7 +166,7 @@ class ProjectController extends Controller
         if($projectMeta) {
             $successResponse = [
                 'success' => true,
-                'message' => 'Project has been updated successfully',
+                'message' => 'Projekts ir veiksmīgi atjaunināts',
             ];
             return response()->json($successResponse, 200);
         }
@@ -260,7 +174,7 @@ class ProjectController extends Controller
 
         $errorResponse = [
             'success' => true,
-            'message' => 'Sorry, project couldn\'t updated',
+            'message' => 'Diemžēl projektu nevarēja atjaunināt',
         ];
         return response()->json($errorResponse, 500);
     }
@@ -276,16 +190,15 @@ class ProjectController extends Controller
         try {
             $projectDeleted = Projects::deleteProject($id);
             if ($projectDeleted == true) {
-                Session::flash('success', 'Project has deleted successfully.');
+                Session::flash('success', 'Projekts ir veiksmīgi izdzēsts.');
             } else {
-                Session::flash('error', 'Project hasn\'t deleted yet!');
+                Session::flash('error', 'Diemžēl projektu nevarēja izdzēst');
             }
 
             return redirect()->back();
         } catch (\Exception $exception) {
-
             Log::error($exception->getMessage());
-            Session::flash('error', 'Something went wrong. Try later again.');
+            Session::flash('error', 'Kaut kas nogāja greizi. Mēģiniet vēlāk vēlreiz.');
             return redirect()->back();
         }
     }

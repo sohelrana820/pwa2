@@ -89,3 +89,11 @@
 .form-check{
     cursor: pointer;
 }
+
+.err-txt{
+    font-weight: 600;
+    font-size: 13px;
+    opacity: .8;
+    display: block;
+    margin-top: 5px;
+}

@@ -35,12 +35,14 @@
                             <div class="mb-3">
                                 <label class="form-label">Lietas NR.</label>
                                 <input type="text" v-model="projectData.lietas_nr" class="form-control" placeholder="Lietas NR">
+                                <small class="text-danger err-txt" v-text="errorMessage('lietas_nr')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Mašīnas valsts NR.</label>
                                 <input type="text" v-model="projectData.masinas_valsts_nr" class="form-control" placeholder="Mašīnas Valsts NR.">
+                                <small class="text-danger err-txt" v-text="errorMessage('masinas_valsts_nr')"></small>
                             </div>
                         </div>
                     </div>
@@ -50,18 +52,21 @@
                             <div class="mb-3">
                                 <label class="form-label">Marka</label>
                                 <input type="text" v-model="projectData.marka" class="form-control" placeholder="Marka">
+                                <small class="text-danger err-txt" v-text="errorMessage('marka')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Modelis</label>
                                 <input type="text" v-model="projectData.modelis" class="form-control" placeholder="Modelis">
+                                <small class="text-danger err-txt" v-text="errorMessage('modelis')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Izlaiduma Gads</label>
                                 <input type="text" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
+                                <small class="text-danger err-txt" v-text="errorMessage('izlaiduma_gads')"></small>
                             </div>
                         </div>
                     </div>
@@ -88,6 +93,10 @@
                                     <input id="Elektrība" type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
                                     <label for="Elektrība" class="form-check-label">Elektrība</label>
                                 </div>
+
+                                <div>
+                                    <small class="text-danger err-txt" v-text="errorMessage('degviela')"></small>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -102,11 +111,13 @@
                                     <label for="Manuālā" class="form-check-label">Manuālā</label>
                                 </div>
                             </div>
+                            <small class="text-danger err-txt" v-text="errorMessage('atrumkarba')"></small>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Nobraukums</label>
                                 <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
+                                <small class="text-danger err-txt" v-text="errorMessage('nobraukums')"></small>
                             </div>
                         </div>
                     </div>
@@ -116,6 +127,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Motora tilpums</label>
                                 <input name="motora_tilpums" type="text" v-model="projectData.motora_tilpums" class="form-control" placeholder="Motora tilpums">
+                                <small class="text-danger err-txt" v-text="errorMessage('motora_tilpums')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -125,6 +137,7 @@
                                     <option value="4*2">4*2</option>
                                     <option value="4*4">4*4</option>
                                 </select>
+                                <small class="text-danger err-txt" v-text="errorMessage('piedzina')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -140,6 +153,7 @@
                                     <option>Kupeja</option>
                                     <option>Apvidus</option>
                                 </select>
+                                <small class="text-danger err-txt" v-text="errorMessage('virsbuves_tips')"></small>
                             </div>
                         </div>
                     </div>
@@ -149,18 +163,21 @@
                             <div class="mb-3">
                                 <label class="form-label">Šasijas NR.</label>
                                 <input type="text" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR.">
+                                <small class="text-danger err-txt" v-text="errorMessage('sasija_nr')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Transportlīdzekļa īpašnieks</label>
                                 <input type="text" v-model="projectData.transporta_ipasnieks" class="form-control" placeholder="Transportlīdzekļa īpašnieks">
+                                <small class="text-danger err-txt" v-text="errorMessage('transporta_ipasnieks')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Apskates Vieta</label>
                                 <input type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates Vieta">
+                                <small class="text-danger err-txt" v-text="errorMessage('apskates_vieta')"></small>
                             </div>
                         </div>
                     </div>
@@ -230,6 +247,7 @@
                                                 <input id="Vasaras" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Vasaras" class="form-check-input">
                                                 <label for="Vasaras" class="form-check-label">Vasaras</label>
                                             </div>
+                                            <small class="text-danger err-txt" v-text="errorMessage('riepu_veids')"></small>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -244,6 +262,7 @@
                                                 <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Neatbilst" class="form-check-input">
                                                 <label for="Neatbilst" class="form-check-label">Neatbilst</label>
                                             </div>
+                                            <small class="text-danger err-txt" v-text="errorMessage('protektoru_dzilums')"></small>
                                         </div>
                                     </div>
                                 </div>
@@ -351,6 +370,7 @@
                                     <label for="Iespjami_na" class="form-check-label">Nē</label>
                                 </div>
                             </div>
+                            <small class="text-danger err-txt" v-text="errorMessage('iespejami')"></small>
                         </div>
                     </div>
 
@@ -359,18 +379,21 @@
                             <div class="mb-3">
                                 <label class="form-label">Datums</label>
                                 <input type="text" v-model="projectData.datums" class="form-control" placeholder="Datums">
+                                <small class="text-danger err-txt" v-text="errorMessage('datums')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Eksperts</label>
                                 <input type="text" v-model="projectData.eksperts" class="form-control" placeholder="Eksperts">
+                                <small class="text-danger err-txt" v-text="errorMessage('eksperts')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Sertefikāta nr.</label>
                                 <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
+                                <small class="text-danger err-txt" v-text="errorMessage('sertefikata')"></small>
                             </div>
                         </div>
                     </div>
@@ -384,6 +407,7 @@
                                     <label for="Es_ja" class="form-check-label">Jā</label>
                                 </div>
                             </div>
+                            <small class="text-danger err-txt" v-text="errorMessage('piekritu')"></small>
                         </div>
                     </div>
 
@@ -403,10 +427,10 @@
 @section('scripts')
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
+
     <script>
-        const INCIDENTS = JSON.parse('<?php echo json_encode($incident); ?>');
-        const PREVIOUS_DAMAGES = JSON.parse('<?php echo json_encode($previousDamages); ?>');
         var app = new Vue({
             el: '#app',
             mounted() {
@@ -450,7 +474,8 @@
                     konstatetie_bojajumi: []
                 },
                 needOtherUtility: false,
-                needOtherItem: false
+                needOtherItem: false,
+                formErrors: {}
             },
 
             methods: {
@@ -484,25 +509,41 @@
                 },
 
                 submitForm: function () {
-                    let data = this.projectData;
-                    data['_token'] = '{{ csrf_token() }}'
+                    this.formErrors = {};
+                    let projectData = this.projectData;
+                    let errorField = [];
+                    let hasError = false;
+                    Object.keys(projectData).forEach(key => {
+                        if(projectData[key] == null) {
+                            errorField[key] = "Šis lauks ir obligāts!";
+                            hasError = true;
+                        }
 
-                    var options = {
-                        type: 'post',
-                        url: '/projects/store',
-                        dataType: 'json',
-                        data: data,
-                        encode: true,
-                    };
+                        if(projectData[key] && key === 'sasija_nr' && projectData[key].length !== 13) {
+                            errorField[key] = "Šasijas NR. jābūt 13 cipariem!";
+                            hasError = true;
+                        }
+                    });
+
                     var toa = this.$toastr;
-                    $.ajax(options)
-                        .done(function (response) {
-                            toa.success(response.message, 'Success');
-                            window.location.href = "/projects";
-                        })
-                        .fail(function (response) {
-                            toa.success('Sorry something went wrong', 'Error');
-                        });
+                    if(hasError == false) {
+                        let data = projectData;
+                        data['_token'] = '{{ csrf_token() }}'
+                        axios.post('/projects/store', data)
+                            .then((response) => {
+                                toa.success(response.message, 'Panākumi');
+                            })
+                            .catch((error) => {
+                                this.formErrors = this.unprocessableEntityHandler(error.response.data.errors);
+                                toa.error(error.response.data.message, 'Kļūda');
+                            })
+                            .finally(() => {
+
+                            });
+                    } else {
+                        this.formErrors = errorField;
+                        toa.error('Norādītie dati nav derīgi', 'Kļūda');
+                    }
                 },
 
                 removeItemFrom: function (type, item) {
@@ -580,6 +621,25 @@
                     this.projectData.konstatetie_bojajumi = this.definedPreviousDamages;
                     this.needOtherItem = this.hasOtherDamageValue();
                     this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.previousCustomDamageList);
+                },
+
+                errorMessage: function (field) {
+                   if(this.formErrors[field] != undefined && this.formErrors[field]) {
+                       return this.formErrors[field];
+                   }
+                },
+
+                unprocessableEntityHandler(errors) {
+                    let newErrors = {};
+
+                    for (const key in errors) {
+                        if (Object.hasOwnProperty.call(errors, key)) {
+                            const fieldError = errors[key];
+                            newErrors[key] = fieldError[0] ?? '-';
+                        }
+                    }
+
+                    return newErrors;
                 }
             }
         })
