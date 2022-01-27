@@ -451,8 +451,11 @@
                         values: difference
                     })
                 });
+                this.bojajumi = incidents;
+                this.needOtherItem = this.hasOtherDamageValue();
+                this.needOtherUtility = this.hasOtherUtility();
 
-                let previousPreviousManages = [];
+
                 let hasOther = false;
                 this.projectData.konstatetie_bojajumi.forEach((value,index ) => {
                     if(this.previousDamagesOptions.includes(value) == false) {
@@ -461,17 +464,11 @@
                         this.definedPreviousDamages.push(value)
                     }
                 });
-
                 if(hasOther) {
                     this.definedPreviousDamages.push('Cits')
                 }
-                console.log(this.projectData.konstatetie_bojajumi);
 
-                //this.definedPreviousDamages = this.projectData.konstatetie_bojajumi;
-
-                this.bojajumi = incidents;
-                this.needOtherItem = this.hasOtherDamageValue();
-                this.needOtherUtility = this.hasOtherUtility();
+                this.manageCustomPreviousDamage();
             },
 
             methods: {
@@ -608,16 +605,20 @@
                     });
 
                     if(needOther) {
-                        let remainingItem = this.projectData.konstatetie_bojajumi.filter(el => el !== 'Cits');
-                        this.projectData.konstatetie_bojajumi = remainingItem;
+                        this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.filter(el => el !== 'Cits');
                     }
                     return needOther;
                 },
 
                 manageCustomPreviousDamage: function () {
-                    this.projectData.konstatetie_bojajumi = this.definedPreviousDamages;
+                    var difference = this.projectData.konstatetie_bojajumi.filter(x => this.definedPreviousDamages.indexOf(x) === -1);
+                    var data = this.definedPreviousDamages;
+                    if(difference.length > 0) {
+                        data = this.definedPreviousDamages.concat(difference);
+                    }
+
+                    this.projectData.konstatetie_bojajumi = data;
                     this.needOtherItem = this.hasOtherDamageValue();
-                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.previousCustomDamageList);
                 },
 
                 errorMessage: function (field) {
