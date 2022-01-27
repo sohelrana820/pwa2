@@ -22,19 +22,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-2">
+                <div class="row mb-2 justify-content-between">
                     <div class="col-sm-4">
                         <a href="{{ route('users.create') }}" class="btn btn-danger mb-2">
                             <i class="mdi mdi-plus-circle me-2"></i> Pievienot lietotāju
                         </a>
                     </div>
-<!--                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <div class="text-sm-end">
-                            <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog-outline"></i></button>
-                            <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                            <button type="button" class="btn btn-light mb-2">Export</button>
+                            <form method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Meklēt" name="q" aria-label="Meklēt" value=" {{request()->query('q') ?? ''}}">
+                                </div>
+                            </form>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-centered w-100 dt-responsive nowrap" id="product-datatable">

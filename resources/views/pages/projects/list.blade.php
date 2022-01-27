@@ -23,11 +23,21 @@
             <div class="card">
                 <?php if($projects->count() > 0): ?>
                     <div class="card-body" >
-                        <div class="row mb-2">
+                        <div class="row mb- justify-content-between">
                             <div class="col-sm-4">
                                 <a href="{{ route('projects.create') }}" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle me-2"></i> Jauns Projekts
                                 </a>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="text-sm-end">
+                                    <form method="get">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Meklēt" name="q" aria-label="Meklēt" value=" {{request()->query('q')}}">
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="table-responsive">

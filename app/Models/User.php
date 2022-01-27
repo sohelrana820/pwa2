@@ -307,4 +307,11 @@ class User  extends Authenticatable
 
         return true;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->orWhere('first_name', 'LIKE', "%$search%")
+            ->orWhere('last_name', 'LIKE', "%$search%")
+            ->orWhere('email', 'LIKE', "%$search%");
+    }
 }

@@ -66,4 +66,9 @@ class Projects extends Model
 
         return false;
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('id', 'LIKE', "%$search%");
+    }
 }

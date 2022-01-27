@@ -22,9 +22,14 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Projects::where('user_id', Auth::user()->id)
+        $query = null;
+        if(isset($request->q)) {
+            $query = $request->q;
+        }
+        $projects = Projects::search($query)
+            ->where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
             ->paginate(25);
         return view('pages.projects.list', [

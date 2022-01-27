@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -20,9 +21,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(25);
+        $query = null;
+        if(isset($request->q)) {
+            $query = $request->q;
+        }
+        $users = User::search($query)->paginate(25);
         return view('pages.users.list', [
             'users' => $users
         ]);
