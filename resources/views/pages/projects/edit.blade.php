@@ -1,11 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @if(isset($model->id))
-        Update User
-    @else
-        Add User
-    @endif
+    Atjaunināt projektu
 @endsection
 
 @section('content')
@@ -15,11 +11,11 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/">Sākums</a></li>
-                        <li class="breadcrumb-item"><a href="/products">Projects</a></li>
-                        <li class="breadcrumb-item active">Create Project</li>
+                        <li class="breadcrumb-item"><a href="/products">Protokoli</a></li>
+                        <li class="breadcrumb-item active">Izveidot protokolu</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Create Project</h4>
+                <h4 class="page-title">Izveidot protokolu</h4>
             </div>
         </div>
     </div>
@@ -35,12 +31,14 @@
                                 <div class="mb-3">
                                     <label class="form-label">Lietas NR.</label>
                                     <input type="text" v-model="projectData.lietas_nr" class="form-control" placeholder="Lietas NR">
+                                    <small class="text-danger err-txt" v-text="errorMessage('lietas_nr')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Mašīnas valsts NR.</label>
                                     <input type="text" v-model="projectData.masinas_valsts_nr" class="form-control" placeholder="Mašīnas Valsts NR.">
+                                    <small class="text-danger err-txt" v-text="errorMessage('masinas_valsts_nr')"></small>
                                 </div>
                             </div>
                         </div>
@@ -50,18 +48,21 @@
                                 <div class="mb-3">
                                     <label class="form-label">Marka</label>
                                     <input type="text" v-model="projectData.marka" class="form-control" placeholder="Marka">
+                                    <small class="text-danger err-txt" v-text="errorMessage('marka')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Modelis</label>
                                     <input type="text" v-model="projectData.modelis" class="form-control" placeholder="Modelis">
+                                    <small class="text-danger err-txt" v-text="errorMessage('modelis')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Izlaiduma Gads</label>
                                     <input type="text" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
+                                    <small class="text-danger err-txt" v-text="errorMessage('izlaiduma_gads')"></small>
                                 </div>
                             </div>
                         </div>
@@ -88,6 +89,10 @@
                                         <input id="Elektrība" type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
                                         <label for="Elektrība" class="form-check-label">Elektrība</label>
                                     </div>
+
+                                    <div>
+                                        <small class="text-danger err-txt" v-text="errorMessage('degviela')"></small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -102,11 +107,13 @@
                                         <label for="Manuālā" class="form-check-label">Manuālā</label>
                                     </div>
                                 </div>
+                                <small class="text-danger err-txt" v-text="errorMessage('atrumkarba')"></small>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Nobraukums</label>
                                     <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
+                                    <small class="text-danger err-txt" v-text="errorMessage('nobraukums')"></small>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +123,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Motora tilpums</label>
                                     <input name="motora_tilpums" type="text" v-model="projectData.motora_tilpums" class="form-control" placeholder="Motora tilpums">
+                                    <small class="text-danger err-txt" v-text="errorMessage('motora_tilpums')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -125,6 +133,7 @@
                                         <option value="4*2">4*2</option>
                                         <option value="4*4">4*4</option>
                                     </select>
+                                    <small class="text-danger err-txt" v-text="errorMessage('piedzina')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -140,6 +149,7 @@
                                         <option>Kupeja</option>
                                         <option>Apvidus</option>
                                     </select>
+                                    <small class="text-danger err-txt" v-text="errorMessage('virsbuves_tips')"></small>
                                 </div>
                             </div>
                         </div>
@@ -149,18 +159,21 @@
                                 <div class="mb-3">
                                     <label class="form-label">Šasijas NR.</label>
                                     <input type="text" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR.">
+                                    <small class="text-danger err-txt" v-text="errorMessage('sasija_nr')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Transportlīdzekļa īpašnieks</label>
                                     <input type="text" v-model="projectData.transporta_ipasnieks" class="form-control" placeholder="Transportlīdzekļa īpašnieks">
+                                    <small class="text-danger err-txt" v-text="errorMessage('transporta_ipasnieks')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Apskates Vieta</label>
                                     <input type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates Vieta">
+                                    <small class="text-danger err-txt" v-text="errorMessage('apskates_vieta')"></small>
                                 </div>
                             </div>
                         </div>
@@ -230,20 +243,22 @@
                                                     <input id="Vasaras" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Vasaras" class="form-check-input">
                                                     <label for="Vasaras" class="form-check-label">Vasaras</label>
                                                 </div>
+                                                <small class="text-danger err-txt" v-text="errorMessage('riepu_veids')"></small>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <h6 class="font-15 mt-3">Protektoru dziļums</h6>
                                             <div class="mt-2">
                                                 <div class="form-check">
-                                                    <input id="Atbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Atbilst" class="form-check-input">
+                                                    <input id="Atbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Atbilst" class="form-check-input">
                                                     <label for="Atbilst" class="form-check-label">Atbilst</label>
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dziļums" name="protektoru_dziļums" value="Neatbilst" class="form-check-input">
+                                                    <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Neatbilst" class="form-check-input">
                                                     <label for="Neatbilst" class="form-check-label">Neatbilst</label>
                                                 </div>
+                                                <small class="text-danger err-txt" v-text="errorMessage('protektoru_dzilums')"></small>
                                             </div>
                                         </div>
                                     </div>
@@ -269,7 +284,15 @@
 
                                 <div class="mb-3" v-if="needOtherUtility">
                                     <label class="form-label">PIEVIENOT JAUNU</label>
-                                    <input type="text" v-model="projectData.other_aprikojums" class="form-control" placeholder="Aprīkojums">
+                                    <div class="input-group mb-1">
+                                        <input type="text" class="form-control" placeholder="Aprīkojums" v-model="otherEqu">
+                                        <button class="btn btn-dark" type="button" v-on:click="addOtherEqu()">Pievieno Jaunu</button>
+                                    </div>
+
+                                    <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.other_aprikojums" v-on:click="removeOtherEqu(value)">
+                                        @{{value}}
+                                        <i class="mdi mdi-close"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -277,7 +300,7 @@
                         <div class="mb-4">
                             <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
                             <div class="row">
-                                <div class="col-lg-3" v-for="value in bojajumi[0].values">
+                                <div v-if="bojajumi.length > 0" class="col-lg-3" v-for="value in bojajumi[0].values">
                                     <div class="tip-items"  v-on:click="pickItem(bojajumi[0].type, value)">
                                         @{{value}}
                                     </div>
@@ -309,21 +332,21 @@
                             <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                             <div class="col-lg-4">
                                 <div class="input-group">
-                                    <select class="form-control" multiple v-model="otherCustomItemsOptions" v-on:change="manageCustomItem()">
-                                        <option v-for="options in customOptions">@{{ options }}</option>
+                                    <select class="form-control" multiple v-model="definedPreviousDamages" v-on:change="manageCustomPreviousDamage()">
+                                        <option v-for="options in previousDamagesOptions">@{{ options }}</option>
                                     </select>
                                 </div>
 
                                 <div v-if="needOtherItem" class="mt-1">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" v-model="customItem">
-                                        <button class="btn btn-dark" type="button" v-on:click="addCustomItem()">Pievieno jaunu</button>
+                                        <input type="text" class="form-control" v-model="previousCustomDamage">
+                                        <button class="btn btn-dark" type="button" v-on:click="addCustomPreviousDamage()">Pievieno Jaunu</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-12 mt-2">
-                                <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomItem(value)">
+                                <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomPreviousDamage(value)">
                                     @{{value}}
                                     <i class="mdi mdi-close"></i>
                                 </div>
@@ -343,6 +366,7 @@
                                         <label for="Iespjami_na" class="form-check-label">Nē</label>
                                     </div>
                                 </div>
+                                <small class="text-danger err-txt" v-text="errorMessage('iespejami')"></small>
                             </div>
                         </div>
 
@@ -351,18 +375,21 @@
                                 <div class="mb-3">
                                     <label class="form-label">Datums</label>
                                     <input type="text" v-model="projectData.datums" class="form-control" placeholder="Datums">
+                                    <small class="text-danger err-txt" v-text="errorMessage('datums')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Eksperts</label>
                                     <input type="text" v-model="projectData.eksperts" class="form-control" placeholder="Eksperts">
+                                    <small class="text-danger err-txt" v-text="errorMessage('eksperts')"></small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Sertefikāta nr.</label>
                                     <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
+                                    <small class="text-danger err-txt" v-text="errorMessage('sertefikata')"></small>
                                 </div>
                             </div>
                         </div>
@@ -376,6 +403,7 @@
                                         <label for="Es_ja" class="form-check-label">Jā</label>
                                     </div>
                                 </div>
+                                <small class="text-danger err-txt" v-text="errorMessage('piekritu')"></small>
                             </div>
                         </div>
 
@@ -387,44 +415,47 @@
             </div>
         </div>
     </div>
+
 @endsection
-
-
 
 @section('scripts')
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
+
     <script>
-        const INCIDENTS = JSON.parse('<?php echo json_encode($incident); ?>');
         const PROJECT_DATA_RAW  = '<?php echo json_encode($project); ?>';
         const PROJECT_DATA = JSON.parse(PROJECT_DATA_RAW);
         var app = new Vue({
             el: '#app',
-            mounted() {
-                var initialData = [];
-                this.bojajumi.forEach((value, index) => {
-
-                });
-            },
             data: {
-                customOptions: [
-                    'Krāsojuma defekti',
-                    'Iepriekšejā remonta pēdas',
-                    'Stikla vai salona defekti',
-                    'Virsbūves mehāniskie defekti',
-                    'Virsbūves korozija',
-                    'Virsbūves caurejoša korozija',
-                    'Atbilstoši auto izlaiduma gadam un nobraukumam',
-                    'Cits'
-                ],
-                otherCustomItemsOptions: [],
-                customItem: null,
-                customItemList: [],
-                bojajumi: INCIDENTS,
+                previousDamagesOptions: PREVIOUS_DAMAGES,
+                definedPreviousDamages: [],
+                previousCustomDamage: null,
+                previousCustomDamageList: [],
+                bojajumi: [INCIDENTS],
+                otherEqu: null,
                 projectData: PROJECT_DATA,
                 needOtherUtility: false,
-                needOtherItem: false
+                needOtherItem: false,
+                formErrors: {}
+            },
+
+            mounted() {
+                let incidents = [];
+                INCIDENTS.forEach((value,index ) => {
+                    var difference = value.values.filter(x => this.projectData.bojajumi[value.type].indexOf(x) === -1);
+                    incidents.push({
+                        type: value.type,
+                        values: difference
+                    })
+                });
+
+
+                this.bojajumi = incidents;
+                this.needOtherItem = this.hasOtherDamageValue();
+                this.needOtherUtility = this.hasOtherUtility();
             },
 
             methods: {
@@ -456,42 +487,58 @@
                     }
                     this.removeItemFrom(type, item);
                 },
-                submitForm: function () {
-                    let data = this.projectData;
-                    data['_token'] = '{{ csrf_token() }}'
 
-                    var options = {
-                        type: 'put',
-                        url: '/projects/update/<?php echo $projectId;?>',
-                        dataType: 'json',
-                        data: data,
-                        encode: true,
-                    };
+                submitForm: function () {
+                    this.formErrors = {};
+                    let projectData = this.projectData;
+                    let errorField = [];
+                    let hasError = false;
+                    Object.keys(projectData).forEach(key => {
+                        if(projectData[key] == null) {
+                            errorField[key] = "Šis lauks ir obligāts!";
+                            hasError = true;
+                        }
+
+                        if(projectData[key] && key === 'sasija_nr' && projectData[key].length !== 13) {
+                            errorField[key] = "Šasijas NR. jābūt 13 cipariem!";
+                            hasError = true;
+                        }
+                    });
+
                     var toa = this.$toastr;
-                    $.ajax(options)
-                        .done(function (response) {
-                            toa.success(response.message, 'Success');
-                            window.location.href = "/projects";
-                        })
-                        .fail(function (response) {
-                            toa.success('Sorry something went wrong', 'Error');
-                        });
+                    if(hasError == false) {
+                        let data = projectData;
+                        data['_token'] = '{{ csrf_token() }}'
+                        axios.put('/projects/update/<?php echo $projectId;?>', data)
+                            .then((response) => {
+                                toa.success(response.data.message, 'Panākumi')
+                                window.location.href = "/projects";
+                            })
+                            .catch((error) => {
+                                this.formErrors = this.unprocessableEntityHandler(error.response.data.errors);
+                                toa.error(error.response.data.message, 'Kļūda');
+                            })
+                            .finally(() => {
+
+                            });
+                    } else {
+                        this.formErrors = errorField;
+                        toa.error('Norādītie dati nav derīgi', 'Kļūda');
+                    }
                 },
+
                 removeItemFrom: function (type, item) {
-                    console.log(item);
                     let remainingItem = [];
                     let itemIndex = null;
                     this.bojajumi.forEach((value,index ) => {
-
-
-                        var array = Object.values(value.values);
                         if(value.type === type) {
                             itemIndex = index;
-                            remainingItem = array.filter(el => el !== item);
+                            remainingItem = value.values.filter(el => el !== item);
                         }
                     });
                     this.bojajumi[itemIndex].values = remainingItem;
                 },
+
                 addItemFrom: function (type, item) {
                     let itemIndex = null;
                     this.bojajumi.forEach((value, index) => {
@@ -500,20 +547,30 @@
                         }
                     });
 
-                    let array = Object.values(this.bojajumi[itemIndex].values);
-                    array.push(item);
-                    this.bojajumi[itemIndex].values= array;
+                    this.bojajumi[itemIndex].values.push(item);
                 },
-                addCustomItem: function () {
-                    this.customItemList.push(this.customItem);
-                    this.projectData.konstatetie_bojajumi.push(this.customItem);
-                    this.customItem = null;
+
+                addCustomPreviousDamage: function () {
+                    this.previousCustomDamageList.push(this.previousCustomDamage);
+                    this.projectData.konstatetie_bojajumi.push(this.previousCustomDamage);
+                    this.previousCustomDamage = null;
                 },
-                removeCustomItem: function (item) {
-                    let items = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
-                    this.projectData.konstatetie_bojajumi = items;
-                    this.customItem = null;
+                removeCustomPreviousDamage: function (item) {
+                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
+                    this.previousCustomDamage = null;
                 },
+
+                addOtherEqu: function () {
+                    this.previousCustomDamageList.push(this.otherEqu);
+                    this.projectData.other_aprikojums.push(this.otherEqu);
+                    this.otherEqu = null;
+                },
+
+                removeOtherEqu: function (item) {
+                    this.projectData.other_aprikojums = this.projectData.other_aprikojums.filter(el => el !== item);
+                    this.otherEqu = null;
+                },
+
                 hasOtherUtility: function () {
                     let needOtherUtility = false;
 
@@ -525,7 +582,8 @@
 
                     return needOtherUtility;
                 },
-                hasOtherItem: function () {
+
+                hasOtherDamageValue: function () {
                     let needOther = false;
                     this.projectData.konstatetie_bojajumi.forEach((value, index) => {
                         if(value === 'Cits') {
@@ -540,14 +598,29 @@
                     return needOther;
                 },
 
-                manageCustomItem: function () {
-                    this.projectData.konstatetie_bojajumi = this.otherCustomItemsOptions;
+                manageCustomPreviousDamage: function () {
+                    this.projectData.konstatetie_bojajumi = this.definedPreviousDamages;
+                    this.needOtherItem = this.hasOtherDamageValue();
+                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.previousCustomDamageList);
+                },
 
+                errorMessage: function (field) {
+                    if(this.formErrors[field] != undefined && this.formErrors[field]) {
+                        return this.formErrors[field];
+                    }
+                },
 
+                unprocessableEntityHandler(errors) {
+                    let newErrors = {};
 
-                    this.needOtherItem = this.hasOtherItem();
+                    for (const key in errors) {
+                        if (Object.hasOwnProperty.call(errors, key)) {
+                            const fieldError = errors[key];
+                            newErrors[key] = fieldError[0] ?? '-';
+                        }
+                    }
 
-                    this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.concat(this.customItemList);
+                    return newErrors;
                 }
             }
         })

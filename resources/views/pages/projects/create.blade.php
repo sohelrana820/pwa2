@@ -1,11 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    @if(isset($model->id))
-        Update User
-    @else
-        Add User
-    @endif
+    Izveidot projektu
 @endsection
 
 @section('content')
@@ -304,7 +300,7 @@
                     <div class="mb-4">
                         <h6 class="font-15 mt-3">Konstatētie bojājumi</h6>
                         <div class="row">
-                            <div class="col-lg-3" v-for="value in bojajumi[0].values">
+                            <div class="col-lg-3" v-if="bojajumi.length > 0" v-for="value in bojajumi[0].values">
                                 <div class="tip-items"  v-on:click="pickItem(bojajumi[0].type, value)">
                                     @{{value}}
                                 </div>
@@ -433,12 +429,6 @@
     <script>
         var app = new Vue({
             el: '#app',
-            mounted() {
-                var initialData = [];
-                this.bojajumi.forEach((value, index) => {
-
-                });
-            },
             data: {
                 previousDamagesOptions: PREVIOUS_DAMAGES,
                 definedPreviousDamages: [],
@@ -477,7 +467,10 @@
                 needOtherItem: false,
                 formErrors: {}
             },
-
+            mounted() {
+                console.log(11111111111);
+                console.log(this.projectData);
+            },
             methods: {
                 otherUtility: function () {
                     this.needOtherUtility = this.hasOtherUtility();
