@@ -56,6 +56,23 @@
     font-size: 13px;
 }
 
+.inline-items-xs i {
+    position: absolute;
+    right: 6px;
+    top: 2px;
+    font-size: 11px;
+}
+
+
+.inline-items-xs {
+    padding: 2px 25px 0px 12px;
+    margin: 2px;
+    font-weight: 400;
+    font-size: 11px;
+    border: 0px;
+    box-shadow: 1.95px 1.95px 2.6px rgb(0 0 0 / 15%);
+}
+
 
 .inline-items-md {
     padding: 8px 35px 5px 18px;

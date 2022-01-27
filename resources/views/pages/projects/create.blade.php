@@ -269,7 +269,15 @@
 
                             <div class="mb-3" v-if="needOtherUtility">
                                 <label class="form-label">PIEVIENOT JAUNU</label>
-                                <input type="text" v-model="projectData.other_aprikojums" class="form-control" placeholder="Aprīkojums">
+                                <div class="input-group mb-1">
+                                    <input type="text" class="form-control" placeholder="Aprīkojums" v-model="otherEqu">
+                                    <button class="btn btn-dark" type="button" v-on:click="addOtherEqu()">Pievieno Jaunu</button>
+                                </div>
+
+                                <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.other_aprikojums" v-on:click="removeOtherEqu(value)">
+                                    @{{value}}
+                                    <i class="mdi mdi-close"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -323,7 +331,7 @@
                         </div>
 
                         <div class="col-lg-12 mt-2">
-                            <div class="tip-items inline-items-md inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomPreviousDamage(value)">
+                            <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.konstatetie_bojajumi" v-on:click="removeCustomPreviousDamage(value)">
                                 @{{value}}
                                 <i class="mdi mdi-close"></i>
                             </div>
@@ -413,6 +421,7 @@
                 previousCustomDamage: null,
                 previousCustomDamageList: [],
                 bojajumi: INCIDENTS,
+                otherEqu: null,
                 projectData: {
                     lietas_nr: null,
                     masinas_valsts_nr: null,
@@ -429,7 +438,7 @@
                     transporta_ipasnieks: null,
                     apskates_vieta: null,
                     aprikojums: [],
-                    other_aprikojums: null,
+                    other_aprikojums: [],
                     riepu_veids: null,
                     protektoru_dzilums: null,
                     iespejami: null,
@@ -473,6 +482,7 @@
                     }
                     this.removeItemFrom(type, item);
                 },
+
                 submitForm: function () {
                     let data = this.projectData;
                     data['_token'] = '{{ csrf_token() }}'
@@ -494,6 +504,7 @@
                             toa.success('Sorry something went wrong', 'Error');
                         });
                 },
+
                 removeItemFrom: function (type, item) {
                     let remainingItem = [];
                     let itemIndex = null;
@@ -505,6 +516,7 @@
                     });
                     this.bojajumi[itemIndex].values = remainingItem;
                 },
+
                 addItemFrom: function (type, item) {
                     let itemIndex = null;
                     this.bojajumi.forEach((value, index) => {
@@ -515,9 +527,7 @@
 
                     this.bojajumi[itemIndex].values.push(item);
                 },
-                /**
-                 *
-                 */
+
                 addCustomPreviousDamage: function () {
                     this.previousCustomDamageList.push(this.previousCustomDamage);
                     this.projectData.konstatetie_bojajumi.push(this.previousCustomDamage);
@@ -526,6 +536,17 @@
                 removeCustomPreviousDamage: function (item) {
                     this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
                     this.previousCustomDamage = null;
+                },
+
+                addOtherEqu: function () {
+                    this.previousCustomDamageList.push(this.otherEqu);
+                    this.projectData.other_aprikojums.push(this.otherEqu);
+                    this.otherEqu = null;
+                },
+
+                removeOtherEqu: function (item) {
+                    this.projectData.other_aprikojums = this.projectData.other_aprikojums.filter(el => el !== item);
+                    this.otherEqu = null;
                 },
 
                 hasOtherUtility: function () {
