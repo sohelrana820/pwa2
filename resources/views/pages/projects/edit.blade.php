@@ -574,7 +574,7 @@
                 },
 
                 addOtherEqu: function () {
-                    this.previousCustomDamageList.push(this.otherEqu);
+                    //this.previousCustomDamageList.push(this.otherEqu);
                     this.projectData.other_aprikojums.push(this.otherEqu);
                     this.otherEqu = null;
                 },
