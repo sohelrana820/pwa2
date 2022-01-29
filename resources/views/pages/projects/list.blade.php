@@ -30,7 +30,7 @@
                                 </a>
                             </div>
 
-                            <div class="col-sm-2">
+                            <div class="col-sm-2 lsit-page-search">
                                 <div class="text-sm-end">
                                     <form method="get">
                                         <div class="input-group">

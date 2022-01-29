@@ -11,7 +11,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="/">Sākums</a></li>
-                        <li class="breadcrumb-item"><a href="/products">Protokoli</a></li>
+                        <li class="breadcrumb-item"><a href="/projects">Protokoli</a></li>
                         <li class="breadcrumb-item active">Izveidot protokolu</li>
                     </ol>
                 </div>
@@ -180,11 +180,11 @@
                     </div>
 
                     <div class="row mb-4">
-                        <div class="col-lg-9">
+                        <div class="col-lg-12">
                             <h6 class="font-15 mt-3">Aprīkojums</h6>
                             <div class="mt-2">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-check mb-2">
                                             <input id="Ksenona" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Ksenona / dienas gaismas lukturi" class="form-check-input">
                                             <label for="Ksenona" class="form-check-label">Ksenona / dienas gaismas lukturi</label>
@@ -199,7 +199,7 @@
                                             <label for="Panorāmas" class="form-check-label">Panorāmas lūka</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-check mb-2">
                                             <input id="Atpakaļskata" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Atpakaļskata kamera" class="form-check-input">
                                             <label for="Atpakaļskata" class="form-check-label">Atpakaļskata kamera</label>
@@ -215,7 +215,7 @@
                                             <label for="Aklo" class="form-check-label">Aklo zonu / joslu kontrole</label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-check mb-2">
                                             <input id="Papildus" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Papildus signalizācija" class="form-check-input">
                                             <label for="Papildus" class="form-check-label">Papildus signalizācija</label>
@@ -231,9 +231,39 @@
                                             <label for="Sakabes" class="form-check-label">Sakabes āķis</label>
                                         </div>
                                     </div>
+                                    <div class="col-lg-3">
+                                        <h6 class="font-15 mt-3"></h6>
+                                        <div class="form-check mb-2">
+                                            <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
+                                            <label for="Pr" class="form-check-label">Pr. PARKING</label>
+                                        </div>
+
+                                        <div class="form-check mb-2">
+                                            <input id="Tūninga" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
+                                            <label for="Tūninga" class="form-check-label">Tūninga elementi</label>
+                                        </div>
+
+                                        <div class="form-check mb-2">
+                                            <input id="Cits" type="checkbox" name="aprikojums" v-on:change="otherUtility()" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
+                                            <label for="Cits" class="form-check-label">Cits aprīkojums</label>
+                                        </div>
+
+                                        <div class="mb-3" v-if="needOtherUtility">
+                                            <label class="form-label">PIEVIENOT JAUNU</label>
+                                            <div class="input-group mb-1">
+                                                <input type="text" class="form-control" placeholder="Aprīkojums" v-model="otherEqu">
+                                                <button class="btn btn-dark" type="button" v-on:click="addOtherEqu()">Pievieno Jaunu</button>
+                                            </div>
+
+                                            <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.other_aprikojums" v-on:click="removeOtherEqu(value)">
+                                                @{{value}}
+                                                <i class="mdi mdi-close"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <h6 class="font-15 mt-3">Riepu Veids</h6>
                                         <div class="mt-2">
                                             <div class="form-check">
@@ -247,7 +277,7 @@
                                             <small class="text-danger err-txt" v-text="errorMessage('riepu_veids')"></small>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <h6 class="font-15 mt-3">Protektoru dziļums</h6>
                                         <div class="mt-2">
                                             <div class="form-check">
@@ -262,37 +292,6 @@
                                             <small class="text-danger err-txt" v-text="errorMessage('protektoru_dzilums')"></small>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 mt-3">
-                            <h6 class="font-15 mt-3"></h6>
-                            <div class="form-check mb-2">
-                                <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
-                                <label for="Pr" class="form-check-label">Pr. PARKING</label>
-                            </div>
-
-                            <div class="form-check mb-2">
-                                <input id="Tūninga" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Tūninga elementi" class="form-check-input">
-                                <label for="Tūninga" class="form-check-label">Tūninga elementi</label>
-                            </div>
-
-                            <div class="form-check mb-2">
-                                <input id="Cits" type="checkbox" name="aprikojums" v-on:change="otherUtility()" v-model="projectData.aprikojums" value="Cits aprīkojums" class="form-check-input">
-                                <label for="Cits" class="form-check-label">Cits aprīkojums</label>
-                            </div>
-
-                            <div class="mb-3" v-if="needOtherUtility">
-                                <label class="form-label">PIEVIENOT JAUNU</label>
-                                <div class="input-group mb-1">
-                                    <input type="text" class="form-control" placeholder="Aprīkojums" v-model="otherEqu">
-                                    <button class="btn btn-dark" type="button" v-on:click="addOtherEqu()">Pievieno Jaunu</button>
-                                </div>
-
-                                <div class="tip-items inline-items-xs inline-items" v-for="value in projectData.other_aprikojums" v-on:click="removeOtherEqu(value)">
-                                    @{{value}}
-                                    <i class="mdi mdi-close"></i>
                                 </div>
                             </div>
                         </div>
