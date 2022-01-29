@@ -45,6 +45,8 @@
                                 <thead class="table-light">
                                 <tr>
                                     <th>Protokoli</th>
+                                    <th>Lietas NR.</th>
+                                    <th>Mašinas NR.</th>
                                     <th>Izveidots plkst</th>
                                     <th>Atjaunināts plkst</th>
                                     <th class="text-end">Rīcība</th>
@@ -54,6 +56,24 @@
                                 @foreach($projects as $project)
                                     <tr>
                                         <td>{{ $project->id }}</td>
+                                        <td>
+                                            <?php
+                                            foreach ($project->projectMeta as $meta) {
+                                                if($meta->meta_key == 'lietas_nr') {
+                                                    echo $meta->meta_value;
+                                                }
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            foreach ($project->projectMeta as $meta) {
+                                                if($meta->meta_key == 'masinas_valsts_nr') {
+                                                    echo $meta->meta_value;
+                                                }
+                                            }
+                                            ?>
+                                        </td>
                                         <td>{{ date('d M, Y', strtotime($project->created_at)) }}</td>
                                         <td>{{ date('d M, Y', strtotime($project->updated_at)) }}</td>
                                         <td class="table-action text-end">

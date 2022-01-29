@@ -69,6 +69,11 @@ class Projects extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where('id', 'LIKE', "%$search%");
+        return $query->where('id', 'LIKE', "%$search%")
+            ->orWhereHas('projectMeta', function($q) use ($search) {
+                $q->where(function($q) use ($search) {
+                    $q->where('meta_value', 'LIKE', '%' . $search . '%');
+                });
+            });
     }
 }
