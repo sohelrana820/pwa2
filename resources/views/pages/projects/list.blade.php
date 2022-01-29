@@ -60,7 +60,7 @@
                                             <?php
                                             foreach ($project->projectMeta as $meta) {
                                                 if($meta->meta_key == 'lietas_nr') {
-                                                    echo $meta->meta_value;
+                                                    echo $meta->meta_value ? $meta->meta_value : '-';
                                                 }
                                             }
                                             ?>
@@ -69,7 +69,7 @@
                                             <?php
                                             foreach ($project->projectMeta as $meta) {
                                                 if($meta->meta_key == 'masinas_valsts_nr') {
-                                                    echo $meta->meta_value;
+                                                    echo $meta->meta_value ? $meta->meta_value : '-';
                                                 }
                                             }
                                             ?>
