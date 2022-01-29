@@ -30,14 +30,14 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Lietas NR.</label>
-                                <input type="text" :class="validationInput('lietas_nr')" v-model="projectData.lietas_nr" class="form-control" placeholder="Lietas NR">
+                                <input type="text" v-model="projectData.lietas_nr" class="form-control" placeholder="Lietas NR">
                                 <small class="text-danger err-txt" v-text="errorMessage('lietas_nr')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Mašīnas valsts NR.</label>
-                                <input type="text" :class="validationInput('masinas_valsts_nr')" v-model="projectData.masinas_valsts_nr" class="form-control" placeholder="Mašīnas Valsts NR.">
+                                <input type="text" v-model="projectData.masinas_valsts_nr" class="form-control" placeholder="Mašīnas Valsts NR.">
                                 <small class="text-danger err-txt" v-text="errorMessage('masinas_valsts_nr')"></small>
                             </div>
                         </div>
@@ -47,21 +47,21 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Marka</label>
-                                <input type="text" :class="validationInput('marka')" v-model="projectData.marka" class="form-control" placeholder="Marka">
+                                <input type="text" v-model="projectData.marka" class="form-control" placeholder="Marka">
                                 <small class="text-danger err-txt" v-text="errorMessage('marka')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Modelis</label>
-                                <input type="text" :class="validationInput('modelis')" v-model="projectData.modelis" class="form-control" placeholder="Modelis">
+                                <input type="text" v-model="projectData.modelis" class="form-control" placeholder="Modelis">
                                 <small class="text-danger err-txt" v-text="errorMessage('modelis')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Izlaiduma Gads</label>
-                                <input type="text" :class="validationInput('izlaiduma_gads')" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
+                                <input type="text" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
                                 <small class="text-danger err-txt" v-text="errorMessage('izlaiduma_gads')"></small>
                             </div>
                         </div>
@@ -72,21 +72,21 @@
                             <h6 class="font-15 mt-3">Degviela</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input id="Benzīns" :class="validationInput('degviela')" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns" class="form-check-input">
+                                    <input id="Benzīns" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns" class="form-check-input">
                                     <label for="Benzīns" class="form-check-label">Benzīns</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input id="Dīzelis" :class="validationInput('degviela')" type="radio" name="degviela" v-model="projectData.degviela" value="Dīzelis" class="form-check-input">
+                                    <input id="Dīzelis" type="radio" name="degviela" v-model="projectData.degviela" value="Dīzelis" class="form-check-input">
                                     <label for="Dīzelis" class="form-check-label">Dīzelis</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input id="Benzīns_ga" :class="validationInput('degviela')" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns + gāze" class="form-check-input">
+                                    <input id="Benzīns_ga" type="radio" name="degviela" v-model="projectData.degviela" value="Benzīns + gāze" class="form-check-input">
                                     <label for="Benzīns_ga" class="form-check-label">Benzīns + gāze</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input id="Elektrība" :class="validationInput('degviela')" type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
+                                    <input id="Elektrība" type="radio" name="degviela" v-model="projectData.degviela" value="Elektrība" class="form-check-input">
                                     <label for="Elektrība" class="form-check-label">Elektrība</label>
                                 </div>
 
@@ -99,11 +99,11 @@
                             <h6 class="font-15 mt-3">Ātrumkārba</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input id="Automātiskā" :class="validationInput('atrumkarba')" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Automātiskā" class="form-check-input">
+                                    <input id="Automātiskā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Automātiskā" class="form-check-input">
                                     <label for="Automātiskā" class="form-check-label">Automātiskā</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input id="Manuālā" :class="validationInput('atrumkarba')" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Manuālā" class="form-check-input">
+                                    <input id="Manuālā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Manuālā" class="form-check-input">
                                     <label for="Manuālā" class="form-check-label">Manuālā</label>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Nobraukums</label>
-                                <input type="text" :class="validationInput('nobraukums')" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
+                                <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
                                 <small class="text-danger err-txt" v-text="errorMessage('nobraukums')"></small>
                             </div>
                         </div>
@@ -122,14 +122,14 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Motora tilpums</label>
-                                <input :class="validationInput('motora_tilpums')" name="motora_tilpums" type="text" v-model="projectData.motora_tilpums" class="form-control" placeholder="Motora tilpums">
+                                <input name="motora_tilpums" type="text" v-model="projectData.motora_tilpums" class="form-control" placeholder="Motora tilpums">
                                 <small class="text-danger err-txt" v-text="errorMessage('motora_tilpums')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Piedziņa</label>
-                                <select :class="validationInput('piedzina')" class="form-control" v-model="projectData.piedzina">
+                                <select class="form-control" v-model="projectData.piedzina">
                                     <option value="4*2">4*2</option>
                                     <option value="4*4">4*4</option>
                                 </select>
@@ -139,7 +139,7 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Virsbūves Tips</label>
-                                <select :class="validationInput('virsbuves_tips')" class="form-control" v-model="projectData.virsbuves_tips">
+                                <select class="form-control" v-model="projectData.virsbuves_tips">
                                     <option>Sedans</option>
                                     <option>Universāls</option>
                                     <option>Hečbeks</option>
@@ -158,21 +158,22 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Šasijas NR.</label>
-                                <input :class="validationInput('sasija_nr')" type="text" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR.">
-                                <small class="text-danger err-txt" v-text="errorMessage('sasija_nr')"></small>
+                                <input type="text" :class="licenceValid" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR." v-on:keyup="countLicenceNo">
+                                <small class="text-danger err-txt" v-if="licenceValid == 'is-invalid'">Šasijas NR. jābūt 13 cipariem!</small>
+                                <small class="text-danger err-txt" v-if="licenceValid == 'empty'" v-text="errorMessage('sasija_nr')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Transportlīdzekļa īpašnieks</label>
-                                <input :class="validationInput('transporta_ipasnieks')" type="text" v-model="projectData.transporta_ipasnieks" class="form-control" placeholder="Transportlīdzekļa īpašnieks">
+                                <input type="text" v-model="projectData.transporta_ipasnieks" class="form-control" placeholder="Transportlīdzekļa īpašnieks">
                                 <small class="text-danger err-txt" v-text="errorMessage('transporta_ipasnieks')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Apskates Vieta</label>
-                                <input :class="validationInput('apskates_vieta')" type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates Vieta">
+                                <input type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates Vieta">
                                 <small class="text-danger err-txt" v-text="errorMessage('apskates_vieta')"></small>
                             </div>
                         </div>
@@ -236,11 +237,11 @@
                                         <h6 class="font-15 mt-3">Riepu Veids</h6>
                                         <div class="mt-2">
                                             <div class="form-check">
-                                                <input id="Ziemas" :class="validationInput('riepu_veids')" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Ziemas" class="form-check-input">
+                                                <input id="Ziemas" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Ziemas" class="form-check-input">
                                                 <label for="Ziemas" class="form-check-label">Ziemas</label>
                                             </div>
                                             <div class="form-check">
-                                                <input id="Vasaras" :class="validationInput('riepu_veids')" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Vasaras" class="form-check-input">
+                                                <input id="Vasaras" type="radio" v-model="projectData.riepu_veids" name="riepu_veids" value="Vasaras" class="form-check-input">
                                                 <label for="Vasaras" class="form-check-label">Vasaras</label>
                                             </div>
                                             <small class="text-danger err-txt" v-text="errorMessage('riepu_veids')"></small>
@@ -250,12 +251,12 @@
                                         <h6 class="font-15 mt-3">Protektoru dziļums</h6>
                                         <div class="mt-2">
                                             <div class="form-check">
-                                                <input id="Atbilst" :class="validationInput('protektoru_dzilums')" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Atbilst" class="form-check-input">
+                                                <input id="Atbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Atbilst" class="form-check-input">
                                                 <label for="Atbilst" class="form-check-label">Atbilst</label>
                                             </div>
 
                                             <div class="form-check">
-                                                <input id="Neatbilst" :class="validationInput('protektoru_dzilums')" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Neatbilst" class="form-check-input">
+                                                <input id="Neatbilst" type="radio" v-model="projectData.protektoru_dzilums" name="protektoru_dzilums" value="Neatbilst" class="form-check-input">
                                                 <label for="Neatbilst" class="form-check-label">Neatbilst</label>
                                             </div>
                                             <small class="text-danger err-txt" v-text="errorMessage('protektoru_dzilums')"></small>
@@ -358,11 +359,11 @@
                             <h6 class="font-15 mt-3">Iespējami papildus defekti?</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input id="Iespjami_ja" :class="validationInput('iespejami')" type="radio" name="iespejami" v-model="projectData.iespejami" value="Jā" class="form-check-input">
+                                    <input id="Iespjami_ja" type="radio" name="iespejami" v-model="projectData.iespejami" value="Jā" class="form-check-input">
                                     <label for="Iespjami_ja" class="form-check-label">Jā</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input id=Iespjami_na" :class="validationInput('iespejami')" type="radio" name="iespejami" v-model="projectData.iespejami" value="Nē" class="form-check-input">
+                                    <input id=Iespjami_na" type="radio" name="iespejami" v-model="projectData.iespejami" value="Nē" class="form-check-input">
                                     <label for="Iespjami_na" class="form-check-label">Nē</label>
                                 </div>
                             </div>
@@ -374,21 +375,21 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Datums</label>
-                                <input type="text" :class="validationInput('datums')" v-model="projectData.datums" class="form-control" placeholder="Datums">
+                                <input type="text" v-model="projectData.datums" class="form-control" placeholder="Datums">
                                 <small class="text-danger err-txt" v-text="errorMessage('datums')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Eksperts</label>
-                                <input type="text" :class="validationInput('eksperts')" v-model="projectData.eksperts" class="form-control" placeholder="Eksperts">
+                                <input type="text" v-model="projectData.eksperts" class="form-control" placeholder="Eksperts">
                                 <small class="text-danger err-txt" v-text="errorMessage('eksperts')"></small>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Sertefikāta nr.</label>
-                                <input type="text" :class="validationInput('sertefikata')" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
+                                <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
                                 <small class="text-danger err-txt" v-text="errorMessage('sertefikata')"></small>
                             </div>
                         </div>
@@ -399,7 +400,7 @@
                             <h6 class="font-15 mt-3">Es piekrītu ka mani dati</h6>
                             <div class="mt-2">
                                 <div class="form-check form-check-inline">
-                                    <input id="Es_ja" :class="validationInput('piekritu')" type="radio" v-model="projectData.piekritu" value="Jā" class="form-check-input">
+                                    <input id="Es_ja" type="radio" v-model="projectData.piekritu" value="Jā" class="form-check-input">
                                     <label for="Es_ja" class="form-check-label">Jā</label>
                                 </div>
                             </div>
@@ -465,7 +466,8 @@
                 },
                 needOtherUtility: false,
                 needOtherItem: false,
-                formErrors: {}
+                formErrors: {},
+                licenceValid: 'empty',
             },
             mounted() {
                 console.log(11111111111);
@@ -623,12 +625,6 @@
                    }
                 },
 
-                validationInput: function (field) {
-                   if(this.formErrors[field] != undefined && this.formErrors[field]) {
-                       return 'is-invalid';
-                   }
-                },
-
                 unprocessableEntityHandler(errors) {
                     let newErrors = {};
 
@@ -640,7 +636,13 @@
                     }
 
                     return newErrors;
-                }
+                },
+                countLicenceNo() {
+                    this.licenceValid = 'is-invalid';
+                    if(this.projectData.sasija_nr && this.projectData.sasija_nr.length == 13) {
+                        this.licenceValid = 'is-valid'
+                    }
+                },
             }
         })
     </script>
