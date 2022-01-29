@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form @submit.prevent="submitForm('productDeleteForm')">
+                    <form @submit.prevent="submitForm()">
 
                     <div class="row">
                         <div class="col-lg-4">

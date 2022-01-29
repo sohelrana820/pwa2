@@ -24,7 +24,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form @submit.prevent="submitForm('productDeleteForm')">
+                    <form @submit.prevent="submitForm()">
 
                         <div class="row">
                             <div class="col-lg-4">
@@ -447,7 +447,11 @@
             mounted() {
                 let incidents = [];
                 INCIDENTS.forEach((value,index ) => {
-                    var difference = value.values.filter(x => this.projectData.bojajumi[value.type].indexOf(x) === -1);
+                    var difference = value.values;
+                    if(this.projectData.bojajumi[value.type] != undefined) {
+                        difference = value.values.filter(x => this.projectData.bojajumi[value.type].indexOf(x) === -1);
+                    }
+
                     incidents.push({
                         type: value.type,
                         values: difference
@@ -467,7 +471,6 @@
                 if(hasOther) {
                     this.definedPreviousDamages.push('Cits')
                 }
-                console.log(this.projectData.konstatetie_bojajumi);
 
                 //this.definedPreviousDamages = this.projectData.konstatetie_bojajumi;
 
@@ -512,14 +515,16 @@
                     let errorField = [];
                     let hasError = false;
                     Object.keys(projectData).forEach(key => {
-                        if(projectData[key] == null || projectData[key] == '') {
-                            errorField[key] = "Šis lauks ir obligāts!";
-                            hasError = true;
-                        }
+                        if(typeof projectData[key] != 'object') {
+                            if(projectData[key] == null || projectData[key] == '') {
+                                errorField[key] = "Šis lauks ir obligāts!";
+                                hasError = true;
+                            }
 
-                        if(projectData[key] && key === 'sasija_nr' && projectData[key].length !== 13) {
-                            errorField[key] = "Šasijas NR. jābūt 13 cipariem!";
-                            hasError = true;
+                            if(projectData[key] && key === 'sasija_nr' && projectData[key].length !== 13) {
+                                errorField[key] = "Šasijas NR. jābūt 13 cipariem!";
+                                hasError = true;
+                            }
                         }
                     });
 
