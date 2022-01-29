@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-lg-4">
                             <h6 class="font-15 mt-3">Ātrumkārba</h6>
-                            <div class="mt-2">
+                            <div class="mt-2 mb-3">
                                 <div class="form-check form-check-inline">
                                     <input id="Automātiskā" type="radio" v-model="projectData.atrumkarba" name="atrumkarba" value="Automātiskā" class="form-check-input">
                                     <label for="Automātiskā" class="form-check-label">Automātiskā</label>
