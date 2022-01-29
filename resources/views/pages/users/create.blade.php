@@ -48,12 +48,12 @@
 
                         <div class="row form-group">
                             <div class="col-lg-6 mb-3">
-                                <label for="first_name" class="form-label">First Name</label>
+                                <label for="first_name" class="form-label">Vārds</label>
                                 <input type="text"
                                        name="first_name"
                                        id="first_name"
                                        class="form-control"
-                                       placeholder="Enter first name"
+                                       placeholder="Vārds"
                                        value="{{ $model->first_name ?? old('first_name') }}"
                                        required="required"
                                 >
@@ -64,12 +64,12 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="last_name" class="form-label">Last Name</label>
+                                <label for="last_name" class="form-label">Uzvārds</label>
                                 <input type="text"
                                        name="last_name"
                                        id="last_name"
                                        class="form-control"
-                                       placeholder="Enter last name"
+                                       placeholder="Uzvārds"
                                        value="{{ $model->last_name ?? old('last_name') }}"
                                        required="required"
                                 >
@@ -83,12 +83,12 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-lg-6 mb-3">
-                                <label for="email_address" class="form-label">Email Address</label>
+                                <label for="email_address" class="form-label">Epasts</label>
                                 <input type="email"
                                        name="email"
                                        id="email_address"
                                        class="form-control"
-                                       placeholder="Enter email address"
+                                       placeholder="Epasts"
                                        value="{{ $model->email ?? old('email') }}"
                                        required="required"
                                 >
@@ -100,15 +100,16 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="mobile_number" class="form-label">Mobile Number</label>
+                                <label for="mobile_number" class="form-label">Mobilais numurs</label>
                                 <input type="text"
                                        name="mobile_number"
                                        id="mobile_number"
                                        class="form-control"
-                                       placeholder="Enter mobile number"
+                                       placeholder="Mobilais numurs"
                                        value="{{ $model->mobile_number ?? old('mobile_number') }}"
                                        required="required"
                                 >
+
 
                                 @error('mobile_number')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -118,14 +119,29 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="useremail" class="form-label">Sertefikāta nr.</label>
+                                    <input type="text"
+                                           name="certificate_no"
+                                           class="form-control" id="certificate_no"
+                                           placeholder="Sertefikāta nr."
+                                           value="{{ $model->certificate_no ?? old('certificate_no') }}"
+                                           required="required"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row form-group">
                             <div class="col-lg-6 mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label">Parole</label>
                                 <input type="password"
                                        name="password"
                                        id="password"
                                        class="form-control"
-                                       placeholder="Enter password"
+                                       placeholder="Parole"
                                 >
 
                                 @error('password')
@@ -135,7 +151,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-6 mb-3">
-                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <label for="confirm_password" class="form-label">Apstiprināt paroli</label>
                                 <input type="password"
                                        name="confirm_password"
                                        id="confirm_password"
@@ -154,15 +170,15 @@
                         @if(isset($model->id))
                             <div class="row form-group">
                                 <div class="col-lg-6 mb-3">
-                                    <label for="project-overview" class="form-label">Active Status</label>
+                                    <label for="project-overview" class="form-label">Aktīvs statuss</label>
                                     <select name="active_status" class="form-control select2" data-toggle="select2">
-                                        <option value="1" {{ $model->active_status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="2" {{ $model->active_status == 2 ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" {{ $model->active_status == 1 ? 'selected' : '' }}>Aktīvs</option>
+                                        <option value="2" {{ $model->active_status == 2 ? 'selected' : '' }}>Neaktīvs</option>
                                     </select>
                                 </div>
                             </div>
                         @endif
-                        <button type="submit" class="btn btn-success float-right">{{ isset($model->id) ? __('Update') : __('Save') }}</button>
+                        <button type="submit" class="btn btn-success float-right">{{ isset($model->id) ? __('Atjaunināt') : __('Saglabāt') }}</button>
                     </form>
                 </div>
             </div>

@@ -28,8 +28,10 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
-            'last_name' => 'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
+            /*'first_name' => 'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
+            'last_name' => 'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',*/
+            'first_name' => 'required|max:32',
+            'last_name' => 'required|max:32',
             'email' => 'sometimes|required_unless:email,null|email',
             'mobile_number' => 'required|max:15',
             'password' => 'nullable|min:8',

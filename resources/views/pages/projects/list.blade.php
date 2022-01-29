@@ -35,6 +35,7 @@
                                     <form method="get">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Meklēt" name="q" aria-label="Meklēt" value=" {{request()->query('q')}}">
+                                            <button class="btn btn-dark" type="submit">Meklēt</button>
                                         </div>
                                     </form>
                                 </div>
