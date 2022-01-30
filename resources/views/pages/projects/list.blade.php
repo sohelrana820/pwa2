@@ -23,14 +23,14 @@
             <div class="card">
                 <?php if($projects->count() > 0): ?>
                     <div class="card-body" >
-                        <div class="row mb- justify-content-between">
-                            <div class="col-sm-4">
+                        <div class="row mb-2 justify-content-between">
+                            <div class="col-lg-4 col-sm-6 col-md-6">
                                 <a href="{{ route('projects.create') }}" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle me-2"></i> Jauns Projekts
                                 </a>
                             </div>
 
-                            <div class="col-sm-2 lsit-page-search">
+                            <div class="col-lg-4 col-sm-6 col-md-6">
                                 <div class="text-sm-end">
                                     <form method="get">
                                         <div class="input-group">

@@ -23,12 +23,12 @@
         <div class="card">
             <div class="card-body">
                 <div class="row mb-2 justify-content-between">
-                    <div class="col-sm-4">
+                    <div class="col-lg-4 col-sm-6 col-md-6">
                         <a href="{{ route('users.create') }}" class="btn btn-danger mb-2">
                             <i class="mdi mdi-plus-circle me-2"></i> Pievienot lietotāju
                         </a>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-lg-4 col-sm-6 col-md-6">
                         <div class="text-sm-end">
                             <form method="get">
                                 <div class="input-group">
