@@ -1,4 +1,4 @@
-<div class="navbar-custom topnav-navbar topnav-navbar-dark">
+<div class="navbar-custom topnav-navbar">
     <div class="container-fluid">
         <a href="#" class="topnav-logo">
             <span class="topnav-logo-lg">
