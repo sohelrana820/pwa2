@@ -112,6 +112,7 @@ class ProjectController extends Controller
         }
         unset($project['project_meta']);
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'project' => $project]);
+       // return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'project' => $project]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent);
         $name = sprintf('project_id_%s.pdf', $id);
