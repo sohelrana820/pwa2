@@ -41,6 +41,13 @@
                                     <small class="text-danger err-txt" v-text="errorMessage('masinas_valsts_nr')"></small>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Izlaiduma Gads</label>
+                                    <input type="text" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
+                                    <small class="text-danger err-txt" v-text="errorMessage('izlaiduma_gads')"></small>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -60,9 +67,9 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
-                                    <label class="form-label">Izlaiduma Gads</label>
-                                    <input type="text" v-model="projectData.izlaiduma_gads" class="form-control" placeholder="Izlaiduma Gads">
-                                    <small class="text-danger err-txt" v-text="errorMessage('izlaiduma_gads')"></small>
+                                    <label class="form-label">Nobraukums</label>
+                                    <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
+                                    <small class="text-danger err-txt" v-text="errorMessage('nobraukums')"></small>
                                 </div>
                             </div>
                         </div>
@@ -110,11 +117,7 @@
                                 <small class="text-danger err-txt" v-text="errorMessage('atrumkarba')"></small>
                             </div>
                             <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <label class="form-label">Nobraukums</label>
-                                    <input type="text" v-model="projectData.nobraukums" class="form-control" placeholder="Nobraukums">
-                                    <small class="text-danger err-txt" v-text="errorMessage('nobraukums')"></small>
-                                </div>
+
                             </div>
                         </div>
 
