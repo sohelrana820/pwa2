@@ -184,7 +184,7 @@
                 </div>
 
                 <div class="single-ele">
-                    <h4 class="item-head">Virsbūves Tips</h4>
+                    <h4 class="item-head">Virsbves Tips</h4>
                     <?php echo $projectMetas['virsbuves_tips']; ?>
                 </div>
             </td>
@@ -196,7 +196,7 @@
                 </div>
 
                 <div class="single-ele">
-                    <h4 class="item-head">Transportlīdzekļa īpašnieks</h4>
+                    <h4 class="item-head">Transportldzeka pašnieks</h4>
                     <?php echo $projectMetas['transporta_ipasnieks']; ?>
                 </div>
 
@@ -223,7 +223,7 @@
                 </div>
 
                 <div class="single-ele">
-                    <h4 class="item-head">Piedziņa</h4>
+                    <h4 class="item-head">Piedzia</h4>
                     <?php echo $projectMetas['piedzina']; ?>
                 </div>
 
@@ -240,7 +240,7 @@
                 </div>
 
                 <div class="single-ele">
-                    <h4 class="item-head">Ātrumkārba</h4>
+                    <h4 class="item-head">Trumkrba</h4>
                     <?php echo $projectMetas['nobraukums']; ?>
                 </div>
             </td>
@@ -248,7 +248,7 @@
 
         <tr>
             <td class="b-t b-l">
-                <h4 class="item-head">Aprīkojums</h4>
+                <h4 class="item-head">Aprkojums</h4>
                 <div class="array-elements">
                     <?php
                     foreach ($projectMetas['aprikojums'] as $item){
@@ -271,7 +271,7 @@
             </td>
 
             <td class="b-t">
-                <h4 class="item-head">Protektoru dziļums</h4>
+                <h4 class="item-head">Protektoru dziums</h4>
                 <?php echo $projectMetas['protektoru_dzilums']; ?>
             </td>
 
@@ -282,7 +282,7 @@
 
         <tr>
             <td class="b-t b-l b-r" colspan="4">
-                <h4 class="item-head">Izvēlētie Bojājumi</h4>
+                <h4 class="item-head">Izvltie Bojjumi </h4>
                 <?php foreach ($projectMetas['bojajumi'] as $key => $item)
                 {
                     if($key == 'extras') {
@@ -318,7 +318,7 @@
 
         <tr>
             <td colspan="2" class="b-t b-l">
-                <h4 class="item-head">Konstatēti Iepriekšejie Bojājumi</h4>
+                <h4 class="item-head">Konstatti Iepriekšejie Bojjumi</h4>
                 <div class="array-elements">
                     <?php
                     foreach ($projectMetas['konstatetie_bojajumi'] as $item){
@@ -329,7 +329,7 @@
             </td>
 
             <td colspan="2" class="b-t b-l b-r">
-                <h4 class="item-head">Iespējami papildus defekti?</h4>
+                <h4 class="item-head">Iespjami papildus defekti?</h4>
                 <?php echo $projectMetas['iespejami']; ?>
             </td>
         </tr>
@@ -346,7 +346,7 @@
             </td>
 
             <td class="b-t b-l b-b">
-                <h4 class="item-head">Sertefikāta nr.</h4>
+                <h4 class="item-head">Sertefikta nr.</h4>
                 <?php echo $projectMetas['sertefikata']; ?>
             </td>
 
