@@ -105,14 +105,14 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Projects::find($id)->with('projectMeta')->first()->toArray();
+        $projectMetas = Projects::find($id)->projectMeta;
         $metaData = [];
-        foreach ($project['project_meta'] as $key => $meta) {
-            $metaData[$meta['meta_key']] = $meta['data_type'] == 'json' ? json_decode($meta['meta_value'], true) : $meta['meta_value'];
+        foreach ($projectMetas as $key => $meta) {
+            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
         }
-        unset($project['project_meta']);
-        $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'project' => $project]);
-        //return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'project' => $project]);
+
+        $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
+        return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent);
         $name = sprintf('project_id_%s.pdf', $id);
@@ -145,6 +145,11 @@ class ProjectController extends Controller
             $metaData['aprikojums'] = [];
         }
 
+        if(!array_key_exists('other_aprikojums', $metaData)) {
+            $metaData['other_aprikojums'] = [];
+        }
+
+        dd($metaData);
         return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
     }
 
@@ -164,6 +169,8 @@ class ProjectController extends Controller
                 $data = is_array($option) ? json_encode($option) :  $option;
                 $dataType = is_array($option) ? 'json' :  'string';
 
+                var_dump($key);
+                var_dump(is_array($option));
                 $projectsMeta[] = [
                     'project_id' => $id,
                     'meta_key' => $key,
@@ -174,6 +181,7 @@ class ProjectController extends Controller
                 ];
             }
         }
+        dd($projectsMeta);
 
         ProjectsMeta::where('project_id', $id)->delete();
         $projectMeta = ProjectsMeta::insert($projectsMeta);
