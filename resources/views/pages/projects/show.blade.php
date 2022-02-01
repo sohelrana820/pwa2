@@ -109,6 +109,15 @@
             color:#333;
         }
 
+        .item-head2{
+            font-size: 14px;
+            font-weight: 600;
+            margin:0px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color:#333;
+        }
+
         table{
             width: 100%;
         }
@@ -141,6 +150,10 @@
         .border-less-table .item-head{
             margin-bottom: 5px;
         }
+
+        .single-ele{
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -155,81 +168,85 @@
     <table class="table-border">
         <tr>
             <td class="b-t b-l">
-                <h4 class="item-head">Lietas NR.</h4>
-                <?php echo $projectMetas['lietas_nr']; ?>
+                <div class="single-ele">
+                    <h4 class="item-head">Lietas NR.</h4>
+                    <?php echo $projectMetas['lietas_nr']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Šasijas NR.</h4>
+                    <?php echo $projectMetas['sasija_nr']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Izlaiduma Gads</h4>
+                    <?php echo $projectMetas['izlaiduma_gads']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Virsbūves Tips</h4>
+                    <?php echo $projectMetas['virsbuves_tips']; ?>
+                </div>
             </td>
 
             <td class="b-t b-l">
-                <h4 class="item-head">Mašīnas valsts NR.</h4>
-                <?php echo $projectMetas['masinas_valsts_nr']; ?>
+                <div class="single-ele">
+                    <h4 class="item-head">Mašīnas valsts NR.</h4>
+                    <?php echo $projectMetas['masinas_valsts_nr']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Transportlīdzekļa īpašnieks</h4>
+                    <?php echo $projectMetas['transporta_ipasnieks']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Nobraukums</h4>
+                    <?php echo $projectMetas['atrumkarba']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Motora tilpums</h4>
+                    <?php echo $projectMetas['motora_tilpums']; ?>
+                </div>
             </td>
 
             <td class="b-t b-l">
-                <h4 class="item-head">Marka</h4>
-                <?php echo $projectMetas['marka']; ?>
+                <div class="single-ele">
+                    <h4 class="item-head">Marka</h4>
+                    <?php echo $projectMetas['marka']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Apskates Vieta</h4>
+                    <?php echo $projectMetas['apskates_vieta']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Piedziņa</h4>
+                    <?php echo $projectMetas['piedzina']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Degviela</h4>
+                    <?php echo $projectMetas['degviela']; ?>
+                </div>
             </td>
 
             <td class="b-t b-l b-r">
-                <h4 class="item-head">Modelis</h4>
-                <?php echo $projectMetas['modelis']; ?>
+                <div class="single-ele">
+                    <h4 class="item-head">Modelis</h4>
+                    <?php echo $projectMetas['modelis']; ?>
+                </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Ātrumkārba</h4>
+                    <?php echo $projectMetas['nobraukums']; ?>
+                </div>
             </td>
         </tr>
 
         <tr>
-            <td class="b-t b-l">
-                <h4 class="item-head">Izlaiduma Gads</h4>
-                <?php echo $projectMetas['izlaiduma_gads']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Degviela</h4>
-                <?php echo $projectMetas['degviela']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Ātrumkārba</h4>
-                <?php echo $projectMetas['nobraukums']; ?>
-            </td>
-
-            <td class="b-t b-l b-r">
-                <h4 class="item-head">Nobraukums</h4>
-                <?php echo $projectMetas['atrumkarba']; ?>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="b-t b-l">
-                <h4 class="item-head">Motora tilpums</h4>
-                <?php echo $projectMetas['motora_tilpums']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Piedziņa</h4>
-                <?php echo $projectMetas['piedzina']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Virsbūves Tips</h4>
-                <?php echo $projectMetas['virsbuves_tips']; ?>
-            </td>
-
-            <td class="b-t b-l b-r">
-                <h4 class="item-head">Šasijas NR.</h4>
-                <?php echo $projectMetas['sasija_nr']; ?>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="b-t b-l">
-                <h4 class="item-head">Transportlīdzekļa īpašnieks</h4>
-                <?php echo $projectMetas['transporta_ipasnieks']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Apskates Vieta</h4>
-                <?php echo $projectMetas['apskates_vieta']; ?>
-            </td>
-
             <td class="b-t b-l">
                 <h4 class="item-head">Aprīkojums</h4>
                 <div class="array-elements">
@@ -252,42 +269,13 @@
                 <h4 class="item-head">Riepu Veids</h4>
                 <?php echo $projectMetas['riepu_veids']; ?>
             </td>
-        </tr>
 
-        <tr>
-            <td class="b-t b-l">
+            <td class="b-t">
                 <h4 class="item-head">Protektoru dziļums</h4>
                 <?php echo $projectMetas['protektoru_dzilums']; ?>
             </td>
 
-            <td class="b-t b-l">
-                <h4 class="item-head">Iespējami papildus defekti?</h4>
-                <?php echo $projectMetas['iespejami']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Datums</h4>
-                <?php echo $projectMetas['datums']; ?>
-            </td>
-
-            <td class="b-t b-l b-r">
-                <h4 class="item-head">Eksperts</h4>
-                <?php echo $projectMetas['eksperts']; ?>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="b-t b-l">
-                <h4 class="item-head">Sertefikāta nr.</h4>
-                <?php echo $projectMetas['sertefikata']; ?>
-            </td>
-
-            <td class="b-t b-l">
-                <h4 class="item-head">Es piekrītu ka mani dati</h4>
-                <?php echo $projectMetas['piekritu']; ?>
-            </td>
-
-            <td colspan="2" class="b-t b-l b-r">
+            <td class="b-l b-t b-r">
 
             </td>
         </tr>
@@ -329,7 +317,7 @@
         </tr>
 
         <tr>
-            <td class="b-t b-l b-b">
+            <td colspan="2" class="b-t b-l">
                 <h4 class="item-head">Konstatēti Iepriekšejie Bojājumi</h4>
                 <div class="array-elements">
                     <?php
@@ -340,14 +328,31 @@
                 </div>
             </td>
 
+            <td colspan="2" class="b-t b-l b-r">
+                <h4 class="item-head">Iespējami papildus defekti?</h4>
+                <?php echo $projectMetas['iespejami']; ?>
+            </td>
+        </tr>
+
+        <tr>
             <td class="b-t b-l b-b">
-                <h4 class="item-head">Projekta izveides laiks</h4>
-                <?php echo date('d M, Y', strtotime($project['created_at']))?>
+                <h4 class="item-head">Datums</h4>
+                <?php echo $projectMetas['datums']; ?>
             </td>
 
-            <td class="b-t b-l b-b b-r" colspan="2">
-                <h4 class="item-head">Pēdējās atjaunināšanas laiks</h4>
-                <?php echo date('d M, Y', strtotime($project['updated_at']))?>
+            <td class="b-t b-l b-b">
+                <h4 class="item-head">Eksperts</h4>
+                <?php echo $projectMetas['eksperts']; ?>
+            </td>
+
+            <td class="b-t b-l b-b">
+                <h4 class="item-head">Sertefikāta nr.</h4>
+                <?php echo $projectMetas['sertefikata']; ?>
+            </td>
+
+            <td class="b-t b-l b-b b-r">
+                <h4 class="item-head">Es piekrītu ka mani dati</h4>
+                <?php echo $projectMetas['piekritu']; ?>
             </td>
         </tr>
     </table>
