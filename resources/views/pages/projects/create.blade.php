@@ -331,6 +331,11 @@
                         </div>
                     </div>
 
+                    <!-- Dropzone container -->
+                    <div id="myDropZone" class="dropzone dropzone-design">
+                        <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                    </div>
+
                     <div class="row mb-2">
                         <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                         <div class="col-lg-4">
@@ -429,7 +434,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.3/min/dropzone.min.js"></script>
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.3/dropzone.min.css" rel="stylesheet" media="all">-->
     <script>
+
+        const UNIQUE_ID = '_' + Math.random().toString(36).substr(2, 12);
+
+        Dropzone.autoDiscover = false;
+        $(function () {
+            $("div#myDropZone").dropzone({
+                url: "/media/upload",
+                headers: {
+                    "X-CSRF-Token" : "{{ csrf_token() }}",
+                    "X-UniqueId" : UNIQUE_ID
+                },
+            });
+        });
+
+
         var app = new Vue({
             el: '#app',
             data: {
