@@ -84,6 +84,21 @@
                                         <td>{{ date('d M, Y', strtotime($project->created_at)) }}</td>
                                         <td>{{ date('d M, Y', strtotime($project->updated_at)) }}</td>
                                         <td class="table-action text-end">
+
+                                            <span class="projectGallery">
+                                                <?php foreach ($project->ProjectImages as $key => $image):
+                                                $name = str_replace($project->id.'/', '', strstr($image['url_path'], $project->id.'/'));
+                                                ?>
+                                                    <a href="<?php echo $image['url_path']; ?>" title="<?php echo $name; ?>">
+                                                        <?php
+                                                        echo $key == 0 ? 'Attēlu galerija' : '';
+                                                        ?>
+                                                        <img src="<?php echo $image['url_path']; ?>" alt="<?php echo $name; ?>" class="img-fluid">
+                                                    </a>
+                                                <?php endforeach; ?>
+                                            </span>
+
+
                                             <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon text-success" title="Eksportēt kā PDF">
                                                 <i class="mdi mdi-file-pdf-outline"></i>
                                             </a>
@@ -128,4 +143,21 @@
 
 @section('styles')
     <link href="{{ asset('assets/css/vendor/dataTables.bootstrap5.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" type="text/css" />
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <script>
+        (function ($) {
+            $( ".projectGallery" ).each(function( index ) {
+                $(this).magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    gallery:{enabled:true}
+                });
+            });
+        })(jQuery);
+    </script>
 @endsection

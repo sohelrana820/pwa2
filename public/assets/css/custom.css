@@ -464,6 +464,12 @@
     line-height: 117px;
 }
 
+.projectGallery img{
+    width: 100px;
+    height:40px;
+    display: none;
+}
+
 
 @media screen and (max-width: 768px) {
     .lsit-page-search{
