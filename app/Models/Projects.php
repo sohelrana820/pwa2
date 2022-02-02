@@ -48,7 +48,7 @@ class Projects extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function projectImages() {
-        return $this->hasMany(ProjectsImages::class, 'project_id');
+        return $this->hasMany('App\Models\ProjectsImages', 'project_id', 'id');
     }
 
     /**

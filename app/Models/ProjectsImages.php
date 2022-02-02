@@ -34,4 +34,9 @@ class ProjectsImages extends Model
         'project_id',
         'url_path',
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Projects::class);
+    }
 }

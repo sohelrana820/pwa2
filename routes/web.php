@@ -25,7 +25,7 @@ use App\Http\Controllers\ProjectController;
 */
 Route::get('/', function () {
     return redirect(route('login'));
-});
+})->name('default');
 
 Auth::routes([
     'register' => false, // Disable new registration

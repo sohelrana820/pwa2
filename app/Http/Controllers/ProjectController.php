@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Class ProjectController
@@ -97,7 +98,6 @@ class ProjectController extends Controller
                 $exist = Storage::disk('public')->exists($copyFrom);
                 if($exist) {
                     Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public')->get($copyFrom));
-                    Storage::disk('public')->deleteDirectory($uniqueId);
                     $url = Storage::disk('public-upload-images')->url($copyTo);
                     $url = strstr($url, '/projects_images');
                     $projectsImages[] = [
@@ -108,6 +108,7 @@ class ProjectController extends Controller
                     ];
                 }
             }
+            Storage::disk('public')->deleteDirectory($uniqueId);
             ProjectsImages::insert($projectsImages);
         }
 
@@ -180,9 +181,19 @@ class ProjectController extends Controller
             $metaData['other_aprikojums'] = [];
         }
 
-        dd($project->projectImages);
+        $projectImages = ProjectsImages::where('project_id', $id)->get()->toArray();
+        $imagesName = [];
+        $imagesList = [];
+        foreach ($projectImages as $image) {
+            $name = str_replace($id.'/', '', strstr($image['url_path'], $id.'/'));
+            $imagesName[] = $name;
+            $imagesList[] = [
+                'name' => $name,
+                'url' => URL::route('default') . $image['url_path'],
+            ];
+        }
 
-        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
+        return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id, 'image_list' => $imagesList, 'image_name' => $imagesName]);
     }
 
     /**
@@ -201,8 +212,6 @@ class ProjectController extends Controller
                 $data = is_array($option) ? json_encode($option) : $option;
                 $dataType = is_array($option) ? 'json' : 'string';
 
-                var_dump($key);
-                var_dump(is_array($option));
                 $projectsMeta[] = [
                     'project_id' => $id,
                     'meta_key' => $key,
@@ -213,7 +222,45 @@ class ProjectController extends Controller
                 ];
             }
         }
-        dd($projectsMeta);
+
+
+        /**
+         * Uploading project images.
+         */
+        if ($request->has('files')) {
+            $fileRequest = $request->get('files');
+
+            if($fileRequest['changed']) {
+                $files = $fileRequest['files'];
+                $uniqueId = $fileRequest['unique_id'];
+
+                $projectsImages = [];
+                foreach ($files as $file) {
+                    $copyFrom = sprintf('%s/%s', $uniqueId, $file);
+                    $copyTo = sprintf('projects_images/%s/%s', $id, $file);
+                    $exist = Storage::disk('public')->exists($copyFrom);
+                    if($exist) {
+                        Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public')->get($copyFrom));
+                    }
+                }
+                Storage::disk('public')->deleteDirectory($uniqueId);
+
+
+                foreach ($files as $file) {
+                    $copyTo = sprintf('projects_images/%s/%s', $id, $file);
+                    $url = Storage::disk('public-upload-images')->url($copyTo);
+                    $url = strstr($url, '/projects_images');
+                    $projectsImages[] = [
+                        'project_id' => $id,
+                        'url_path' => $url,
+                        'created_at' => date('Y-m-d H:j:s'),
+                        'updated_at' => date('Y-m-d H:j:s')
+                    ];
+                }
+                ProjectsImages::where('project_id', $id)->delete();
+                ProjectsImages::insert($projectsImages);
+            }
+        }
 
         ProjectsMeta::where('project_id', $id)->delete();
         $projectMeta = ProjectsMeta::insert($projectsMeta);

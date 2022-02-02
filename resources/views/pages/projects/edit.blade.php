@@ -331,6 +331,11 @@
                             </div>
                         </div>
 
+                        <!-- Dropzone container -->
+                        <div id="myDropZone" class="dropzone dropzone-design">
+                            <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
+                        </div>
+
                         <div class="row mb-2">
                             <h6 class="font-15 mt-3">Konstatēti Iepriekšejie Bojājumi</h6>
                             <div class="col-lg-4">
@@ -426,8 +431,55 @@
     <script src="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-toastr-2/dist/vue-toastr-2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.3/min/dropzone.min.js"></script>
 
     <script>
+        UNIQUE_ID = '_' + Math.random().toString(36).substr(2, 12);
+        FILES_CHANGES = false;
+        FILES = JSON.parse('<?php echo json_encode($image_name); ?>');
+        PREVIOUS_IMAGES = JSON.parse('<?php echo json_encode($image_list); ?>');
+
+        Dropzone.autoDiscover = false;
+        $(function () {
+            var dropdoneInstance = new Dropzone('#myDropZone', {
+                url: "/media/upload",
+                maxFilesize: 100,
+                acceptedFiles: "image/jpeg,image/png,image/gif",
+                addRemoveLinks: true,
+                uploadMultiple: true,
+                parallelUploads: 50,
+                headers: {
+                    "X-CSRF-Token" : "{{ csrf_token() }}",
+                    "X-UniqueId" : UNIQUE_ID
+                },
+            })
+
+            dropdoneInstance.on("success",function(file) {
+                FILES.push(file.name);
+                FILES_CHANGES = true;
+            });
+
+            dropdoneInstance.on("removedfile",function(file) {
+                let files = FILES.filter(el => el !== file.name);
+                FILES = files;
+                FILES_CHANGES = true;
+            });
+
+            dropdoneInstance.on("error",function(file, res) {
+                toastr.error(res, 'Kļūda');
+                this.removeFile(file);
+            });
+
+            for(let i = 0; i < PREVIOUS_IMAGES.length; i++) {
+                let img = PREVIOUS_IMAGES[i];
+                var mockFile = {name: img.name, url: img.url};
+                dropdoneInstance.emit("addedfile", mockFile);
+                dropdoneInstance.emit("thumbnail", mockFile, img.url);
+                dropdoneInstance.emit("complete", mockFile);
+            }
+        });
+
+
         const PROJECT_DATA_RAW  = '<?php echo json_encode($project); ?>';
         const PROJECT_DATA = JSON.parse(PROJECT_DATA_RAW);
         var app = new Vue({
@@ -534,6 +586,7 @@
                     if(hasError == false) {
                         let data = projectData;
                         data['_token'] = '{{ csrf_token() }}'
+                        data['files'] = {files: FILES, unique_id: UNIQUE_ID, changed: FILES_CHANGES}
                         axios.put('/projects/update/<?php echo $projectId;?>', data)
                             .then((response) => {
                                 toa.success(response.data.message, 'Panākumi')
