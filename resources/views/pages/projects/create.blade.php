@@ -439,15 +439,38 @@
     <script>
 
         const UNIQUE_ID = '_' + Math.random().toString(36).substr(2, 12);
+        var FILES_CHANGES = false;
+        const FILES = [];
 
         Dropzone.autoDiscover = false;
         $(function () {
-            $("div#myDropZone").dropzone({
+            var dropdoneInstance = new Dropzone('#myDropZone', {
                 url: "/media/upload",
+                maxFilesize: 100,
+                acceptedFiles: "image/jpeg,image/png,image/gif",
+                addRemoveLinks: true,
+                uploadMultiple: true,
+                parallelUploads: 5,
                 headers: {
                     "X-CSRF-Token" : "{{ csrf_token() }}",
                     "X-UniqueId" : UNIQUE_ID
                 },
+            })
+
+            dropdoneInstance.on("success",function(file) {
+                FILES.push(file.name);
+                FILES_CHANGES = true;
+            });
+
+            dropdoneInstance.on("removedfile",function(file) {
+                let FILES = FILES.filter(el => el !== file.name);
+                FILES = FILES;
+                FILES_CHANGES = true;
+            });
+
+            dropdoneInstance.on("error",function(file, res) {
+                toastr.error(res, 'Kļūda');
+                this.removeFile(file);
             });
         });
 
@@ -544,10 +567,12 @@
                         }
                     });
 
+
                     var toa = this.$toastr;
                     if(hasError == false) {
                         let data = projectData;
                         data['_token'] = '{{ csrf_token() }}'
+                        data['files'] = {files: FILES, unique_id: UNIQUE_ID, changed: FILES_CHANGES}
                         axios.post('/projects/store', data)
                             .then((response) => {
                                 toa.success(response.data.message, 'Panākumi')

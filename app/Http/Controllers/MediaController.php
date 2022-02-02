@@ -14,9 +14,12 @@ class MediaController extends Controller
     public function upload(Request $request) : JsonResponse
     {
         $uniqueId = $request->header('X-UniqueId');
-        $file = $request->file('file');
-        $filename = $file->getClientOriginalName();
-        $result = $file->storeAs(sprintf('/public/%s/', $uniqueId), $filename);
+        $files = $request->file('file');
+        foreach ($files as $file) {
+            $filename = $file->getClientOriginalName();
+            $result = $file->storeAs(sprintf('/public/%s/', $uniqueId), $filename);
+        }
+
         if($result) {
             return response()->json([
                 'success' => true,

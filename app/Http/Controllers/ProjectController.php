@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Forms\ProjectForm;
 use App\Models\Projects;
+use App\Models\ProjectsImages;
 use App\Models\ProjectsMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class ProjectController
@@ -25,7 +27,7 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $query = null;
-        if(isset($request->q)) {
+        if (isset($request->q)) {
             $query = $request->q;
         }
         $projects = Projects::search($query)
@@ -51,7 +53,7 @@ class ProjectController extends Controller
     /**
      * Create project.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,9 +67,9 @@ class ProjectController extends Controller
 
         app(ProjectForm::class)->validate($requestOptions);
         foreach ($requestOptions as $key => $option) {
-            if($key != '_token') {
-                $data = is_array($option) ? json_encode($option) :  $option;
-                $dataType = is_array($option) ? 'json' :  'string';
+            if ($key != '_token') {
+                $data = is_array($option) ? json_encode($option) : $option;
+                $dataType = is_array($option) ? 'json' : 'string';
 
                 $projectsMeta[] = [
                     'project_id' => $project->id,
@@ -80,8 +82,37 @@ class ProjectController extends Controller
             }
         }
 
+        /**
+         * Uploading project images.
+         */
+        if ($request->has('files')) {
+            $fileRequest = $request->get('files');
+            $files = $fileRequest['files'];
+            $uniqueId = $fileRequest['unique_id'];
+
+            $projectsImages = [];
+            foreach ($files as $file) {
+                $copyFrom = sprintf('%s/%s', $uniqueId, $file);
+                $copyTo = sprintf('projects_images/%s/%s', $project->id, $file);
+                $exist = Storage::disk('public')->exists($copyFrom);
+                if($exist) {
+                    Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public')->get($copyFrom));
+                    Storage::disk('public')->deleteDirectory($uniqueId);
+                    $url = Storage::disk('public-upload-images')->url($copyTo);
+                    $url = strstr($url, '/projects_images');
+                    $projectsImages[] = [
+                        'project_id' => $project->id,
+                        'url_path' => $url,
+                        'created_at' => date('Y-m-d H:j:s'),
+                        'updated_at' => date('Y-m-d H:j:s')
+                    ];
+                }
+            }
+            ProjectsImages::insert($projectsImages);
+        }
+
         $projectMeta = ProjectsMeta::insert($projectsMeta);
-        if($projectMeta) {
+        if ($projectMeta) {
             $successResponse = [
                 'success' => true,
                 'message' => 'Projekts ir veiksmīgi izveidots',
@@ -100,7 +131,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -112,7 +143,7 @@ class ProjectController extends Controller
         }
 
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
-       // return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
+        // return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent);
         $name = sprintf('project_id_%s.pdf', $id);
@@ -122,32 +153,34 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $projectMetas = Projects::find($id)->projectMeta;
+        $project = Projects::find($id)->with(['projectMeta', 'projectImages'])->first();
         $metaData = [];
-        foreach ($projectMetas as $key => $meta) {
+        foreach ($project->projectMeta as $key => $meta) {
             $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
         }
 
-        if(!array_key_exists('bojajumi', $metaData)) {
+        if (!array_key_exists('bojajumi', $metaData)) {
             $metaData['bojajumi'] = [];
         }
 
-        if(!array_key_exists('konstatetie_bojajumi', $metaData)) {
+        if (!array_key_exists('konstatetie_bojajumi', $metaData)) {
             $metaData['konstatetie_bojajumi'] = [];
         }
 
-        if(!array_key_exists('aprikojums', $metaData)) {
+        if (!array_key_exists('aprikojums', $metaData)) {
             $metaData['aprikojums'] = [];
         }
 
-        if(!array_key_exists('other_aprikojums', $metaData)) {
+        if (!array_key_exists('other_aprikojums', $metaData)) {
             $metaData['other_aprikojums'] = [];
         }
+
+        dd($project->projectImages);
 
         return view('pages.projects.edit', ['project' => $metaData, 'projectId' => $id]);
     }
@@ -155,8 +188,8 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -164,9 +197,9 @@ class ProjectController extends Controller
         $projectsMeta = [];
         $requestOptions = $request->all();
         foreach ($requestOptions as $key => $option) {
-            if($key != '_token') {
-                $data = is_array($option) ? json_encode($option) :  $option;
-                $dataType = is_array($option) ? 'json' :  'string';
+            if ($key != '_token') {
+                $data = is_array($option) ? json_encode($option) : $option;
+                $dataType = is_array($option) ? 'json' : 'string';
 
                 var_dump($key);
                 var_dump(is_array($option));
@@ -184,7 +217,7 @@ class ProjectController extends Controller
 
         ProjectsMeta::where('project_id', $id)->delete();
         $projectMeta = ProjectsMeta::insert($projectsMeta);
-        if($projectMeta) {
+        if ($projectMeta) {
             $successResponse = [
                 'success' => true,
                 'message' => 'Projekts ir veiksmīgi atjaunināts',
@@ -203,7 +236,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
