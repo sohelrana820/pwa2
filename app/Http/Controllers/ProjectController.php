@@ -34,7 +34,7 @@ class ProjectController extends Controller
         $projects = Projects::search($query)
             ->where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-            ->with(['projectMeta'])
+            ->with(['projectMeta', 'ProjectImages'])
             ->paginate(25);
         return view('pages.projects.list', [
             'projects' => $projects,

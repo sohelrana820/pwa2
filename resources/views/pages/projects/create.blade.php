@@ -446,6 +446,7 @@
         $(function () {
             var dropdoneInstance = new Dropzone('#myDropZone', {
                 url: "/media/upload",
+                dictDefaultMessage: 'Drop image here (or click) to capture/upload',
                 maxFilesize: 100,
                 acceptedFiles: "image/jpeg,image/png,image/gif",
                 addRemoveLinks: true,
