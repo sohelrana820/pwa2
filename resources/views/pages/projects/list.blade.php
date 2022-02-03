@@ -99,6 +99,10 @@
                                             </span>
 
 
+                                            <a href="mailto:odbproductionlv@gmail.com" class="action-icon text-info" title="Sūtīt e-pastu">
+                                                <i class="mdi mdi-email-send"></i>
+                                            </a>
+
                                             <a href="{{ route('projects.show', ['id' => $project->id]) }}" class="action-icon text-success" title="Eksportēt kā PDF">
                                                 <i class="mdi mdi-file-pdf-outline"></i>
                                             </a>
