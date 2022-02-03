@@ -2,10 +2,11 @@
 <html lang="zxx">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body, h2, h4{
             font-size: 14px;
-            font-family: DejaVu Sans;
+            font-family: 'Source Sans Pro', sans-serif;
         }
 
         .projdct_id{
