@@ -219,7 +219,7 @@
 
                 <div class="single-ele">
                     <h4 class="item-head">Nobraukums</h4>
-                    <?php echo $projectMetas['atrumkarba']; ?>
+                    <?php echo $projectMetas['nobraukums']; ?>
                 </div>
 
                 <div class="single-ele">
@@ -247,7 +247,7 @@
 
                 <div class="single-ele">
                     <h4 class="item-head">Ātrumkārba</h4>
-                    <?php echo $projectMetas['nobraukums']; ?>
+                    <?php echo $projectMetas['atrumkarba']; ?>
                 </div>
             </td>
         </tr>
