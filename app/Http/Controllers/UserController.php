@@ -27,7 +27,7 @@ class UserController extends Controller
         if(isset($request->q)) {
             $query = $request->q;
         }
-        $users = User::search($query)->paginate(25);
+        $users = User::search($query)->where('is_visible', 1)->paginate(25);
         return view('pages.users.list', [
             'users' => $users
         ]);
