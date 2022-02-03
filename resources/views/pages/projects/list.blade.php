@@ -62,9 +62,10 @@
                                         <td>
                                             <a href="{{ route('projects.show', ['id' => $project->id]) }}">
                                             <?php
+                                            $lietas_nr = null;
                                             foreach ($project->projectMeta as $meta) {
                                                 if($meta->meta_key == 'lietas_nr') {
-                                                    echo $meta->meta_value ? $meta->meta_value : '-';
+                                                    echo $lietas_nr = $meta->meta_value ? $meta->meta_value : '-';
                                                 }
                                             }
                                             ?>
@@ -99,7 +100,7 @@
                                             </span>
 
 
-                                            <a href="mailto:odbproductionlv@gmail.com" class="action-icon text-info" title="Sūtīt e-pastu">
+                                            <a href="mailto:odbproductionlv@gmail.com?Subject=Lietas NR. (<?php echo $lietas_nr ?>)" class="action-icon text-info" title="Sūtīt e-pastu">
                                                 <i class="mdi mdi-email-send"></i>
                                             </a>
 
