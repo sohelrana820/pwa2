@@ -107,7 +107,7 @@
             font-size: 14px;
             font-weight: 600;
             margin:0px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             color:#333;
         }
 
@@ -130,7 +130,7 @@
 
         .table-border td{
             vertical-align: top;
-            padding: 8px 3px 5px 10px;
+            padding: 6px 3px 3px 10px;
             font-size:12px;
             width: 25%;
         }
@@ -150,11 +150,23 @@
         }
 
         .border-less-table .item-head{
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .single-ele{
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+        }
+
+        .simple-list{
+            padding: 0px;
+            margin: 0px;
+            columns: 4;
+            -webkit-columns: 4;
+            -moz-columns: 4;
+        }
+
+        .simple-list li{
+            list-style: none;
         }
     </style>
 </head>
@@ -229,7 +241,10 @@
                     <?php echo $projectMetas['piedzina']; ?>
                 </div>
 
-
+                <div class="single-ele">
+                    <h4 class="item-head">Riepu Veids</h4>
+                    <?php echo $projectMetas['riepu_veids']; ?>
+                </div>
 
             </td>
 
@@ -251,6 +266,11 @@
                     <h4 class="item-head">Ātrumkārba</h4>
                     <?php echo $projectMetas['atrumkarba']; ?>
                 </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Protektora dziļums</h4>
+                    <?php echo $projectMetas['protektoru_dzilums']; ?>
+                </div>
             </td>
         </tr>
 
@@ -258,46 +278,22 @@
         <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
         <tr>
-
-            <td class="b-t b-l b-r" colspan="3">
+            <td class="b-t b-l b-r" colspan="4">
 
                 <h4 class="item-head">Aprīkojums</h4>
-                <div class="array-elements">
+                <table class="border-less-table array-elements">
                     <?php
-                    foreach ($projectMetas['aprikojums'] as $item){
-                        echo "<span>{$item}</span>";
+                    $items = array_chunk(array_merge($projectMetas['aprikojums'], $projectMetas['other_aprikojums']), 4);
+                    foreach ($items as $item){
+                        echo "<tr>";
+                        foreach ($item as $data) {
+                            echo "<td><span>{$data}</span></td>";
+                        }
+                        echo "</tr>";
                     }
                     ?>
-                </div>
-                <div class="array-elements">
-                    <?php
-                    foreach ($projectMetas['other_aprikojums'] as $item){
-                        echo "<span>{$item}</span>";
-                    }
-                    ?>
-                </div>
-
+                </table>
             </td>
-
-
-
-            <td class="b-t b-l b-r">
-
-                <div class="single-ele">
-                    <h4 class="item-head">Riepu Veids</h4>
-                    <?php echo $projectMetas['riepu_veids']; ?>
-                </div>
-
-
-                <div class="single-ele">
-                    <h4 class="item-head">Protektora dziļums</h4>
-                    <?php echo $projectMetas['protektoru_dzilums']; ?>
-                </div>
-
-
-            </td>
-
-
         </tr>
 
 

@@ -144,9 +144,7 @@ class ProjectController extends Controller
         }
 
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
-        //$htmlContent = mb_convert_encoding($htmlContent, 'UTF-8', 'UTF-8');
-        //$htmlContent = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $htmlContent);
-        // return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
+        //return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent);
         $name = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
