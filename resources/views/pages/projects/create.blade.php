@@ -235,7 +235,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
-                                        <h6 class="font-15 mt-3"></h6>
+                                        <h6 class="font-15"></h6>
                                         <div class="form-check mb-2">
                                             <input id="Pr" type="checkbox" name="aprikojums" v-model="projectData.aprikojums" value="Pr. PARKING" class="form-check-input">
                                             <label for="Pr" class="form-check-label">Pr. PARKING</label>

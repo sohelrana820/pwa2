@@ -90,6 +90,7 @@
         .array-elements span{
             display: block;
             margin-bottom: 5px;
+            margin-right: 3px;
             font-size:12px;
         }
 
@@ -136,7 +137,7 @@
         }
 
         .border-less-table{
-            margin: 15px 0px 5px 0px;
+            margin: 5px 0px 5px 0px;
         }
 
         .border-less-table td{
@@ -154,7 +155,7 @@
         }
 
         .single-ele{
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .simple-list{
@@ -302,16 +303,18 @@
         <tr>
             <td class="b-t b-l b-r" colspan="4">
                 <h4 class="item-head">Konstatētie bojājumi </h4>
-                <?php foreach ($projectMetas['bojajumi'] as $key => $item)
-                {
-                    if($key == 'extras') {
-                        foreach ($item as $single)
-                        {
-                            echo "<span>{$single}</span>";
+                <div class="array-elements">
+                    <?php foreach ($projectMetas['bojajumi'] as $key => $item)
+                    {
+                        if($key == 'extras') {
+                            foreach ($item as $single)
+                            {
+                                echo "<span>{$single}</span>";
+                            }
                         }
                     }
-                }
-                ?>
+                    ?>
+                </div>
 
                 <div class="array-elements">
                     <table class="border-less-table">
