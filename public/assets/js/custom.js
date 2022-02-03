@@ -22,7 +22,7 @@ const INCIDENTS = [
         ]
     },
     {
-        type: 'LABAIS SNS',
+        type: 'LABAIS sāns',
         values: [
             'Aizmugurējais labais sānu panelis',
             'Aizmugurējās labās durvis',
@@ -36,7 +36,7 @@ const INCIDENTS = [
         ]
     },
     {
-        type: 'KREISAIS SNS',
+        type: 'KREISAIS sāns',
         values: [
             'Priekšējās kreisās durvis',
             'Kreisās puses slieksnis',

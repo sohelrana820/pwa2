@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="text-center w-75 m-auto">
-        <h4 class="text-dark-50 text-center mt-0 fw-bold">Sign In</h4>
-        <p class="text-muted mb-4">Enter your email address and password to access admin panel.</p>
+        <h4 class="text-dark-50 text-center mt-0 fw-bold">Pieslēgties</h4>
+        <p class="text-muted mb-4">Ievadiet savu e-pasta adresi un paroli, lai piekļūtu panelim.</p>
     </div>
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="mb-3">
-            <label for="emailaddress" class="form-label">Email address</label>
+            <label for="emailaddress" class="form-label">Epasts</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
             @error('email')
             <span class="invalid-feedback" role="alert">
@@ -17,8 +17,7 @@
             @enderror
         </div>
         <div class="mb-3">
-            <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your password?</small></a>
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Parole</label>
             <div class="input-group input-group-merge">
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                 @error('password')
@@ -30,15 +29,19 @@
         </div>
         <div class="mb-3 mb-3">
             @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
-                </a>
+                <div class="text-center">
+                    <a class="btn btn-link" href="tel:+371 24040400">
+                        Nepieciešamības gadījumā sazināties
+                        <br/>
+                        <i class="mdi mdi-cellphone-basic"></i> Telefona nr: +371 24040400
+                    </a>
+                </div>
             @endif
         </div>
         <div class="row mb-0">
             <div class="col-md-8 offset-md-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Login') }}
+                    Pieslēgties
                 </button>
             </div>
         </div>
