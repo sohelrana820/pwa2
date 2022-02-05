@@ -28,8 +28,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-                'first_name' =>  'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
-                'last_name' =>  'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
+                /*'first_name' =>  'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',
+                'last_name' =>  'required|regex:/(^([a-zA-Z ]+)?$)/u|max:32',*/
+                'first_name' =>  'required|max:32',
+                'last_name' =>  'required|max:32',
                 'email' => 'required|unique:App\Models\User,email|email',
                 'mobile_number' => 'required|max:15',
                 'password' =>  'required|min:8',

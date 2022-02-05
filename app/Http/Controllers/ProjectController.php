@@ -6,6 +6,7 @@ use App\Forms\ProjectForm;
 use App\Models\Projects;
 use App\Models\ProjectsImages;
 use App\Models\ProjectsMeta;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -32,10 +33,18 @@ class ProjectController extends Controller
             $query = $request->q;
         }
         $projects = Projects::search($query)
-            ->where('user_id', Auth::user()->id)
             ->orderBy('id', 'desc')
-            ->with(['projectMeta', 'ProjectImages'])
-            ->paginate(25);
+            ->with(['projectMeta', 'ProjectImages']);
+
+        /**
+         * If the logged in user is not admin
+         */
+        $authUser = auth()->user();
+        if ($authUser->userRole->role->role_slug != Role::SUPER_ADMIN) {
+            $projects = $projects->where('user_id', Auth::user()->id);
+        }
+
+        $projects = $projects->paginate(25);
         return view('pages.projects.list', [
             'projects' => $projects,
         ]);
