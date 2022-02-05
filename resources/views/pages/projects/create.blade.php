@@ -162,7 +162,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Šasijas NR.</label>
                                 <input maxlength="13" type="text" :class="licenceValid" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR." v-on:keyup="countLicenceNo">
-                                <small class="text-danger err-txt" v-if="licenceValid == 'is-invalid'">Šasijas NR. jābūt 13 cipariem!</small>
+                                <small class="text-danger err-txt" v-if="licenceValid == 'is-invalid'">Šasijas NR. jābūt 17 cipariem!</small>
                                 <small class="text-danger err-txt" v-if="licenceValid == 'empty'" v-text="errorMessage('sasija_nr')"></small>
                             </div>
                         </div>
@@ -504,7 +504,7 @@
                     other_aprikojums: [],
                     riepu_veids: null,
                     protektoru_dzilums: null,
-                    iespejami: null,
+                    iespejami: 'Jā',
                     datums: '<?php echo date('m/d/Y') ?>',
                     eksperts: '{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}',
                     sertefikata: '{{ auth()->user()->certificate_no }}',
