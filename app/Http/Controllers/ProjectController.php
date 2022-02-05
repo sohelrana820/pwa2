@@ -146,10 +146,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $projectMetas = Projects::find($id)->projectMeta;
         $metaData = [];
-        foreach ($projectMetas as $key => $meta) {
-            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
+        $metas = ProjectsMeta::where('project_id', $id)->get()->toArray();
+        foreach ($metas as $key => $meta) {
+            $metaData[$meta['meta_key']] = $meta['data_type'] == 'json' ? json_decode($meta['meta_value'], true) : $meta['meta_value'];
         }
 
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
@@ -168,10 +168,9 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project = Projects::find($id)->with(['projectMeta', 'projectImages'])->first();
-        $metaData = [];
-        foreach ($project->projectMeta as $key => $meta) {
-            $metaData[$meta->meta_key] = $meta->data_type == 'json' ? json_decode($meta->meta_value, true) : $meta->meta_value;
+        $metas = ProjectsMeta::where('project_id', $id)->get()->toArray();
+        foreach ($metas as $key => $meta) {
+            $metaData[$meta['meta_key']] = $meta['data_type'] == 'json' ? json_decode($meta['meta_value'], true) : $meta['meta_value'];
         }
 
         if (!array_key_exists('bojajumi', $metaData)) {

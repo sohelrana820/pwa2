@@ -308,6 +308,16 @@
                                         @{{value}}
                                     </div>
                                 </div>
+
+                                <div class="col-lg-3">
+                                    <div style="margin-top:-25px;">
+                                        <label class="form-label"></label>
+                                        <div class="input-group mb-1">
+                                            <input type="text" class="form-control" placeholder="Konstatētie bojājumi" v-model="additional_extra_damage">
+                                            <button class="btn btn-dark" type="button" v-on:click="addAdditionalExtraDamage()">Pievieno Jaunu</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row item-box-height">
                                 <div class="col-lg-3" v-for="item in bojajumi" v-if="item.type != 'extras'">
@@ -485,6 +495,7 @@
         var app = new Vue({
             el: '#app',
             data: {
+                additional_extra_damage: null,
                 previousDamagesOptions: PREVIOUS_DAMAGES,
                 definedPreviousDamages: [],
                 previousCustomDamage: null,
@@ -534,6 +545,11 @@
             },
 
             methods: {
+                addAdditionalExtraDamage: function () {
+                    this.pickItem('extras', this.additional_extra_damage);
+                    this.additional_extra_damage = null;
+                },
+
                 otherUtility: function () {
                     this.needOtherUtility = this.hasOtherUtility();
                 },

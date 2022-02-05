@@ -308,6 +308,15 @@
                                     @{{value}}
                                 </div>
                             </div>
+                            <div class="col-lg-3">
+                                <div style="margin-top:-25px;">
+                                    <label class="form-label"></label>
+                                    <div class="input-group mb-1">
+                                        <input type="text" class="form-control" placeholder="Konstatētie bojājumi" v-model="additional_extra_damage">
+                                        <button class="btn btn-dark" type="button" v-on:click="addAdditionalExtraDamage()">Pievieno Jaunu</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row item-box-height">
                             <div class="col-lg-3" v-for="item in bojajumi" v-if="item.type != 'extras'">
@@ -479,6 +488,7 @@
         var app = new Vue({
             el: '#app',
             data: {
+                additional_extra_damage: null,
                 previousDamagesOptions: PREVIOUS_DAMAGES,
                 definedPreviousDamages: [],
                 previousCustomDamage: null,
@@ -521,6 +531,10 @@
 
             },
             methods: {
+                addAdditionalExtraDamage: function () {
+                    this.pickItem('extras', this.additional_extra_damage);
+                    this.additional_extra_damage = null;
+                },
                 otherUtility: function () {
                     this.needOtherUtility = this.hasOtherUtility();
                 },
@@ -548,6 +562,7 @@
                         this.projectData.bojajumi[type].push(item);
                     }
                     this.removeItemFrom(type, item);
+                    console.log(this.projectData.bojajumi);
                 },
 
                 submitForm: function () {
@@ -573,6 +588,7 @@
                         let data = projectData;
                         data['_token'] = '{{ csrf_token() }}'
                         data['files'] = {files: FILES, unique_id: UNIQUE_ID, changed: FILES_CHANGES}
+                        console.log(data);
                         axios.post('/projects/store', data)
                             .then((response) => {
                                 toa.success(response.data.message, 'Panākumi')
@@ -619,6 +635,7 @@
                     this.projectData.konstatetie_bojajumi.push(this.previousCustomDamage);
                     this.previousCustomDamage = null;
                 },
+
                 removeCustomPreviousDamage: function (item) {
                     this.projectData.konstatetie_bojajumi = this.projectData.konstatetie_bojajumi.filter(el => el !== item);
                     this.previousCustomDamage = null;
@@ -686,6 +703,7 @@
 
                     return newErrors;
                 },
+
                 countLicenceNo() {
                     this.licenceValid = 'is-invalid';
                     if(this.projectData.sasija_nr && this.projectData.sasija_nr.length == 13) {
