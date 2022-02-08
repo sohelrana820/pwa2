@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/update/{id}', [ProjectController::class, 'edit'])->name('edit');
             Route::put('/update/{id}', [ProjectController::class, 'update'])->name('update');
             Route::get('/view/{id}', [ProjectController::class, 'show'])->name('show');
+            Route::get('/zip/{id}', [ProjectController::class, 'zip'])->name('zip');
             Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('delete');
         });
     });

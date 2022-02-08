@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use File;
+use ZipArchive;
 
 /**
  * Class ProjectController
@@ -158,6 +160,84 @@ class ProjectController extends Controller
         $pdf->loadHTML($htmlContent);
         $name = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
         return $pdf->download($name);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function zip($id)
+    {
+        $metaData = [];
+        $metas = ProjectsMeta::where('project_id', $id)->get()->toArray();
+        foreach ($metas as $key => $meta) {
+            $metaData[$meta['meta_key']] = $meta['data_type'] == 'json' ? json_decode($meta['meta_value'], true) : $meta['meta_value'];
+        }
+
+        $uploadPath = 'zip/' . $metaData['lietas_nr'];
+        $uploadFile = sprintf('%s/Lietas_nr_%s.pdf', $uploadPath, $metaData['lietas_nr']);
+        $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($htmlContent)->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+        Storage::disk('public')->delete($uploadFile);
+
+        $name = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
+        Storage::disk('public-upload-images')->put($uploadFile, $pdf->stream($name));
+
+        $projectImages = ProjectsImages::where('project_id', $id)->get()->toArray();
+        foreach ($projectImages as $image) {
+            $copyFrom = $image['url_path'];
+            $name = str_replace($id.'/', '', strstr($image['url_path'], $id.'/'));
+            $copyTo = $uploadPath . '/' . $name;
+            if(Storage::disk('public')->exists($copyTo)) {
+                Storage::disk('public')->exists($copyTo);
+            }
+            Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public-upload-images')->get($copyFrom));
+        }
+
+        $zip = new ZipArchive;
+        $zipName = sprintf('zip/Lietas_nr_%s.zip', $metaData['lietas_nr']);
+        if ($zip->open(public_path($zipName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path($uploadPath));
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+            $zip->close();
+        }
+
+        File::deleteDirectory(public_path($uploadPath));
+        return response()->download(public_path($zipName))->deleteFileAfterSend();
+    }
+
+    public function createZipAndDownload($files, $filesPath, $zipFileName)
+    {
+        // Create instance of ZipArchive. and open the zip folder.
+        /*$zip = new \ZipArchive();
+        if ($zip->open($zipFileName, \ZipArchive::CREATE) !== TRUE) {
+            exit("cannot open <$zipFileName>\n");
+        }
+
+        // Adding every attachments files into the ZIP.
+        foreach ($files as $file) {
+            $zip->addFile($filesPath . '/' . $file);
+        }*/
+      //  $zip->close();
+
+        // Download the created zip file
+        /*header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename = $zipFileName");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile("$zipFileName");*/
+
+
+
+
+
     }
 
     /**

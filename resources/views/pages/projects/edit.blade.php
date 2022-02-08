@@ -591,8 +591,8 @@
                                 hasError = true;
                             }
 
-                            if(projectData[key] && key === 'sasija_nr' && projectData[key].length !== 13) {
-                                errorField[key] = "Šasijas NR. jābūt 13 cipariem!";
+                            if(projectData[key] && key === 'sasija_nr' && projectData[key].length > 17) {
+                                errorField[key] = "Šasijas NR. jābūt 1-17 cipariem!";
                                 hasError = true;
                             }
                         }

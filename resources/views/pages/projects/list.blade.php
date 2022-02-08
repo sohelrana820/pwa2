@@ -100,6 +100,10 @@
                                             </span>
 
 
+                                            <a href="{{ route('projects.zip', ['id' => $project->id]) }}" class="action-icon text-black" title="PDF + ZIP">
+                                                <i class="mdi mdi-zip-box"></i>
+                                            </a>
+
                                             <a href="mailto:odbproductionlv@gmail.com?Subject=Lietas NR. (<?php echo $lietas_nr ?>)" class="action-icon text-info" title="Sūtīt e-pastu">
                                                 <i class="mdi mdi-email-send"></i>
                                             </a>
