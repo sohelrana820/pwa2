@@ -161,6 +161,7 @@ class User  extends Authenticatable
             'email' => $postData['email'],
             'password' => Hash::make($postData['password']),
             'mobile_number' => $postData['mobile_number'],
+            'certificate_no' => $postData['certificate_no'],
         ]);
 
         if ($createdUser) {
