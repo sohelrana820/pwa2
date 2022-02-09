@@ -162,7 +162,7 @@
                                 <div class="mb-3">
                                     <label class="form-label">Šasijas NR.</label>
                                     <input maxlength="17" type="text" :class="licenceValid" v-model="projectData.sasija_nr" class="form-control" placeholder="Šasijas NR." v-on:keyup="countLicenceNo">
-                                    <small class="text-danger err-txt" v-if="licenceValid == 'is-invalid'">Šasijas NR. jābūt 13 cipariem!</small>
+                                    <small class="text-danger err-txt" v-if="licenceValid == 'is-invalid'">Šasijas NR. jābūt 1-17 cipariem!</small>
                                     <small class="text-danger err-txt" v-if="licenceValid == 'empty'" v-text="errorMessage('sasija_nr')"></small>
                                 </div>
                             </div>
@@ -718,7 +718,7 @@
                 },
                 countLicenceNo() {
                     this.licenceValid = 'is-invalid';
-                    if(this.projectData.sasija_nr && this.projectData.sasija_nr.length == 13) {
+                    if(this.projectData.sasija_nr && this.projectData.sasija_nr.length > 0 && this.projectData.sasija_nr.length < 18) {
                         this.licenceValid = 'is-valid'
                     }
                 },
