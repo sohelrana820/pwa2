@@ -203,7 +203,7 @@ class ProjectController extends Controller
 
             $compresed = true;
             $tempImagePath = public_path() . '/' . $copyTo;
-            if($ext == 'jpeg') {
+            if($ext == 'jpeg' || $ext == 'jpg') {
                 $imageTmp = imagecreatefromjpeg($tempImagePath);
             } else if($ext == 'gif') {
                 $imageTmp = imagecreatefromgif($tempImagePath);
@@ -211,12 +211,12 @@ class ProjectController extends Controller
                 $imageTmp = imagecreatefrompng($tempImagePath);
             }else {
                 $compresed = false;
-                $copyTo = sprintf('%s/%s.%s', $archivePath, $name, $ext);
+                $copyTo = sprintf('%s/%s.%s', $archivePath, $name, 'jpg');
                 Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public-upload-images')->get($copyFrom));
             }
 
             if($compresed) {
-                $outputImage = public_path('/') . $archivePath . '/' . $name .'.' . $ext;
+                $outputImage = public_path('/') . $archivePath . '/' . $name .'.jpg';
                 imagejpeg($imageTmp, $outputImage, 60);
                 imagedestroy($imageTmp);
             }
