@@ -181,13 +181,13 @@ class ProjectController extends Controller
          * Generate PDF into archive directory
          */
         $archivePath = 'zip/' . $metaData['lietas_nr'];
-        $pdfName = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
+        /*$pdfName = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
         $pdfPath = sprintf('%s/%s', $archivePath, $pdfName);
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent)->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
         Storage::disk('public')->delete($pdfPath);
-        Storage::disk('public-upload-images')->put($pdfPath, $pdf->stream($pdfName));
+        Storage::disk('public-upload-images')->put($pdfPath, $pdf->stream($pdfName));*/
 
         /**
          * Copying images to archive directory.
@@ -195,13 +195,34 @@ class ProjectController extends Controller
         $projectImages = ProjectsImages::where('project_id', $id)->get()->toArray();
         foreach ($projectImages as $image) {
             $copyFrom = $image['url_path'];
-            $name = str_replace($id.'/', '', strstr($image['url_path'], $id.'/'));
-            $copyTo = $archivePath . '/' . $name;
-            if(Storage::disk('public')->exists($copyTo)) {
-                Storage::disk('public')->exists($copyTo);
-            }
+            $imageDetails = str_replace($id.'/', '', strstr($image['url_path'], $id.'/'));
+            list($name, $ext) = explode('.', $imageDetails, 2);
+
+            $copyTo = sprintf('%s/%s.%s', $archivePath, uniqid(), $ext);
             Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public-upload-images')->get($copyFrom));
+
+            $compresed = true;
+            $tempImagePath = public_path() . '/' . $copyTo;
+            if($ext == 'jpeg') {
+                $imageTmp = imagecreatefromjpeg($tempImagePath);
+            } else if($ext == 'gif') {
+                $imageTmp = imagecreatefromgif($tempImagePath);
+            } else if($ext == 'png') {
+                $imageTmp = imagecreatefrompng($tempImagePath);
+            }else {
+                $compresed = false;
+                $copyTo = sprintf('%s/%s.%s', $archivePath, $name, $ext);
+                Storage::disk('public-upload-images')->put($copyTo, Storage::disk('public-upload-images')->get($copyFrom));
+            }
+
+            if($compresed) {
+                $outputImage = public_path('/') . $archivePath . '/' . $name .'.' . $ext;
+                imagejpeg($imageTmp, $outputImage, 60);
+                imagedestroy($imageTmp);
+            }
+            unlink($tempImagePath);
         }
+        die();
 
         /**
          * Generate ZIP and download
