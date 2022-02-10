@@ -222,7 +222,6 @@ class ProjectController extends Controller
             }
             unlink($tempImagePath);
         }
-        die();
 
         /**
          * Generate ZIP and download
