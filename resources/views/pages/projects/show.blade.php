@@ -274,6 +274,11 @@
                     <h4 class="item-head">Protektora dziļums</h4>
                     <?php echo $projectMetas['protektoru_dzilums']; ?>
                 </div>
+
+                <div class="single-ele">
+                    <h4 class="item-head">Protektora mērijums</h4>
+                    <?php echo $projectMetas['protektora_merijums']; ?>
+                </div>
             </td>
         </tr>
 

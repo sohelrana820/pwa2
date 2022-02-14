@@ -295,6 +295,12 @@
                                             <small class="text-danger err-txt" v-text="errorMessage('protektoru_dzilums')"></small>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-3">
+                                        <h6 class="font-15 mt-3">Protektora mērijums</h6>
+                                        <input type="text" v-model="projectData.protektora_merijums" class="form-control" placeholder="Protektora mērijums">
+                                        <small class="text-danger err-txt" v-text="errorMessage('protektora_merijums')"></small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -513,6 +519,7 @@
                     other_aprikojums: [],
                     riepu_veids: null,
                     protektoru_dzilums: null,
+                    protektora_merijums: null,
                     iespejami: 'Jā',
                     datums: '<?php echo date('m/d/Y') ?>',
                     eksperts: '{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}',
