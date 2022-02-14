@@ -175,8 +175,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
-                                <label class="form-label">Apskates Vieta</label>
-                                <input type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates Vieta">
+                                <label class="form-label">Apskates vieta / Datums</label>
+                                <input type="text" v-model="projectData.apskates_vieta" class="form-control" placeholder="Apskates vieta / Datums">
                                 <small class="text-danger err-txt" v-text="errorMessage('apskates_vieta')"></small>
                             </div>
                         </div>
@@ -404,8 +404,8 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
-                                <label class="form-label">Sertefikāta nr.</label>
-                                <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertefikāta nr.">
+                                <label class="form-label">Sertifikāta nr.</label>
+                                <input type="text" v-model="projectData.sertefikata" class="form-control" placeholder="Sertifikāta nr.">
                                 <small class="text-danger err-txt" v-text="errorMessage('sertefikata')"></small>
                             </div>
                         </div>
@@ -456,7 +456,6 @@
             var dropdoneInstance = new Dropzone('#myDropZone', {
                 url: "/media/upload",
                 dictDefaultMessage: 'Drop image here (or click) to capture/upload',
-                maxFilesize: 100,
                 acceptedFiles: "image/jpeg,image/png,image/gif",
                 addRemoveLinks: true,
                 uploadMultiple: true,

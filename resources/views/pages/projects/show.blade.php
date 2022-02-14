@@ -220,7 +220,7 @@
                 </div>
 
                 <div class="single-ele">
-                    <h4 class="item-head">Apskates Vieta</h4>
+                    <h4 class="item-head">Apskates vieta / Datums</h4>
                     <?php echo $projectMetas['apskates_vieta']; ?>
                 </div>
 
@@ -370,7 +370,7 @@
             </td>
 
             <td colspan="2" class="b-t b-l b-b b-r">
-                <h4 class="item-head">Sertefikāta nr.</h4>
+                <h4 class="item-head">Sertifikāta nr.</h4>
                 <?php echo $projectMetas['sertefikata']; ?>
             </td>
         </tr>

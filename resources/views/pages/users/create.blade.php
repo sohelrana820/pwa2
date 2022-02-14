@@ -122,11 +122,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="useremail" class="form-label">Sertefikāta nr.</label>
+                                    <label for="useremail" class="form-label">Sertifikāta nr.</label>
                                     <input type="text"
                                            name="certificate_no"
                                            class="form-control" id="certificate_no"
-                                           placeholder="Sertefikāta nr."
+                                           placeholder="Sertifikāta nr."
                                            value="{{ $model->certificate_no ?? old('certificate_no') }}"
                                            required="required"
                                     >
