@@ -181,13 +181,13 @@ class ProjectController extends Controller
          * Generate PDF into archive directory
          */
         $archivePath = 'zip/' . $metaData['lietas_nr'];
-        /*$pdfName = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
+        $pdfName = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);
         $pdfPath = sprintf('%s/%s', $archivePath, $pdfName);
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent)->setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
         Storage::disk('public')->delete($pdfPath);
-        Storage::disk('public-upload-images')->put($pdfPath, $pdf->stream($pdfName));*/
+        Storage::disk('public-upload-images')->put($pdfPath, $pdf->stream($pdfName));
 
         /**
          * Copying images to archive directory.

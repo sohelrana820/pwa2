@@ -92,7 +92,7 @@
             display: block;
             margin-bottom: 5px;
             margin-right: 3px;
-            font-size:12px;
+            font-size:14px;
         }
 
 
@@ -106,7 +106,7 @@
         }
 
         .item-head{
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             margin:0px;
             margin-bottom: 2px;
@@ -133,7 +133,7 @@
         .table-border td{
             vertical-align: top;
             padding: 6px 3px 3px 10px;
-            font-size:12px;
+            font-size:14px;
             width: 25%;
         }
 
@@ -148,7 +148,7 @@
         }
 
         .border-less-table td span{
-            font-size:11px;
+            font-size:14px;
         }
 
         .border-less-table .item-head{
@@ -379,6 +379,14 @@
             <td class="b-l b-b b-r" colspan="4">
                 <h4 class="item-head">Es <?php echo $projectMetas['transporta_ipasnieks']; ?> piekrītu ka mani dati</h4>
                 <?php echo $projectMetas['piekritu']; ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="b-l b-b b-r" colspan="4">
+                <p>Esmu informēts, ka par nepatiesu ziņu sniegšanu iespējams atlīdzības atteikums un var iestāties Krimināllikuma 177. pantā (krāpšana) vai 178. pantā (apdrošināšanas krāpšana) paredzētā kriminālatbildība. Esmu informēts, ka “Compensa Vienna Insurance Group, ADB Latvijas filiāle” datu pārzinis apstrādā pieteikumā norādītos personas datus (tajā skaitā īpašu kategoriju personas datus un personas identifikācijas (klasifikācijas) kodus) ar mērķi nodrošināt apdrošināšanas līguma izpildi.</p>
+
+                <p>Transportlīdzekļa apskatē piedalījos, ar apskates protokolu esmu iepazīstināts(-ta). Esmu brīdināts(-ta), ka gadījumā, ja remonta gaitā atklājas slēptie defekti, tad pirms to novēršanas rakstiski tas jāpaziņo apdrošinātājam.</p>
             </td>
         </tr>
         <!--///////////////////////////////////////////////////////////////////////////-->
