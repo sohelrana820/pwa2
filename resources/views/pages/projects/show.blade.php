@@ -202,7 +202,7 @@
 
                 <div class="single-ele">
                     <h4 class="item-head">Virsbūves Tips</h4>
-                    <?php echo $projectMetas['virsbuves_tips']; ?>
+                    <?php echo $projectMetas['virsbuves_tips'] == 'Cits' ? $projectMetas['virsbuves_tips_custom'] : $projectMetas['virsbuves_tips']; ?>
                 </div>
 
             </td>

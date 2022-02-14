@@ -155,7 +155,7 @@ class ProjectController extends Controller
         }
 
         $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
-        //return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
+        return $htmlContent = view('pages.projects.show', ['projectMetas' => $metaData, 'projectId' => $id]);
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($htmlContent);
         $name = sprintf('Lietas_nr_%s.pdf', $metaData['lietas_nr']);

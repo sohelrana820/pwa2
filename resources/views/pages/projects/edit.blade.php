@@ -150,9 +150,14 @@
                                         <option>SUV</option>
                                         <option>Kabrio</option>
                                         <option>Kupeja</option>
-                                        <option>Apvidus</option>
+                                        <option>Kravas</option>
+                                        <option>Cits</option>
                                     </select>
                                     <small class="text-danger err-txt" v-text="errorMessage('virsbuves_tips')"></small>
+
+                                    <div v-if="projectData.virsbuves_tips == 'Cits'">
+                                        <input name="virsbuves_tips_custom" type="text" v-model="projectData.virsbuves_tips_custom" class="form-control" placeholder="Cits">
+                                    </div>
                                 </div>
                             </div>
                         </div>
