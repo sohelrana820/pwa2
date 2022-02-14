@@ -202,7 +202,15 @@
 
                 <div class="single-ele">
                     <h4 class="item-head">Virsbūves Tips</h4>
-                    <?php echo $projectMetas['virsbuves_tips'] == 'Cits' ? $projectMetas['virsbuves_tips_custom'] : $projectMetas['virsbuves_tips']; ?>
+                    <?php
+                    if($projectMetas['virsbuves_tips'] != 'Cits') {
+                        echo $projectMetas['virsbuves_tips'];
+                    } elseif (array_key_exists('virsbuves_tips_custom', $projectMetas)) {
+                        echo $projectMetas['virsbuves_tips'];
+                    } else {
+                        echo '-';
+                    }
+                    ?>
                 </div>
 
             </td>
@@ -277,7 +285,7 @@
 
                 <div class="single-ele">
                     <h4 class="item-head">Protektora mērijums</h4>
-                    <?php echo $projectMetas['protektora_merijums']; ?>
+                    <?php echo array_key_exists('protektora_merijums', $projectMetas) ? $projectMetas['protektora_merijums'] : '-'; ?>
                 </div>
             </td>
         </tr>
